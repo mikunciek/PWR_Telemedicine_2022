@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "320914155934",
+    "project_id": "telemedicine-alzh",
+    "storage_bucket": "telemedicine-alzh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320914155934:android:e93e73a626282ad11f8e8f",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "320914155934-a4cb1o3pb31k2iou06vm3f5nfbfmju4d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "f77063c3016a3334adff4d84e6722f939922c6c6"
+          }
+        },
+        {
+          "client_id": "320914155934-lcd6f8jh2bqqbmka8iglg2trqhig77h9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2b58wdl94_PyMCuIQUc_pwrYk6mBSr6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "320914155934-lcd6f8jh2bqqbmka8iglg2trqhig77h9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
