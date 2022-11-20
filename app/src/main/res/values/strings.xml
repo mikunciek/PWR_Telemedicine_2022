@@ -12,7 +12,7 @@
     <string name="signature_title">Podpis</string>
     <string name="reply_title">Odpowiedź</string>
     <string name="sync_header">Synchronizacja</string>
-    <string name="sync_title">Sunchronizuje...</string>
+    <string name="sync_title">Synchronizuje...</string>
     <string name="attachment_summary_off">Wyłącz opis załącznika</string>
     <string name="attachment_title">Załącznik</string>
     <string name="attachment_summary_on">Włączono opis załącznika</string>

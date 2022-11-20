@@ -4,13 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@drawable/login_bk">
 
     <TextView
         android:id="@+id/text_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Witaj, "
+        android:textColor="@color/black"
+        android:textCursorDrawable="@color/black"
         android:textSize="34sp"
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="216dp"
         android:text="user"
+        android:textColor="@color/black"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

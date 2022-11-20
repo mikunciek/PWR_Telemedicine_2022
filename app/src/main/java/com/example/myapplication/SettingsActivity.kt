@@ -1,10 +1,16 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.Preference
+import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
+import com.example.myapplication.users.UserRepository
+import java.util.zip.Inflater
 
-class Settings : AppCompatActivity() {
+class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,8 +25,17 @@ class Settings : AppCompatActivity() {
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
+            val signOut = findPreference<Preference>("sign_out")
+            signOut?.setOnPreferenceClickListener {
+                UserRepository.auth.signOut()
+                startActivity(Intent(this@SettingsFragment.activity, MainActivity::class.java))
+                true
+            }
+
         }
     }
 }
