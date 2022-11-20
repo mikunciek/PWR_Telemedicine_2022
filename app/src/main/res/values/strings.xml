@@ -16,4 +16,7 @@
     <string name="attachment_summary_off">Wyłącz opis załącznika</string>
     <string name="attachment_title">Załącznik</string>
     <string name="attachment_summary_on">Włączono opis załącznika</string>
+    <string name="logowanie">Logowanie</string>
+    <string name="has_o">Hasło</string>
+    <string name="zaloguj_si">Zaloguj się</string>
 </resources>
