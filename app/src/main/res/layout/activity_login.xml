@@ -68,7 +68,8 @@
             style="@style/loginButton"
             android:layout_gravity="right"
             android:layout_marginTop="@dimen/loginViewsMargin"
-            android:text="@string/zaloguj_si" />
+            android:text="@string/zaloguj_si"
+            tools:ignore="RtlHardcoded" />
 
         <TextView
             android:id="@+id/textSingUp"

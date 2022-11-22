@@ -1,22 +1,17 @@
 package com.example.myapplication
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.example.myapplication.users.User
-import com.example.myapplication.users.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
+import com.google.firebase.auth.ktx.*
 import com.google.firebase.ktx.Firebase
-import java.time.LocalDate
-import java.util.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         auth = Firebase.auth
 
+        click.setOnClickListener {
+            this.startActivity(Intent(this, CaregiverPanel::class.java))
+        }
     }
 
     override fun onStart() {
@@ -53,13 +51,13 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
     override fun checkCallingUriPermissions(uris: MutableList<Uri>, modeFlags: Int): IntArray {
 
         fun call(view: View) {
             val dialIntent = Intent(Intent.ACTION_DIAL)
             dialIntent.data = Uri.parse("tel:" + "112")
             startActivity(dialIntent)
-
         }
         return super.checkCallingUriPermissions(uris, modeFlags)
     }

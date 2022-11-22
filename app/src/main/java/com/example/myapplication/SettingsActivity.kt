@@ -4,11 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
-import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
 import com.example.myapplication.users.UserRepository
-import java.util.zip.Inflater
 
 class SettingsActivity : AppCompatActivity() {
 

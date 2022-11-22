@@ -98,8 +98,7 @@ class RegistrationActivity : AppCompatActivity(), View.OnClickListener {
         emailEditText = findViewById(R.id.editTextEmail)
         passwordEditText = findViewById(R.id.editTextPassword)
         usernameEditText = findViewById(R.id.editTextName)
-        userAgeEditText = findViewById(R.id.editTextAge);
+        userAgeEditText = findViewById(R.id.editTextAge)
     }
-
 }
 

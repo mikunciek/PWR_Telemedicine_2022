@@ -19,4 +19,19 @@
     <string name="logowanie">Logowanie</string>
     <string name="has_o">Hasło</string>
     <string name="zaloguj_si">Zaloguj się</string>
+    <string name="panel_opiekuna">Panel opiekuna</string>
+    <string name="todo">TODO</string>
+    <string name="podopieczni">Podopieczni</string>
+    <string name="ustawienia">Ustawienia</string>
+    <string name="status_zada">Status zadań</string>
+    <string name="poradnik_opiekuna">Poradnik opiekuna</string>
+    <string name="dodaj_podpiecznego">Dodaj podpiecznego</string>
+    <string name="dodaj_zadanie">Dodaj zadanie</string>
+    <string name="powr_t">POWRÓT</string>
+    <string name="panel_roboczy">Panel roboczy</string>
+    <string name="konto_opiekuna">Konto opiekuna</string>
+    <string name="hello">Hello</string>
+    <string name="rejestracja">Rejestracja</string>
+    <string name="zarejestruj_si">Zarejestruj się</string>
+    <string name="settings">Ustawienia</string>
 </resources>
