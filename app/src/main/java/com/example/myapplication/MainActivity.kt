@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ContextMenu
@@ -17,6 +18,7 @@ import com.google.firebase.ktx.Firebase
 import java.time.LocalDate
 import java.util.*
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
@@ -31,27 +33,36 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val currentUser: FirebaseUser? = auth.currentUser
-
         if (currentUser == null) {
             this.startActivity(Intent(this, LoginActivity::class.java))
         }
-
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.settings_menu,menu)
+        menuInflater.inflate(R.menu.settings_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.action_settings ->{
-
-
+        when (item.itemId) {
+            R.id.action_settings -> {
                 this.startActivity(Intent(this, SettingsActivity::class.java))
             }
         }
         return super.onOptionsItemSelected(item)
     }
+
+
+    override fun checkCallingUriPermissions(uris: MutableList<Uri>, modeFlags: Int): IntArray {
+
+        fun call(view: View) {
+            val dialIntent = Intent(Intent.ACTION_DIAL)
+            dialIntent.data = Uri.parse("tel:" + "112")
+            startActivity(dialIntent)
+
+        }
+        return super.checkCallingUriPermissions(uris, modeFlags)
+    }
+
+
 }
