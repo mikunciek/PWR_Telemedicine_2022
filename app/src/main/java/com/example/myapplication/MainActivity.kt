@@ -7,11 +7,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.example.myapplication.fragments.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.*
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_caregiverpanel.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,8 +24,29 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         auth = Firebase.auth
 
-        click.setOnClickListener {
-            this.startActivity(Intent(this, CaregiverPanel::class.java))
+
+        patients.setOnClickListener {
+            this.startActivity(Intent(this, HomeFragment::class.java))
+        }
+
+        addPatient.setOnClickListener{
+
+        }
+
+        addToDoList.setOnClickListener {
+            this.startActivity(Intent(this, Patients::class.java))
+        }
+
+        checkDoneList.setOnClickListener {
+        }
+
+
+        library.setOnClickListener {
+            this.startActivity(Intent(this, GuideCaregiver::class.java))
+        }
+
+        settings.setOnClickListener {
+            this.startActivity(Intent(this, SettingsActivity::class.java))
         }
     }
 
@@ -41,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+   override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> {
                 this.startActivity(Intent(this, SettingsActivity::class.java))

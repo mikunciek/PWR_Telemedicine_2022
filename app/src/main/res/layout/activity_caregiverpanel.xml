@@ -14,13 +14,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="1dp"
         android:text="@string/panel_opiekuna"
+        android:textAlignment="center"
         android:textColor="@color/colorBlack"
-        android:textSize="16sp"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <GridLayout

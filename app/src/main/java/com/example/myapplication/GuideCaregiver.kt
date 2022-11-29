@@ -10,13 +10,14 @@ import kotlinx.android.synthetic.main.activity_guide_caregiver.*
 
 class GuideCaregiver : AppCompatActivity() {
 
-    @SuppressLint("MissingInflatedId", "SetJavaScriptEnabled")
+
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_guide_caregiver)
 
         val webView: WebView = findViewById(R.id.panel) //?
-        val url = "https://github.com/mikunciek/PWR_Telemedicine_2022/raw/master/Poradnik%20dla%20opiekunow%20pacjent%C3%B3w%20z%20chorob%C4%85%20Alzheimera.pdf"
+        val url = "https://github.com/mikunciek/PWR_Telemedicine_2022/raw/master/pdf/Opieka%20nad%20chorym%20na%20alzheimera.pdf"
 
         webView.settings.javaScriptEnabled = true
         webView.settings.setSupportZoom(true)
