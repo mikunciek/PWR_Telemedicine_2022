@@ -9,9 +9,6 @@
     android:background="@drawable/cut_card_background"
     android:focusableInTouchMode="true">
 
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -134,7 +131,8 @@
         android:layout_marginEnd="128dp"
         android:src="@drawable/ic_cloud"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/todo"  />
 
 
     <ImageView
@@ -146,7 +144,8 @@
         android:layout_marginEnd="184dp"
         android:src="@drawable/ic_cloud"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/todo"  />
 
     <ImageView
         android:id="@+id/cloud4"
@@ -156,6 +155,7 @@
         android:layout_marginTop="648dp"
         android:src="@drawable/ic_cloud"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/todo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

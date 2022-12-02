@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.modelregistration
 
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.users.User

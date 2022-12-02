@@ -59,7 +59,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".RegistrationActivity"
+            android:name=".modelregistration.RegistrationActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

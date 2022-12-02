@@ -24,30 +24,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         auth = Firebase.auth
 
-
-        patients.setOnClickListener {
-            this.startActivity(Intent(this, HomeFragment::class.java))
-        }
-
-        addPatient.setOnClickListener{
-
-        }
-
-        addToDoList.setOnClickListener {
-            this.startActivity(Intent(this, Patients::class.java))
-        }
-
-        checkDoneList.setOnClickListener {
-        }
-
-
-        library.setOnClickListener {
-            this.startActivity(Intent(this, GuideCaregiver::class.java))
-        }
-
-        settings.setOnClickListener {
-            this.startActivity(Intent(this, SettingsActivity::class.java))
-        }
     }
 
     override fun onStart() {
@@ -71,18 +47,4 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-
-
-    override fun checkCallingUriPermissions(uris: MutableList<Uri>, modeFlags: Int): IntArray {
-
-        fun call(view: View) {
-            val dialIntent = Intent(Intent.ACTION_DIAL)
-            dialIntent.data = Uri.parse("tel:" + "112")
-            startActivity(dialIntent)
-        }
-        return super.checkCallingUriPermissions(uris, modeFlags)
-    }
-
-
 }

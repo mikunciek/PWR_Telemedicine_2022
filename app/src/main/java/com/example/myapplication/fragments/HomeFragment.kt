@@ -1,63 +1,146 @@
 package com.example.myapplication.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import com.example.myapplication.R
-import com.example.myapplication.databinding.ActivityCaregiverpanelBinding
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.FragmentHomeBinding
+import com.example.myapplication.utils.adapter.TaskAdapter
+import com.example.myapplication.utils.model.ToDoData
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import java.time.LocalDateTime
 
-class HomeFragment : Fragment(), AddTodoPopupFragment.DialogNextBtnClickListeners {
-    // TODO: Rename and change types of parameters
+class HomeFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClickListener,
+    TaskAdapter.TaskAdapterInterface {
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var databaseRef:DatabaseReference
-    private lateinit var navController: NavController
-    private lateinit var binding: FragmentHomeBinding
-    private lateinit var popupFragment: AddTodoPopupFragment
+    private val TAG = "HomeFragment"
+    private lateinit var binding: FragmentHomeBinding  //tworzenie widoku
+    private lateinit var database: DatabaseReference   //połączenie z bazą
+    private var frag: ToDoDialogFragment? = null
+    private lateinit var auth: FirebaseAuth //autoryzacja z firebase
+    private lateinit var authId: String  //id
+
+    private lateinit var taskAdapter: TaskAdapter  //zadania
+    private lateinit var toDoItemList: MutableList<ToDoData>  //lista zadań
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle? //metoda, która inicjuje i tworzy wszystkie obiekty
     ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(inflater, container,false)
+
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
+        // Inflate the layout for this fragment - załadowanie konkretnego widoku
+        /*
+        binding root - odniesieniem do widoku głównego.
+        widok główny to najbardziej zewnętrzny kontener widoku w tym układzie.
+        wywołanie binding.root , zwróci widok główny ConstraintLayout (w tym przypadku)
+         */
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {  //właściwe wyświetlanie
         super.onViewCreated(view, savedInstanceState)
+        init()   //funkcja - inicjowanie z firebase (typy danych)
+//        getTaskFromFirebase() //pobieranie danych z firebase
 
-        init(view)
-        registerEvents()
-    }
+        binding.addTaskBtn.setOnClickListener { //gdy naciśnięcie przycisku dodawania zadania
+            if (frag != null)
+                childFragmentManager.beginTransaction().remove(frag!!).commit() //mamy wycinek fragmentu - stąd child
+            frag = ToDoDialogFragment() //okienko zadania
+            frag!!.setListener(this)
+            frag!!.show(childFragmentManager,ToDoDialogFragment.TAG) //wyświetlenie
 
-    private fun registerEvents(){
-        binding.addTask.setOnClickListener{
-            popupFragment = AddTodoPopupFragment()
-            popupFragment.setListener(this)
-            popupFragment.show(
-                childFragmentManager,
-                "AddTodoPopupFragment"
-            )
         }
     }
 
-    private fun init(view:View){
-        navController =Navigation.findNavController(view)
-        auth = FirebaseAuth.getInstance()
-        databaseRef = FirebaseDatabase.getInstance().reference
+    private fun getTaskFromFirebase() {  //pobieranie zadań z Firebase
+        database.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                toDoItemList.clear()
+                for (taskSnapshot in snapshot.children) {
+                    val todoTask = taskSnapshot.key?.let { ToDoData(it, taskSnapshot.value.toString()) }
+
+                    if (todoTask != null) {
+                        toDoItemList.add(todoTask)
+                    }
+                }
+                Log.d(TAG, "onDataChange: " + toDoItemList)
+                taskAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) { //anulowanie zadania
+                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
-    override fun onSaveTask(todo: String, todoEt: TextInputEditText) {
-        TODO("Not yet implemented")
+    private fun init() { //inicjowanie do bazy zadań
+//        auth = FirebaseAuth.getInstance()
+//        authId = auth.currentUser!!.uid
+//        database = Firebase.database.reference.child("Tasks").child(authId)
+        binding.mainRecyclerView.setHasFixedSize(true)
+        binding.mainRecyclerView.layoutManager = LinearLayoutManager(context)
+
+        toDoItemList = mutableListOf()
+        taskAdapter = TaskAdapter(toDoItemList)
+        taskAdapter.setListener(this)
+        binding.mainRecyclerView.adapter = taskAdapter
+    }
+
+    override fun saveTask(todoTask: String, todoEdit: TextInputEditText) { //zapisywanie zadań
+//        database.push().setValue(todoTask).addOnCompleteListener {
+//                if (it.isSuccessful) {
+//                    Toast.makeText(context, "Task Added Successfully", Toast.LENGTH_SHORT).show()
+                    todoEdit.text = null
+//                } else {
+//                    Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()
+//                }
+//            }
+        toDoItemList.add(ToDoData(LocalDateTime.now().toString(), todoTask))
+        frag!!.dismiss()
+    }
+
+    override fun updateTask(toDoData: ToDoData, todoEdit: TextInputEditText) { //aktualizowanie zadań
+        val map = HashMap<String, Any>() //mapa tasków
+        map[toDoData.taskId] = toDoData.task
+//        database.updateChildren(map).addOnCompleteListener {
+//            if (it.isSuccessful) {
+//                Toast.makeText(context, "Updated Successfully", Toast.LENGTH_SHORT).show()
+//            } else {
+//                Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()
+//            }
+//            frag!!.dismiss()
+//        }
+    }
+
+    override fun onDeleteItemClicked(toDoData: ToDoData, position: Int) { //usuwanie
+//        database.child(toDoData.taskId).removeValue().addOnCompleteListener {
+//            if (it.isSuccessful) {
+//                Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT).show()
+//            } else {
+//                Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()
+//            }
+//        }
+    }
+
+    override fun onEditItemClicked(toDoData: ToDoData, position: Int) { //edycja zadań
+        if (frag != null)
+            childFragmentManager.beginTransaction().remove(frag!!).commit()
+
+        this.frag = ToDoDialogFragment.newInstance(toDoData.taskId, toDoData.task)
+        frag!!.setListener(this)
+        frag!!.show(childFragmentManager, ToDoDialogFragment.TAG)
     }
 }
