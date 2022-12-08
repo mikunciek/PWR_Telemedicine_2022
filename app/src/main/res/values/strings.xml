@@ -47,4 +47,9 @@
     <string name="not_registered_yet">Not Registered Yet ??</string>
     <string name="already_registered">Already Registered !!</string>
     <string name="item_1">Item 1</string>
+    <string name="dobrze">DOBRZE</string>
+    <string name="zm_czony">ZMĘCZONY</string>
+    <string name="le">ŹLE</string>
+    <string name="jak_dzisiaj_si_czujesz">Jak dzisiaj się czujesz?</string>
+    <string name="rednio">ŚREDNIO</string>
 </resources>

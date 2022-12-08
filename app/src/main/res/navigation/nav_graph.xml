@@ -12,10 +12,39 @@
         <action
             android:id="@+id/action_menuCaregiverFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_menuCaregiverFragment_to_guideCaregiver"
+            app:destination="@id/navigation" />
+        <action
+            android:id="@+id/action_menuCaregiverFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_menuCaregiverFragment_to_patientsFragment"
+            app:destination="@id/patientsFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.myapplication.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <navigation android:id="@+id/navigation"
+        app:startDestination="@id/guideCaregiver">
+        <activity
+            android:id="@+id/guideCaregiver"
+            android:name="com.example.myapplication.GuideCaregiver"
+            android:label="activity_guide_caregiver"
+            tools:layout="@layout/activity_guide_caregiver" />
+        <action
+            android:id="@+id/action_global_menuCaregiverFragment"
+            app:destination="@id/menuCaregiverFragment" />
+    </navigation>
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="com.example.myapplication.SettingsActivity"
+        android:label="SettingsActivity" />
+    <fragment
+        android:id="@+id/patientsFragment"
+        android:name="com.example.myapplication.fragments.PatientsFragment"
+        android:label="fragment_patients"
+        tools:layout="@layout/fragment_patients" />
 </navigation>
