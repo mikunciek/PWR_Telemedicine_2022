@@ -51,7 +51,14 @@
         android:id="@+id/menuPatientFragment"
         android:name="com.example.myapplication.fragments.MenuPatientFragment"
         android:label="fragment_menu_patient"
-        tools:layout="@layout/fragment_menu_patient" />
+        tools:layout="@layout/fragment_menu_patient" >
+        <action
+            android:id="@+id/action_menuPatientFragment_to_fingerTapping"
+            app:destination="@id/fingerTapping" />
+        <action
+            android:id="@+id/action_menuPatientFragment_to_memoryQuiz"
+            app:destination="@id/memoryQuiz" />
+    </fragment>
     <fragment
         android:id="@+id/blankMenuFragment"
         android:name="com.example.myapplication.BlankMenuFragment"
@@ -62,6 +69,24 @@
             app:destination="@id/menuCaregiverFragment" />
         <action
             android:id="@+id/action_blankMenuFragment_to_menuPatientFragment"
+            app:destination="@id/menuPatientFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fingerTapping"
+        android:name="com.example.myapplication.fragments.FingerTapping"
+        android:label="fragment_finger_tapping"
+        tools:layout="@layout/fragment_finger_tapping" >
+        <action
+            android:id="@+id/action_fingerTapping_to_menuPatientFragment"
+            app:destination="@id/menuPatientFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/memoryQuiz"
+        android:name="com.example.myapplication.fragments.MemoryQuiz"
+        android:label="fragment_memory_quiz"
+        tools:layout="@layout/fragment_memory_quiz" >
+        <action
+            android:id="@+id/action_memoryQuiz_to_menuPatientFragment"
             app:destination="@id/menuPatientFragment" />
     </fragment>
 </navigation>

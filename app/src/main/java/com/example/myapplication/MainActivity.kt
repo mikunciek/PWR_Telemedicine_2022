@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity() {
                     .navigate(R.id.action_blankMenuFragment_to_menuPatientFragment)
             }
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

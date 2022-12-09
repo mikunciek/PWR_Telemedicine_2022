@@ -5,13 +5,7 @@ import com.example.myapplication.Repository
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.tasks.await
 
 class UserRepository: Repository() {
 
@@ -35,7 +29,10 @@ class UserRepository: Repository() {
 
         return cloud.collection(COLLECTION)
             .document(uid).get()
+    }
 
+    fun getCurrentUser(): Task<DocumentSnapshot> {
+        return cloud.collection(COLLECTION).document(getCurrentUserID()!!).get()
     }
 
     fun createFromFirebaseUser(firebaseUser: FirebaseUser) {
