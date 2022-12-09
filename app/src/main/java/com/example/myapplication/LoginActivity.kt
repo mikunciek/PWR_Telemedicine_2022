@@ -5,29 +5,33 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.example.myapplication.modelregistration.RegistrationActivity
+import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 
-class LoginActivity() : Activity(), View.OnClickListener, Parcelable {
+class LoginActivity : Activity(), View.OnClickListener {
+
+    private var userRepository = UserRepository()
+
     private val fbAuth = FirebaseAuth.getInstance()
-
     private val LOGIN_DEBUG = "LOGIN_ACTIVITY_DEBUG"
+
     private val currentUser = UserRepository.getCurrentUserID()
 
     private var registerTextView: TextView? = null
     private var signInButton: Button? = null
     private var loginEditText: EditText? = null
     private var passwordEditText: EditText? = null
-
-    constructor(parcel: Parcel) : this() {
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +77,9 @@ class LoginActivity() : Activity(), View.OnClickListener, Parcelable {
         if (isEmpty(email, "email") && isEmpty(password, "hasło")) {
             UserRepository.auth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener { authRes ->
-                    if (authRes.user != null) {
+                    if (authRes.user !== null) {
+                        createUserIfNotExist(authRes.user!!)
+
                         val intent: Intent =
                             Intent(applicationContext, MainActivity::class.java).apply {
                                 flags =
@@ -96,21 +102,14 @@ class LoginActivity() : Activity(), View.OnClickListener, Parcelable {
         passwordEditText = findViewById(R.id.editTextPassword)
     }
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
 
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<LoginActivity> {
-        override fun createFromParcel(parcel: Parcel): LoginActivity {
-            return LoginActivity(parcel)
-        }
-
-        override fun newArray(size: Int): Array<LoginActivity?> {
-            return arrayOfNulls(size)
-        }
+    private fun createUserIfNotExist(firebaseUser: FirebaseUser) {
+         userRepository.getUser(firebaseUser.uid).addOnSuccessListener {
+            if(!it.exists()) {
+                userRepository.createFromFirebaseUser(firebaseUser);
+            }
+        }.addOnFailureListener {
+             Log.d(LOGIN_DEBUG, it.toString())
+         }
     }
 }
