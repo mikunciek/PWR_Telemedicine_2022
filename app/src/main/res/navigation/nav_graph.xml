@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/menuCaregiverFragment">
+    app:startDestination="@id/blankMenuFragment">
     <fragment
         android:id="@+id/menuCaregiverFragment"
         android:name="com.example.myapplication.fragments.MenuCaregiverFragment"
@@ -47,4 +47,46 @@
         android:name="com.example.myapplication.fragments.PatientsFragment"
         android:label="fragment_patients"
         tools:layout="@layout/fragment_patients" />
+    <fragment
+        android:id="@+id/menuPatientFragment"
+        android:name="com.example.myapplication.fragments.MenuPatientFragment"
+        android:label="fragment_menu_patient"
+        tools:layout="@layout/fragment_menu_patient" >
+        <action
+            android:id="@+id/action_menuPatientFragment_to_fingerTapping"
+            app:destination="@id/fingerTapping" />
+        <action
+            android:id="@+id/action_menuPatientFragment_to_memoryQuiz"
+            app:destination="@id/memoryQuiz" />
+    </fragment>
+    <fragment
+        android:id="@+id/blankMenuFragment"
+        android:name="com.example.myapplication.BlankMenuFragment"
+        android:label="fragment_blank_menu"
+        tools:layout="@layout/fragment_blank_menu" >
+        <action
+            android:id="@+id/action_blankMenuFragment_to_menuCaregiverFragment"
+            app:destination="@id/menuCaregiverFragment" />
+        <action
+            android:id="@+id/action_blankMenuFragment_to_menuPatientFragment"
+            app:destination="@id/menuPatientFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fingerTapping"
+        android:name="com.example.myapplication.fragments.FingerTapping"
+        android:label="fragment_finger_tapping"
+        tools:layout="@layout/fragment_finger_tapping" >
+        <action
+            android:id="@+id/action_fingerTapping_to_menuPatientFragment"
+            app:destination="@id/menuPatientFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/memoryQuiz"
+        android:name="com.example.myapplication.fragments.MemoryQuiz"
+        android:label="fragment_memory_quiz"
+        tools:layout="@layout/fragment_memory_quiz" >
+        <action
+            android:id="@+id/action_memoryQuiz_to_menuPatientFragment"
+            app:destination="@id/menuPatientFragment" />
+    </fragment>
 </navigation>
