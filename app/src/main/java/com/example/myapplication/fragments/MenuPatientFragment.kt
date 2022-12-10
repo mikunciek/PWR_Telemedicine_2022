@@ -42,7 +42,7 @@ class MenuPatientFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
 
-        userRepository.getCurrentUser().addOnSuccessListener {
+        userRepository.getCurrentUser()?.addOnSuccessListener {
             if(it.exists()) {
                 taskRepository.getTasksByUser(it.toObject(User::class.java)!!)
                     .addOnSuccessListener { list ->

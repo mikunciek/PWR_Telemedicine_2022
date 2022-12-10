@@ -31,7 +31,12 @@ class UserRepository: Repository() {
             .document(uid).get()
     }
 
-    fun getCurrentUser(): Task<DocumentSnapshot> {
+    fun getCurrentUser(): Task<DocumentSnapshot>? {
+
+        if(getCurrentUserID().isNullOrBlank()) {
+            return null;
+        }
+
         return cloud.collection(COLLECTION).document(getCurrentUserID()!!).get()
     }
 

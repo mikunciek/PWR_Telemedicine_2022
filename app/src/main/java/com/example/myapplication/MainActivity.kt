@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             this.startActivity(Intent(this, LoginActivity::class.java))
         }
 
-        userRepository.getUser(currentUser!!.uid).addOnSuccessListener {
+        userRepository.getCurrentUser()?.addOnSuccessListener {
             val user = it.toObject(User::class.java);
 
             if (user!!.caregiver.isEmpty()) {
@@ -50,9 +50,9 @@ class MainActivity : AppCompatActivity() {
                     .navigate(R.id.action_blankMenuFragment_to_menuCaregiverFragment)
             } else {
                 this.nav_host_fragment.findNavController()
-                    .navigate(R.id.action_blankMenuFragment_to_menuPatientFragment)
+                   .navigate(R.id.action_blankMenuFragment_to_menuPatientFragment)
             }
-        }
+       }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
