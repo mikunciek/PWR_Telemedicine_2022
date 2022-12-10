@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_menuCaregiverFragment_to_patientsFragment"
             app:destination="@id/patientsFragment" />
+        <action
+            android:id="@+id/action_menuCaregiverFragment_to_newUserFragment"
+            app:destination="@id/newUserFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -88,5 +91,14 @@
         <action
             android:id="@+id/action_memoryQuiz_to_menuPatientFragment"
             app:destination="@id/menuPatientFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newUserFragment"
+        android:name="com.example.myapplication.fragments.NewUserFragment"
+        android:label="fragment_new_user"
+        tools:layout="@layout/fragment_new_user" >
+        <action
+            android:id="@+id/action_newUserFragment_to_menuCaregiverFragment"
+            app:destination="@id/menuCaregiverFragment" />
     </fragment>
 </navigation>

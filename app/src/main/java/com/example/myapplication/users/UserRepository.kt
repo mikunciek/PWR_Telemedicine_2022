@@ -35,6 +35,14 @@ class UserRepository: Repository() {
         return cloud.collection(COLLECTION).document(getCurrentUserID()!!).get()
     }
 
+    fun getCurrentUserMustExist(unit: ((User) -> Unit)) {
+        getCurrentUser().addOnSuccessListener {
+            if (it.exists()) {
+                unit.invoke(it.toObject(User::class.java)!!)
+            }
+        }
+    }
+
     fun createFromFirebaseUser(firebaseUser: FirebaseUser) {
         val user = User(
             uid = firebaseUser.uid,
