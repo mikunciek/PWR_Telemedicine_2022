@@ -41,7 +41,7 @@ class UserRepository: Repository() {
     }
 
     fun getCurrentUserMustExist(unit: ((User) -> Unit)) {
-        getCurrentUser().addOnSuccessListener {
+        getCurrentUser()?.addOnSuccessListener {
             if (it.exists()) {
                 unit.invoke(it.toObject(User::class.java)!!)
             }
