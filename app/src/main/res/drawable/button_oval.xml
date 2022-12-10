@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
     <corners
-        android:radius="27dp"
+        android:radius="50dp"
         />
     <gradient
         android:angle="45"
         android:centerX="35%"
-        android:startColor="@color/md_green_400"
-        android:endColor="@color/md_green_100"
+        android:startColor="@color/purple_200"
+        android:endColor="@color/purple_500"
         android:type="linear"
         />
     <size
-        android:width="182dp"
-        android:height="54dp"
+        android:width="50dp"
+        android:height="50dp"
         />
 </shape>
