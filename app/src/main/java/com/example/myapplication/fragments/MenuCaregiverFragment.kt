@@ -42,6 +42,10 @@ class MenuCaregiverFragment : Fragment() {
             findNavController().navigate(R.id.action_menuCaregiverFragment_to_settingsActivity)
         }
 
+        addPatient.setOnClickListener {
+            findNavController().navigate(R.id.action_menuCaregiverFragment_to_newUserFragment);
+        }
+
     }
 
 
