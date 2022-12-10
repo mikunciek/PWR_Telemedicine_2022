@@ -11,7 +11,8 @@ import java.util.UUID
 data class UserTask(
     var uid: String = UUID.randomUUID().toString(),
     var user: String = "",
-    var type: TaskType? = null,
+    var type: TaskType = TaskType.CLICK,
     var status: TaskStatus = TaskStatus.TODO,
-    var endDate: Timestamp = Timestamp(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
+    var endDate: Timestamp = Timestamp(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant())),
+    var description: String = ""
 )
