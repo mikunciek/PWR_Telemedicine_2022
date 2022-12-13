@@ -31,7 +31,7 @@ class MenuCaregiverFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         addToDoList.setOnClickListener {
-            findNavController().navigate(R.id.action_menuCaregiverFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_menuCaregiverFragment_to_toDoCaregiver)
         }
 
         library.setOnClickListener {

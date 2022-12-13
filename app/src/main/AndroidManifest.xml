@@ -7,9 +7,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="Telemed_Alz"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="Mój Opiekun"
+        android:icon="@drawable/ic_heart"
+        android:roundIcon="@drawable/ic_heart"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light"
         tools:targetApi="31">

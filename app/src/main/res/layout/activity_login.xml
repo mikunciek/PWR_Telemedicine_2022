@@ -41,14 +41,18 @@
             android:background="@color/white"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
-            app:hintEnabled="false">
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="@color/purple_200"
+            app:boxStrokeErrorColor="@color/md_red_900"
+            app:errorTextColor="@color/md_red_900"
+            >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/white"
-                android:hint="@string/enter_your_email"
+                android:hint="Wprowadź email:"
                 android:inputType="textEmailAddress"
                 android:paddingStart="12dp"
                 android:paddingTop="15dp"
@@ -79,15 +83,22 @@
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
-            app:passwordToggleEnabled="true">
+            app:passwordToggleEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeColor="@color/purple_200"
+            app:boxStrokeErrorColor="@color/md_red_900"
+            app:errorTextColor="@color/md_red_900">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-                android:hint="@string/enter_your_pass"
+                android:hint="Wpisz hasło:"
                 android:inputType="textPassword"
+                app:endIconMode="password_toggle"
+                app:endIconCheckable="true"
+                app:endIconTint="@color/colorAccent"
                 android:paddingStart="12dp"
                 android:paddingTop="15dp"
                 android:textColorHint="#757575"

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.myapplication.databinding.FragmentHomeBinding
+import com.example.myapplication.databinding.FragmentTodoCaregiverBinding
 import com.example.myapplication.utils.adapter.TaskAdapter
 import com.example.myapplication.utils.model.ToDoData
 import com.google.android.material.textfield.TextInputEditText
@@ -17,15 +17,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import java.time.LocalDateTime
 
-class HomeFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClickListener,
+class ToDoCaregiverFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClickListener,
     TaskAdapter.TaskAdapterInterface {
 
-    private val TAG = "HomeFragment"
-    private lateinit var binding: FragmentHomeBinding  //tworzenie widoku
+    private val TAG = "ToDoCaregiverFragment"
+    private lateinit var binding: FragmentTodoCaregiverBinding //tworzenie widoku
     private lateinit var database: DatabaseReference   //połączenie z bazą
     private var frag: ToDoDialogFragment? = null
     private lateinit var auth: FirebaseAuth //autoryzacja z firebase
@@ -39,7 +37,7 @@ class HomeFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClickListener
         savedInstanceState: Bundle? //metoda, która inicjuje i tworzy wszystkie obiekty
     ): View? {
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentTodoCaregiverBinding.inflate(inflater, container, false)
         return binding.root
     }
         // Inflate the layout for this fragment - załadowanie konkretnego widoku
