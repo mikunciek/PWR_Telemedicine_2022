@@ -1,5 +1,7 @@
 package com.example.myapplication.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,18 +18,8 @@ import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
 import com.example.myapplication.users.UserTask
 import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.android.synthetic.main.fragment_menu_patient.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- *
- * A simple [Fragment] subclass.
- * Use the [MenuPatientFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MenuPatientFragment : Fragment() {
     // TODO: Rename and change types of parameters
 
@@ -58,6 +50,17 @@ class MenuPatientFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_menu_patient, container, false)
     }
 
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        call.setOnClickListener{
+            val number = 723701687
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(number.toString())))
+            startActivity(intent)
+        }
+    }
+
     fun createTaskList(list: QuerySnapshot) {
         val recyclerView = requireView().findViewById<RecyclerView>(R.id.mainRecyclerView)
         val tasks = list.documents.mapNotNull { it.toObject(UserTask::class.java) }
@@ -70,19 +73,8 @@ class MenuPatientFragment : Fragment() {
                 findNavController().navigate(it.type.navigationId!!)
             }
         }
-
         recyclerView.adapter = adapter
-
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MenuPatientFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

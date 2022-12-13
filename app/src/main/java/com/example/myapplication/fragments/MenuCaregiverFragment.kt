@@ -47,7 +47,4 @@ class MenuCaregiverFragment : Fragment() {
         }
 
     }
-
-
-
 }
