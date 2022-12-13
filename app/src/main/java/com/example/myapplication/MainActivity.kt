@@ -37,6 +37,10 @@ class MainActivity : AppCompatActivity() {
         userRepository.getCurrentUser()?.addOnSuccessListener {
             val user = it.toObject(User::class.java);
 
+            if (user === null) {
+               return@addOnSuccessListener
+            }
+
             if (user!!.caregiver.isEmpty()) {
                 this.nav_host_fragment.findNavController()
                     .navigate(R.id.action_blankMenuFragment_to_menuCaregiverFragment)
