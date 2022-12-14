@@ -38,7 +38,9 @@ class FingerTapping : Fragment() {
             // Callback function, fired
             // when the time is up
             override fun onFinish() {
+
                 timerView.text = "Gotowe"
+                findNavController().navigate(R.id.action_fingerTapping_to_menuCaregiverFragment)
             }
         }.start()
 
