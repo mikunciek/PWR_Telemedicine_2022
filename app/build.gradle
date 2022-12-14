@@ -83,5 +83,9 @@ dependencies {
 
     //NavBottomNavigation
 
+    //Counter
+    implementation 'com.github.iwgang:countdownview:2.1.6'
+    implementation 'io.paperdb:paperdb:2.7.1'
+
 
 }

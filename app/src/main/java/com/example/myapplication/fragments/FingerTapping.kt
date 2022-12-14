@@ -16,11 +16,17 @@ class FingerTapping : Fragment() {
     private lateinit var binding: FragmentFingerTappingBinding
     private var timer: CountDownTimer? = null
     var count = 0
+    var duration = 15  //set end time in seconds
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+
+        val hour = hourTimer
+        val minute = minuteTimer
+        val second = secondTimer
+        val click = clickButton
 
         binding = FragmentFingerTappingBinding.inflate(inflater , container,false)
         return binding.root
@@ -29,30 +35,17 @@ class FingerTapping : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        object : CountDownTimer(15, 1){
-            override fun onTick(remaning: Long) {
-                timerCounter.text = remaning.toString()
-            }
 
-            override fun onFinish() {
-                timerView.text = "Test wykonano"
-            }
-        }
+        clickButton.setOnClickListener{
+            onTap()
 
-        onTap.setOnClickListener{
-            count++
-
-            numberOfClick.text =count.toString()
         }
     }
 
-    override fun onStart(){
-        super.onStart()
-        timer?.start()
+
+    private fun onTap(){
+        count++
+        numberOfClick.text =count.toString()
     }
 
-    override fun onStop(){
-        super.onStop()
-        timer?.cancel()
-    }
 }
