@@ -1,18 +1,14 @@
 package com.example.myapplication.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.myapplication.databinding.FragmentMenuCaregiverBinding
 import kotlinx.android.synthetic.main.fragment_menu_caregiver.*
-import androidx.navigation.fragment.findNavController
-import com.example.myapplication.GuideCaregiver
-import com.example.myapplication.MainActivity
+
 import com.example.myapplication.R
 
 class MenuCaregiverFragment : Fragment() {

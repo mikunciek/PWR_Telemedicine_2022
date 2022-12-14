@@ -49,7 +49,7 @@
 
                 <TextView
                     android:id="@+id/numberOfClick"
-                    android:layout_width="150dp"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:layout_row="0"
                     android:layout_rowWeight="0"
@@ -68,97 +68,56 @@
             android:id="@+id/timerPanel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="1"
             android:layout_gravity="center"
             app:cardCornerRadius="8dp"
             app:cardElevation="10dp"
             app:cardUseCompatPadding="true"
             >
 
-            <LinearLayout
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:layout_marginTop="20dp"
-                android:orientation="horizontal"
                 android:columnCount="2"
                 android:rowCount="1">
 
 
                 <TextView
                     android:id="@+id/infoTimer"
-                    android:layout_width="wrap_content"
+                    android:layout_width="215dp"
                     android:layout_height="wrap_content"
+                    android:layout_row="0"
                     android:layout_rowWeight="0"
+                    android:layout_column="0"
                     android:layout_columnWeight="0"
                     android:text="Pozostały czas: "
                     android:textAlignment="center"
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/timerCounter"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_row="0"
                     android:layout_rowWeight="0"
-                    android:layout_columnWeight="0">
+                    android:layout_column="1"
+                    android:layout_columnWeight="0"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/hourTimer"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/round_back"
-                        android:text="0"
-                        android:textAlignment="center"
-                        android:textSize="30sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/colonHour"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text=":"
-                        android:textAlignment="center"
-                        android:textSize="30sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/minuteTimer"
-                        android:layout_width="30dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/round_back"
-                        android:text="0"
-                        android:textAlignment="center"
-                        android:textSize="30sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/colonMinute"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text=":"
-                        android:textAlignment="center"
-                        android:textSize="30sp"
-                        android:textStyle="bold"/>
-
-
-                    <TextView
-                        android:id="@+id/secondTimer"
-                        android:layout_width="30dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/round_back"
-                        android:text="0"
-                        android:textAlignment="center"
-                        android:textSize="30sp"
-                        android:textStyle="bold" />
-
-
-                </LinearLayout>
-            </LinearLayout>
+            </GridLayout>
 
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
+
+
 
     <Button
         android:id="@+id/clickButton"
@@ -167,7 +126,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:background="@drawable/button_elipse"
-        android:onClick="onTap"
         android:text="Kliknij mnie"
         android:textColor="@color/black"
         android:textSize="30sp"
@@ -185,8 +143,6 @@
         android:textAlignment="center"
         android:textSize="30dp"
         android:textStyle="bold"
-
         tools:ignore="SpeakableTextPresentCheck" />
-
 
 </LinearLayout>
