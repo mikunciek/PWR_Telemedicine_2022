@@ -25,11 +25,14 @@
         <action
             android:id="@+id/action_menuCaregiverFragment_to_toDoCaregiver"
             app:destination="@id/toDoCaregiver" />
+        <action
+            android:id="@+id/action_menuCaregiverFragment_to_fingerTapping"
+            app:destination="@id/fingerTapping" />
     </fragment>
     <fragment
         android:id="@+id/toDoCaregiver"
         android:name="com.example.myapplication.fragments.ToDoCaregiverFragment"
-        android:label="fragment_home"
+        android:label="toDoCaregiver"
         tools:layout="@layout/fragment_todo_caregiver" />
     <navigation android:id="@+id/navigation"
         app:startDestination="@id/guideCaregiver">

@@ -43,7 +43,11 @@ class MenuCaregiverFragment : Fragment() {
         }
 
         addPatient.setOnClickListener {
-            findNavController().navigate(R.id.action_menuCaregiverFragment_to_newUserFragment);
+            findNavController().navigate(R.id.action_menuCaregiverFragment_to_newUserFragment)
+        }
+
+        checkDoneList.setOnClickListener{
+            findNavController().navigate(R.id.action_menuCaregiverFragment_to_fingerTapping)
         }
 
     }

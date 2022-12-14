@@ -44,7 +44,7 @@
         <activity
             android:name=".SettingsActivity"
             android:exported="false"
-            android:label=".SettingsActivity"
+            android:label="Ustawienia"
             andriod:parentActivityName=".MainActivity" />
 
         <meta-data
@@ -67,6 +67,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
+            android:label="Mój opiekun"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
