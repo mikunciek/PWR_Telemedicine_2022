@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentNewUserBinding
-import com.example.myapplication.databinding.FragmentSignUpBinding
 import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
 import java.util.UUID

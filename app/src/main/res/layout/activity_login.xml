@@ -70,11 +70,11 @@
             android:background="@color/white"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:boxStrokeColor="@color/purple_200"
             app:boxStrokeErrorColor="@color/md_red_900"
-            app:errorTextColor="@color/md_red_900"
-            >
+            app:errorTextColor="@color/md_red_900">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextEmail"
@@ -83,14 +83,14 @@
                 android:background="@color/white"
                 android:hint="@string/wprowad_email"
                 android:inputType="textEmailAddress"
+                app:endIconCheckable="true"
+                app:endIconTint="@color/colorAccent"
                 android:textColorHint="#757575"
                 android:textColor="@color/black"
-                app:endIconCheckable="true"
-                tools:ignore="RtlSymmetry"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:boxStrokeColor="@color/purple_200"
-                app:boxStrokeErrorColor="@color/md_red_900"
-                app:errorTextColor="@color/md_red_900"/>
+                tools:ignore="RtlSymmetry" />
+
+
+
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -151,22 +151,18 @@
         android:layout_marginTop="@dimen/loginViewsMargin"
         android:contentDescription="@string/todo"
         android:text="@string/zaloguj_si"
-        android:textColor="#7E57C2" />
+        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/textSingUp"
         style="@style/parent"
         android:text="@string/login_signup_hint"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:layout_marginTop="40dp"
         android:textSize="15sp"
-        android:fontFamily="@font/inter_regular"
-        android:typeface="monospace"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nextBtn"
-        app:layout_constraintVertical_bias="0.243" />
+        android:textColor="@color/primaryTextColor"
+        android:textStyle="bold"
+         />
 
 
 </LinearLayout>
