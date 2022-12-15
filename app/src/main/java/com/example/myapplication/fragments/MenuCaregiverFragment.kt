@@ -46,5 +46,9 @@ class MenuCaregiverFragment : Fragment() {
 
         }
 
+        patients.setOnClickListener{
+            findNavController().navigate(R.id.action_menuCaregiverFragment_to_patientsFragment)
+        }
+
     }
 }
