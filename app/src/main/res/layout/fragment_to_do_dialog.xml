@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/panelToDo"
+    android:id="@+id/user_spinner"
     android:layout_width="400dp"
     android:layout_height="wrap_content"
     tools:context=".fragments.ToDoDialogFragment"
@@ -33,6 +33,7 @@
             android:layout_marginHorizontal="16dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
+            android:background="@color/white"
             app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -40,27 +41,26 @@
             app:layout_constraintTop_toBottomOf="@+id/todoClose"
             >
 
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
+                android:id="@+id/todo_start"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
-                app:boxStrokeWidth="0dp"
-                app:boxStrokeWidthFocused="0dp"
-                app:hintEnabled="false">
+                android:ems="10"
+                android:hint="YYYY-mm-dd"
+                android:inputType="date"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/todoEt"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@color/white"
-                    android:hint="@string/type_your_task"
-                    android:inputType="textEmailAddress"
-                    android:paddingStart="12dp"
-                    android:paddingTop="15dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="#757575"
-                    tools:ignore="RtlSymmetry" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <Spinner
+                android:id="@+id/type_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Spinner
+                android:id="@+id/user_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </com.google.android.material.card.MaterialCardView>
 

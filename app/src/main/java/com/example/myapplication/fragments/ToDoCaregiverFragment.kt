@@ -98,14 +98,7 @@ class ToDoCaregiverFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClic
     }
 
     override fun saveTask(todoTask: String, todoEdit: TextInputEditText) { //zapisywanie zadań
-//        database.push().setValue(todoTask).addOnCompleteListener {
-//                if (it.isSuccessful) {
-//                    Toast.makeText(context, "Task Added Successfully", Toast.LENGTH_SHORT).show()
-                    todoEdit.text = null
-//                } else {
-//                    Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()
-//                }
-//            }
+        todoEdit.text = null
         toDoItemList.add(ToDoData(LocalDateTime.now().toString(), todoTask))
         frag!!.dismiss()
     }
@@ -113,24 +106,9 @@ class ToDoCaregiverFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClic
     override fun updateTask(toDoData: ToDoData, todoEdit: TextInputEditText) { //aktualizowanie zadań
         val map = HashMap<String, Any>() //mapa tasków
         map[toDoData.taskId] = toDoData.task
-//        database.updateChildren(map).addOnCompleteListener {
-//            if (it.isSuccessful) {
-//                Toast.makeText(context, "Updated Successfully", Toast.LENGTH_SHORT).show()
-//            } else {
-//                Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()
-//            }
-//            frag!!.dismiss()
-//        }
     }
 
     override fun onDeleteItemClicked(toDoData: ToDoData, position: Int) { //usuwanie
-//        database.child(toDoData.taskId).removeValue().addOnCompleteListener {
-//            if (it.isSuccessful) {
-//                Toast.makeText(context, "Deleted Successfully", Toast.LENGTH_SHORT).show()
-//            } else {
-//                Toast.makeText(context, it.exception.toString(), Toast.LENGTH_SHORT).show()
-//            }
-//        }
     }
 
     override fun onEditItemClicked(toDoData: ToDoData, position: Int) { //edycja zadań

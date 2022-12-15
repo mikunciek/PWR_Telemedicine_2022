@@ -41,8 +41,8 @@ class MenuPatientListAdapter(private val mList: List<UserTask>): RecyclerView.Ad
         // Holds the views for adding it to image and text
         inner class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
             val image: ImageView = itemView.findViewById(R.id.task_icon)
-            val title: TextView = itemView.findViewById(R.id.task_title)
-            val description: TextView = itemView.findViewById(R.id.task_description)
+            val title: TextView = itemView.findViewById(R.id.todo_title)
+            val description: TextView = itemView.findViewById(R.id.todo_patient)
 
             init {
                 itemView.setOnClickListener {

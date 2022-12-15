@@ -14,13 +14,14 @@ import com.example.myapplication.LoginActivity
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.users.User
+import com.example.myapplication.users.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegistrationActivity : AppCompatActivity(), View.OnClickListener {
     private val REGISTRATION_DEBUG = "REGISTRATION_ACTIVITY_DEBUG"
 
-    private val registrationVm: RegistrationViewModel by viewModels<RegistrationViewModel>()
+    private val userRepository = UserRepository()
     private val fbAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
     private var loginTextView: TextView? = null
@@ -85,7 +86,8 @@ class RegistrationActivity : AppCompatActivity(), View.OnClickListener {
                             phone = phone
                         )
 
-                        registrationVm.createNewMainUser(user)
+                        userRepository.save(user)
+
                         val intent: Intent =
                             Intent(applicationContext, MainActivity::class.java).apply {
                                 flags = (Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)

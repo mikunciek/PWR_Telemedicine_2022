@@ -4,17 +4,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.utils.model.ToDoData
 import com.example.myapplication.databinding.EachTodoItemBinding
+import com.example.myapplication.users.User
+import com.example.myapplication.users.UserRepository
+import com.example.myapplication.users.UserTask
 
 
-class TaskAdapter(private val list: MutableList<ToDoData>) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter(private val list: MutableList<UserTask>) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
+    private val userRepository = UserRepository()
     private  val TAG = "TaskAdapter"
     private var listener:TaskAdapterInterface? = null
     fun setListener(listener:TaskAdapterInterface){
         this.listener = listener
     }
+
     class TaskViewHolder(val binding: EachTodoItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -26,12 +30,14 @@ class TaskAdapter(private val list: MutableList<ToDoData>) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) { //nagłówek???
         with(holder) {
             with(list[position]) {
-                binding.todoTask.text = this.task
+                binding.todoTitle.text = this.type.title
+                binding.taskIcon.setImageResource(this.type.icon)
+
+                userRepository.getUserLambda(this.uid) {
+                        binding.todoPatient.text = String.format("%s %s", it.firstName, it.lastName)
+                }
 
                 Log.d(TAG, "onBindViewHolder: "+this)
-                binding.editTask.setOnClickListener {
-                    listener?.onEditItemClicked(this , position)
-                }
 
                 binding.deleteTask.setOnClickListener {  //przycisk
                     listener?.onDeleteItemClicked(this , position)
@@ -45,8 +51,7 @@ class TaskAdapter(private val list: MutableList<ToDoData>) : RecyclerView.Adapte
     }
 
     interface TaskAdapterInterface{
-        fun onDeleteItemClicked(toDoData: ToDoData , position : Int)
-        fun onEditItemClicked(toDoData: ToDoData , position: Int)
+        fun onDeleteItemClicked(userTask: UserTask , position : Int)
     }
 
 }

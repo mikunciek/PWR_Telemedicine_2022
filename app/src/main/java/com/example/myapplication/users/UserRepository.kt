@@ -31,6 +31,14 @@ class UserRepository: Repository() {
             .document(uid).get()
     }
 
+    fun getUserLambda(uid:String, unit: ((User) -> Unit)) {
+        getUser(uid).addOnSuccessListener {
+            if (it.exists()) {
+                unit.invoke(it.toObject(User::class.java)!!)
+            }
+        }
+    }
+
     fun getCurrentUser(): Task<DocumentSnapshot>? {
 
         if(getCurrentUserID().isNullOrBlank()) {
@@ -58,4 +66,5 @@ class UserRepository: Repository() {
 
         this.save(user)
     }
+
 }
