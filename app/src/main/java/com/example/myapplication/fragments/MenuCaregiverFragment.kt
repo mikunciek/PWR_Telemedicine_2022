@@ -43,7 +43,7 @@ class MenuCaregiverFragment : Fragment() {
         }
 
         checkDoneList.setOnClickListener{
-            findNavController().navigate(R.id.action_menuCaregiverFragment_to_fingerTapping)
+
         }
 
     }

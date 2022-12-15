@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
 
@@ -39,15 +41,32 @@ class FingerTapping : Fragment() {
             // when the time is up
             override fun onFinish() {
 
-                timerView.text = "Gotowe"
-                findNavController().navigate(R.id.action_fingerTapping_to_menuCaregiverFragment)
+                saveScore()
+                clickButton.visibility = View.GONE
+
+                timerView.text = "Gotowe, kliknij by powrócić"
+
+                timerView.setOnClickListener{
+                    findNavController().navigate(R.id.action_fingerTapping_to_menuPatientFragment)
+                }
+
+
+
             }
         }.start()
+
 
         clickButton.setOnClickListener{
             count++
             numberOfClick.text =count.toString()
+
         }
+
+    }
+
+    private fun saveScore() {
+        val score =numberOfClick
+        //zapis do bazy
     }
 
 

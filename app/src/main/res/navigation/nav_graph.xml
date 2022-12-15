@@ -25,9 +25,6 @@
         <action
             android:id="@+id/action_menuCaregiverFragment_to_toDoCaregiver"
             app:destination="@id/toDoCaregiver" />
-        <action
-            android:id="@+id/action_menuCaregiverFragment_to_fingerTapping"
-            app:destination="@id/fingerTapping" />
     </fragment>
     <fragment
         android:id="@+id/toDoCaregiver"
@@ -86,9 +83,6 @@
         <action
             android:id="@+id/action_fingerTapping_to_menuPatientFragment"
             app:destination="@id/menuPatientFragment" />
-        <action
-            android:id="@+id/action_fingerTapping_to_menuCaregiverFragment"
-            app:destination="@id/menuCaregiverFragment" />
     </fragment>
     <fragment
         android:id="@+id/memoryQuiz"
