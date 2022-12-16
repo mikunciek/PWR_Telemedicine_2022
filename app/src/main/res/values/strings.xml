@@ -55,4 +55,5 @@
     <string name="wprowad_email">Wprowadź email:</string>
     <string name="wpisz_has_o">Wpisz hasło:</string>
     <string name="witaj">Witaj ponownie!</string>
+    <string name="yyyy_mm_dd">YYYY-mm-dd</string>
 </resources>

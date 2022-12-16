@@ -1,26 +1,30 @@
 package com.example.myapplication.fragments
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.fragment.app.DialogFragment
+import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentToDoDialogBinding
-import com.example.myapplication.users.TaskType
-import com.example.myapplication.users.TasksRepository
-import com.example.myapplication.users.UserTask
+import com.example.myapplication.users.*
 import com.google.firebase.Timestamp
+import kotlinx.android.synthetic.main.fragment_to_do_dialog.*
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZoneId
+import java.time.chrono.JapaneseEra.values
 import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-class ToDoDialogFragment : DialogFragment() {
-
+class ToDoDialogFragment() : DialogFragment() {
     private lateinit var binding: FragmentToDoDialogBinding
-
     private val tasksRepository = TasksRepository()
+    private val userRepository = UserRepository()
 
     companion object { //tworzenie nowego obiektu
         const val TAG = "DialogFragment"
@@ -43,8 +47,11 @@ class ToDoDialogFragment : DialogFragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initValues()
 
         binding.todoClose.setOnClickListener { //zamykanie
             dismiss()
@@ -63,4 +70,33 @@ class ToDoDialogFragment : DialogFragment() {
             tasksRepository.save(task)
         }
     }
-}
+
+    private fun initValues() {
+        userRepository.getCurrentUserMustExist {
+            view?.findViewById<Spinner>(R.id.type_spinner)?.adapter = ArrayAdapter(requireContext(),
+                android.R.layout.simple_spinner_item, TaskType.values().map { i -> i.title})
+
+            userRepository.getPatients(it.uid) {
+                view?.findViewById<Spinner>(R.id.user_spinner)?.adapter = ArrayAdapter(requireContext(),
+                    android.R.layout.simple_spinner_item, it.map { i -> String.format("%s %s", i.firstName, i.lastName)})
+            }
+        }
+
+    }
+
+    /*
+    private fun viewDatePicker() {
+        val cal = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val month = cal.get(Calendar.MONTH)
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+
+        val datePicker = DatePickerDialog(this,{ _, year, month, dayOfMonth ->
+            val sdfChange = SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY)
+            cal.set(year, month, dayOfMonth)
+            todo_start.text = sdfChange.format(cal.time)
+        }, year, month, day)
+        datePicker.show()
+        }
+     */
+    }

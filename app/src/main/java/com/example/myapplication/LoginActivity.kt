@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.example.myapplication.modelregistration.RegistrationActivity
 import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.GlobalScope
@@ -32,6 +33,10 @@ class LoginActivity : Activity(), View.OnClickListener {
     private var signInButton: Button? = null
     private var loginEditText: EditText? = null
     private var passwordEditText: EditText? = null
+
+    private var textInputLayoutEmail: TextInputLayout? = null
+    private var textInputLayoutPassword: TextInputLayout? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +70,9 @@ class LoginActivity : Activity(), View.OnClickListener {
     private fun setupLoginClick() {
         val email = loginEditText!!.text?.trim().toString()
         val password = passwordEditText!!.text?.trim().toString()
+        val emailValid = validEmail(email, textInputLayoutEmail)
+        val passwordValid = validPassword(password, textInputLayoutPassword)
+
 
         fun isEmpty(checkFiled: String, titleFiled: String): Boolean { // nested functions
             if (checkFiled.isNotEmpty()) {
@@ -95,11 +103,54 @@ class LoginActivity : Activity(), View.OnClickListener {
         }
     }
 
+
+    private fun validEmail(checkFiled: String, textInputLayout: TextInputLayout?): Boolean {
+        if(!isEmpty(checkFiled)) {
+            changeErrorTextAttributes(textInputLayout, "E-mail nie może być pusty.", true)
+            return false
+        }else if(!android.util.Patterns.EMAIL_ADDRESS.matcher(checkFiled).matches()) {
+            changeErrorTextAttributes(textInputLayout, "Zły format e-mailu.", true)
+            return false
+        }
+        textInputLayout?.isErrorEnabled = false
+        return true
+    }
+
+    private fun validPassword(checkFiled: String, textInputLayout: TextInputLayout?): Boolean {
+        if(!isEmpty(checkFiled)) {
+            changeErrorTextAttributes(textInputLayout, "Hasło nie może być puste.", true)
+            return false
+        }else if(checkFiled.length < 6) {
+            changeErrorTextAttributes(textInputLayout, "Hasło musi składać się z minimum 6 znaków.", true)
+            return false
+        }
+        textInputLayout?.isErrorEnabled = false
+        return true
+    }
+
+    private fun changeErrorTextAttributes(textInputLayout: TextInputLayout?, massage: String, enabled: Boolean) {
+        textInputLayout?.isErrorEnabled = enabled
+        textInputLayout?.error = massage
+    }
+
+    private fun isEmpty(checkFiled: String): Boolean {
+        if (checkFiled.isNotEmpty()) {
+            return true
+        }
+        return false
+    }
+
+
+
+
+
     private fun init() {
         registerTextView = findViewById(R.id.textSingUp)
         signInButton = findViewById(R.id.cirLoginButton)
         loginEditText = findViewById(R.id.editTextEmail)
         passwordEditText = findViewById(R.id.editTextPassword)
+        textInputLayoutEmail = findViewById(R.id.tl_login_email)
+        textInputLayoutPassword = findViewById(R.id.tl_login_password)
     }
 
 

@@ -18,7 +18,6 @@ class MenuPatientListAdapter(private val mList: List<UserTask>): RecyclerView.Ad
             // that is used to hold list item
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.list_card_view, parent, false)
-
             return ViewHolder(view)
         }
 
@@ -26,11 +25,9 @@ class MenuPatientListAdapter(private val mList: List<UserTask>): RecyclerView.Ad
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
             val userTask: UserTask = mList[position]
-
             holder.image.setImageResource(userTask.type.icon)
             holder.title.text = userTask.type.title
             holder.description.text = userTask.description
-
         }
 
         // return the number of the items in the list

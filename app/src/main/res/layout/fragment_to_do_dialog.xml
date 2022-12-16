@@ -3,17 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/user_spinner"
-    android:layout_width="400dp"
-    android:layout_height="wrap_content"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".fragments.ToDoDialogFragment"
-    android:theme="@style/Theme.MaterialComponents"
-    android:background="@color/white">
+    android:theme="@style/Theme.MaterialComponents.Light"
+    android:background="@drawable/cut_card_background">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/white">
 
         <ImageView
@@ -28,39 +28,54 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView1"
-            android:layout_width="300dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
+            android:background="@color/white"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
-            android:background="@color/white"
             app:cardUseCompatPadding="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/todoClose"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/todoClose">
 
-            <EditText
-                android:id="@+id/todo_start"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:ems="10"
-                android:hint="YYYY-mm-dd"
-                android:inputType="date"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
 
-            <Spinner
-                android:id="@+id/type_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/todo_start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/yyyy_mm_dd"
+                    android:textAlignment="center"
+                    android:inputType="date"
+                    android:textColor="@color/black"
+                    android:textColorHint="#757575"
+                    android:importantForAutofill="no" />
 
-            <Spinner
-                android:id="@+id/user_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                <Spinner
+                    android:id="@+id/type_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp"
+                    android:background="@drawable/spinner"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                <Spinner
+                    android:id="@+id/user_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="50dp"
+                    android:background="@drawable/spinner"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
 

@@ -5,7 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation
+import com.example.myapplication.fragments.MenuCaregiverFragment
+import com.example.myapplication.fragments.PatientsFragment
+import com.example.myapplication.fragments.ToDoCaregiverFragment
 import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -24,6 +29,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         auth = Firebase.auth
+
+        //configureBottomNavigation()
+
 
     }
 
@@ -64,4 +72,36 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+/*
+    private fun configureBottomNavigation() {
+        val bottomNavigation = findViewById<MeowBottomNavigation>(R.id.bottomNavigation)
+        bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.ic_person))
+        bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.ic_home))
+        bottomNavigation.add(MeowBottomNavigation.Model(3, R.drawable.ic_addtask))
+        bottomNavigation.show(2, true)
+
+        var fragment: Fragment = MenuCaregiverFragment()
+        bottomNavigation.setOnClickMenuListener {
+            when(it.id){
+                1 -> makeCurrentFragment(PatientsFragment())
+                2 -> makeCurrentFragment(MenuCaregiverFragment())
+                3 -> makeCurrentFragment(ToDoCaregiverFragment())
+            }
+        }
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment, fragment)
+            .commit()
+    }
+
+    private fun makeCurrentFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.nav_host_fragment, fragment)
+            commit()
+        }
+    }
+
+ */
+
 }

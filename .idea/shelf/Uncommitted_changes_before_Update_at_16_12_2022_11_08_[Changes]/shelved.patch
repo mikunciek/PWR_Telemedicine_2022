@@ -1,0 +1,30 @@
+Index: app/src/main/java/com/example/myapplication/MenuPatientListAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.myapplication\r\n\r\nimport android.view.LayoutInflater\r\nimport android.view.ViewGroup\r\nimport android.widget.ImageView\r\nimport android.widget.TextView\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport android.view.View\r\nimport com.example.myapplication.users.UserTask\r\n\r\nclass MenuPatientListAdapter(private val mList: List<UserTask>): RecyclerView.Adapter<MenuPatientListAdapter.ViewHolder>() {\r\n\r\n    var onItemClick: ((UserTask) -> Unit)? = null\r\n\r\n        // create new views\r\n        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {\r\n            // inflates the card_view_design view\r\n            // that is used to hold list item\r\n            val view = LayoutInflater.from(parent.context)\r\n                .inflate(R.layout.list_card_view, parent, false)\r\n\r\n            return ViewHolder(view)\r\n        }\r\n\r\n        // binds the list items to a view\r\n        override fun onBindViewHolder(holder: ViewHolder, position: Int) {\r\n\r\n            val userTask: UserTask = mList[position]\r\n\r\n            holder.image.setImageResource(userTask.type.icon)\r\n            holder.title.text = userTask.type.title\r\n            holder.description.text = userTask.description\r\n\r\n        }\r\n\r\n        // return the number of the items in the list\r\n        override fun getItemCount(): Int {\r\n            return mList.size\r\n        }\r\n\r\n        // Holds the views for adding it to image and text\r\n        inner class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {\r\n            val image: ImageView = itemView.findViewById(R.id.task_icon)\r\n            val title: TextView = itemView.findViewById(R.id.task_title)\r\n            val description: TextView = itemView.findViewById(R.id.task_description)\r\n\r\n            init {\r\n                itemView.setOnClickListener {\r\n                    onItemClick?.invoke(mList[bindingAdapterPosition])\r\n                }\r\n            }\r\n        }\r\n    }
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/myapplication/MenuPatientListAdapter.kt b/app/src/main/java/com/example/myapplication/MenuPatientListAdapter.kt
+--- a/app/src/main/java/com/example/myapplication/MenuPatientListAdapter.kt	(revision d5d20ca4b829c0c968bf39453e5ee2e585aacd66)
++++ b/app/src/main/java/com/example/myapplication/MenuPatientListAdapter.kt	(date 1671115749812)
+@@ -18,7 +18,6 @@
+             // that is used to hold list item
+             val view = LayoutInflater.from(parent.context)
+                 .inflate(R.layout.list_card_view, parent, false)
+-
+             return ViewHolder(view)
+         }
+ 
+@@ -26,11 +25,9 @@
+         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+ 
+             val userTask: UserTask = mList[position]
+-
+             holder.image.setImageResource(userTask.type.icon)
+             holder.title.text = userTask.type.title
+             holder.description.text = userTask.description
+-
+         }
+ 
+         // return the number of the items in the list

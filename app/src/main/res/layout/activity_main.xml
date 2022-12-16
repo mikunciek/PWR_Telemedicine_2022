@@ -24,4 +24,18 @@
         app:navGraph="@navigation/nav_graph" />
 
 
+    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:mbn_circleColor="@color/white"
+        app:mbn_backgroundBottomColor="@color/white"
+        app:mbn_selectedIconColor="@color/colorBottomNavigationSelector"
+        app:mbn_defaultIconColor="@color/colorBottomNavigationUnSelector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+
 </LinearLayout>

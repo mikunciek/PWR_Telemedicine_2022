@@ -4,6 +4,9 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#8A95E1</color>
+
+    <color name="colorBottomNavigationSelector">#0A134A</color>
+    <color name="colorBottomNavigationUnSelector">#3B0A274A</color>
     
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>

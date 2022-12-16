@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.FragmentTodoCaregiverBinding
+import com.example.myapplication.users.UserTask
 import com.example.myapplication.utils.adapter.TaskAdapter
-import com.example.myapplication.utils.model.ToDoData
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import java.time.LocalDateTime
 
-class ToDoCaregiverFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClickListener,
+class ToDoCaregiverFragment : Fragment(), //ToDoDialogFragment.OnDialogNextBtnClickListener,
     TaskAdapter.TaskAdapterInterface {
 
     private val TAG = "ToDoCaregiverFragment"
@@ -29,8 +29,10 @@ class ToDoCaregiverFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClic
     private lateinit var auth: FirebaseAuth //autoryzacja z firebase
     private lateinit var authId: String  //id
 
+
+
     private lateinit var taskAdapter: TaskAdapter  //zadania
-    private lateinit var toDoItemList: MutableList<ToDoData>  //lista zadań
+    private lateinit var toDoItemList: MutableList<UserTask>  //lista zadań
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,23 +59,24 @@ class ToDoCaregiverFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClic
             if (frag != null)
                 childFragmentManager.beginTransaction().remove(frag!!).commit() //mamy wycinek fragmentu - stąd child
             frag = ToDoDialogFragment() //okienko zadania
-            frag!!.setListener(this)
+            //frag!!.setListener(this)
             frag!!.show(childFragmentManager,ToDoDialogFragment.TAG) //wyświetlenie
 
         }
     }
 
     private fun getTaskFromFirebase() {  //pobieranie zadań z Firebase
-        database.addValueEventListener(object : ValueEventListener {
+        database.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 toDoItemList.clear()
                 for (taskSnapshot in snapshot.children) {
-                    val todoTask = taskSnapshot.key?.let { ToDoData(it, taskSnapshot.value.toString()) }
+                    val todoTask = taskSnapshot.key?.let { UserTask(it, taskSnapshot.value.toString()) }
 
                     if (todoTask != null) {
                         toDoItemList.add(todoTask)
                     }
                 }
+
                 Log.d(TAG, "onDataChange: " + toDoItemList)
                 taskAdapter.notifyDataSetChanged()
             }
@@ -97,21 +100,26 @@ class ToDoCaregiverFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClic
         binding.mainRecyclerView.adapter = taskAdapter
     }
 
-    override fun saveTask(todoTask: String, todoEdit: TextInputEditText) { //zapisywanie zadań
+    fun saveTask(todoTask: String, todoEdit: TextInputEditText) { //zapisywanie zadań
         todoEdit.text = null
-        toDoItemList.add(ToDoData(LocalDateTime.now().toString(), todoTask))
+        toDoItemList.add(UserTask(LocalDateTime.now().toString(), todoTask))
         frag!!.dismiss()
     }
 
-    override fun updateTask(toDoData: ToDoData, todoEdit: TextInputEditText) { //aktualizowanie zadań
+
+
+    override fun onDeleteItemClicked(toDoData: UserTask, position: Int) { //usuwanie
+    }
+
+    /*
+
+    fun updateTask(toDoData: UserTask, todoEdit: TextInputEditText) { //aktualizowanie zadań
         val map = HashMap<String, Any>() //mapa tasków
         map[toDoData.taskId] = toDoData.task
     }
 
-    override fun onDeleteItemClicked(toDoData: ToDoData, position: Int) { //usuwanie
-    }
 
-    override fun onEditItemClicked(toDoData: ToDoData, position: Int) { //edycja zadań
+    override fun onEditItemClicked(toDoData: UserTask, position: Int) { //edycja zadań
         if (frag != null)
             childFragmentManager.beginTransaction().remove(frag!!).commit()
 
@@ -119,4 +127,6 @@ class ToDoCaregiverFragment : Fragment(), ToDoDialogFragment.OnDialogNextBtnClic
         frag!!.setListener(this)
         frag!!.show(childFragmentManager, ToDoDialogFragment.TAG)
     }
+
+     */
 }

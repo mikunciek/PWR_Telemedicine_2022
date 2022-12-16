@@ -25,6 +25,22 @@ class UserRepository: Repository() {
         Log.d(FIREBASE_DEBUG, user.uid)
     }
 
+    fun getPatients(uid: String, unit: (List<User>) -> Unit) {
+        cloud.collection(COLLECTION).whereArrayContains("caregiver", uid)
+            .get()
+            .addOnSuccessListener {
+                if (!it.isEmpty) {
+                    unit.invoke(it.toObjects(User::class.java))
+                }
+            }
+    }
+
+    fun getCurrentUserPatients(unit: (List<User>) -> Unit) {
+        getCurrentUserMustExist { user ->
+            getPatients(user.uid, unit)
+        }
+    }
+
     fun getUser(uid: String): Task<DocumentSnapshot>{
 
         return cloud.collection(COLLECTION)
