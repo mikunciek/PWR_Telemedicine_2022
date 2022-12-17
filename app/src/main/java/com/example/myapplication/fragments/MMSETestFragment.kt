@@ -8,15 +8,13 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
-import com.example.myapplication.databinding.FragmentGuideBinding
-import com.example.myapplication.databinding.FragmentMenuCaregiverBinding
 import kotlinx.android.synthetic.main.fragment_guide.*
 
-class GuideFragment : Fragment() {
 
+class MMSETestFragment : Fragment() {
     val webView: WebView = panel//?
     val url =
-        "https://github.com/mikunciek/PWR_Telemedicine_2022/raw/master/pdf/Opieka%20nad%20chorym%20na%20alzheimera.pdf"
+        "https://github.com/mikunciek/PWR_Telemedicine_2022/raw/master/pdf/MMSE.pdf"
 
 
     override fun onCreateView(
@@ -24,7 +22,7 @@ class GuideFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guide, container, false)
+        return inflater.inflate(R.layout.fragment_m_m_s_etest, container, false)
 
     }
 
@@ -36,7 +34,7 @@ class GuideFragment : Fragment() {
         init()
 
         backMainMenu.setOnClickListener() {
-            findNavController().navigate(R.id.action_global_menuCaregiverFragment)
+            findNavController().navigate(R.id.action_MMSETestFragment_to_menuCaregiverFragment)
         }
 
     }

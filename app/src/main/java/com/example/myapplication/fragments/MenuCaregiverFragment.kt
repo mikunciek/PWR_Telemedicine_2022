@@ -29,7 +29,7 @@ class MenuCaregiverFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        addToDoList.setOnClickListener {
+        findPatient.setOnClickListener {
             findNavController().navigate(R.id.action_menuCaregiverFragment_to_toDoCaregiver)
         }
 
@@ -45,11 +45,11 @@ class MenuCaregiverFragment : Fragment() {
             findNavController().navigate(R.id.action_menuCaregiverFragment_to_newUserFragment)
         }
 
-        checkDoneList.setOnClickListener{
-
+        mmseTest.setOnClickListener{
+            findNavController().navigate(R.id.action_menuCaregiverFragment_to_MMSETestFragment)
         }
 
-        patients.setOnClickListener{
+        test.setOnClickListener{
             findNavController().navigate(R.id.action_menuCaregiverFragment_to_patientsFragment)
         }
 
