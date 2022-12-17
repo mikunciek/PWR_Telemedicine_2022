@@ -47,12 +47,11 @@ class PatientsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        //getListPatientsFromFirebase()
-        userRepository.getCurrentUserPatients {
-        }
+//        getListPatientsFromFirebase()
+
     }
 
-/*
+
     private fun getListPatientsFromFirebase(){
         database.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -76,16 +75,21 @@ class PatientsFragment : Fragment() {
     }
 
 
- */
 
 
     private fun init() {
+        userRepository.getCurrentUserPatients {
+            patientsList = mutableListOf()
 
-        binding.mainRecyclerView.setHasFixedSize(true)
-        binding.mainRecyclerView.layoutManager = LinearLayoutManager(context)
-        patientsList = mutableListOf()
-        patientsAdapter = PatientsAdapter(patientsList)
-        binding.mainRecyclerView.adapter = patientsAdapter
+            patientsList.clear()
+            patientsList.addAll(it)
+
+            binding.mainRecyclerView.setHasFixedSize(true)
+            binding.mainRecyclerView.layoutManager = LinearLayoutManager(context)
+            patientsAdapter = PatientsAdapter(patientsList)
+            binding.mainRecyclerView.adapter = patientsAdapter
+        }
+
 
     }
 }

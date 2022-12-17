@@ -62,12 +62,14 @@ class ToDoDialogFragment() : DialogFragment() {
             val localDate = LocalDate.parse(binding.todoStart.text, DateTimeFormatter.ISO_DATE)
 
             val task = UserTask(
-                type = TaskType.valueOf(binding.typeSpinner.selectedItem.toString()),
+                type = TaskType.findByTitle(binding.typeSpinner.selectedItem.toString()),
                 user = binding.userSpinner.selectedItem.toString(),
                 startDate = Timestamp(Date.from(localDate.atStartOfDay(defZone).toInstant()))
             )
 
             tasksRepository.save(task)
+
+            dismiss()
         }
     }
 

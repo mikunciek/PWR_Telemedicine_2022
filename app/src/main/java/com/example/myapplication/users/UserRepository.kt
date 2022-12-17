@@ -26,7 +26,7 @@ class UserRepository: Repository() {
     }
 
     fun getPatients(uid: String, unit: (List<User>) -> Unit) {
-        cloud.collection(COLLECTION).whereArrayContains("caregiver", uid)
+        cloud.collection(COLLECTION).whereEqualTo("caregiver", uid)
             .get()
             .addOnSuccessListener {
                 if (!it.isEmpty) {

@@ -31,9 +31,12 @@ class PatientsAdapter(private val list: MutableList<User>): RecyclerView.Adapter
     override fun onBindViewHolder(holder: PatientsAdapter.PatientsViewHolder, position: Int) { //nagłówek???
         with(holder) {
             with(list[position]) {
-               //ilośc zadań
-                binding.status.text =itemCount.toString()
+
+
+                //ilośc zadań
+//                binding.status.text =
                //wykonanych
+
                //niewykonanych
 
                 userRepository.getUserLambda(this.uid) {
@@ -46,9 +49,8 @@ class PatientsAdapter(private val list: MutableList<User>): RecyclerView.Adapter
             }
         }
     }
-// TODO skończyć adapter
 
-    override fun getItemCount(): Int {  //liczba zadań w liście
+    override fun getItemCount(): Int {
         return list.size
     }
 

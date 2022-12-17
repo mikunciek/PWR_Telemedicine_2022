@@ -7,5 +7,12 @@ enum class TaskType(val navigationId: Int?, val icon: Int, val title: String)  {
     MEMORY_QUIZ(R.id.action_menuPatientFragment_to_memoryQuiz, R.drawable.ic_quiz, "Testy pamięci"),
     MEDICINE(null, R.drawable.ic_bad, "Przypomnienie o lekach"),
     ACTIVITY(null, R.drawable.ic_activity_run, "Aktywność fizyczna"),
-    CLICK(null, R.drawable.ic_happy, "Kliknij")
+    CLICK(null, R.drawable.ic_happy, "Kliknij");
+
+    companion object {
+        fun findByTitle(title: String): TaskType {
+            return values().first { it.title === title }
+        }
+    }
+
 }

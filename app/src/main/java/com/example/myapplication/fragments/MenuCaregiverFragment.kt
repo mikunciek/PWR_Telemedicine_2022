@@ -10,10 +10,13 @@ import com.example.myapplication.databinding.FragmentMenuCaregiverBinding
 import kotlinx.android.synthetic.main.fragment_menu_caregiver.*
 
 import com.example.myapplication.R
+import com.example.myapplication.users.UserRepository
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 
 class MenuCaregiverFragment : Fragment() {
 
     private lateinit var binding: FragmentMenuCaregiverBinding
+    private val userRepository = UserRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +51,10 @@ class MenuCaregiverFragment : Fragment() {
 
         patients.setOnClickListener{
             findNavController().navigate(R.id.action_menuCaregiverFragment_to_patientsFragment)
+        }
+
+        userRepository.getCurrentUserMustExist {
+            idCaregiver.text = String.format("Witaj: %s %s", it.firstName, it.lastName)
         }
 
     }

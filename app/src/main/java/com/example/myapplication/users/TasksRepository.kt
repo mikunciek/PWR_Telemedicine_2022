@@ -12,6 +12,7 @@ import java.util.*
 
 class TasksRepository: Repository() {
     private final val COLLECTION = "tasks"
+    private val userRepository = UserRepository()
 
     fun save(task: UserTask) {
         cloud.collection(COLLECTION)
@@ -27,6 +28,26 @@ class TasksRepository: Repository() {
 
     fun getTasksByUser(user: User): Task<QuerySnapshot> {
         return cloud.collection(COLLECTION).whereEqualTo("user", user.uid).get();
+    }
+
+    fun getTasksByPatients(unit: (List<UserTask>) -> Unit) {
+        userRepository.getCurrentUserPatients { users ->
+
+            for (i in users.indices step 10 ) {
+                val last = if (i + 9 >= users.size) users.size - 1 else i + 9
+
+
+                val userChunks = users.slice(i..last)
+
+                cloud.collection(COLLECTION)
+                    .whereIn("user", userChunks.map { it.uid }).get()
+                    .addOnSuccessListener {
+                        if(!it.isEmpty) {
+                            unit.invoke(it.toObjects(UserTask::class.java))
+                        }
+                    }
+            }
+        }
     }
 
     fun closeTaskWithResults(uid: String, result: String) {
