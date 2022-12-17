@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         auth = Firebase.auth
 
-        //configureBottomNavigation()
+        configureBottomNavigation()
 
 
     }
@@ -73,15 +73,36 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-/*
+
     private fun configureBottomNavigation() {
         val bottomNavigation = findViewById<MeowBottomNavigation>(R.id.bottomNavigation)
+
         bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.ic_person))
         bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.ic_home))
         bottomNavigation.add(MeowBottomNavigation.Model(3, R.drawable.ic_addtask))
         bottomNavigation.show(2, true)
 
-        var fragment: Fragment = MenuCaregiverFragment()
+
+
+        bottomNavigation.setOnClickMenuListener {
+            var fragment: Fragment = MenuCaregiverFragment()
+            when(it.id) {
+                1-> {
+                    fragment = PatientsFragment()
+                }
+                2 -> {
+                    fragment = MenuCaregiverFragment()
+                }
+                3 -> {
+                    fragment = ToDoCaregiverFragment()
+                }
+            }
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment, fragment)
+                .commit()
+        }
+
+        /*var fragment: Fragment = MenuCaregiverFragment()
         bottomNavigation.setOnClickMenuListener {
             when(it.id){
                 1 -> makeCurrentFragment(PatientsFragment())
@@ -90,9 +111,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.nav_host_fragment, fragment)
-            .commit()
+         */
+
     }
 
     private fun makeCurrentFragment(fragment: Fragment) {
@@ -102,6 +122,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
- */
+
 
 }
