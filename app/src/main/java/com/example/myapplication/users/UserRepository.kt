@@ -11,9 +11,11 @@ class UserRepository: Repository() {
 
     private final val COLLECTION = "users"
 
+
     companion object FirebaseManagerAuth{
         val auth = FirebaseAuth.getInstance()
         fun getCurrentUserID(): String? = auth.currentUser?.uid
+        private const val USER_REPOSITORY = "USER_REPOSTITORY_DEBBUG"
     }
 
 
@@ -21,7 +23,6 @@ class UserRepository: Repository() {
         cloud.collection(COLLECTION)
             .document(user.uid)
             .set(user);
-
         Log.d(FIREBASE_DEBUG, user.uid)
     }
 
@@ -56,7 +57,6 @@ class UserRepository: Repository() {
     }
 
     fun getCurrentUser(): Task<DocumentSnapshot>? {
-
         if(getCurrentUserID().isNullOrBlank()) {
             return null;
         }
@@ -79,8 +79,15 @@ class UserRepository: Repository() {
             firstName = firebaseUser.displayName ?: "",
             phone = firebaseUser.phoneNumber,
         )
-
         this.save(user)
     }
 
+    fun deletePatients() {
+        //TODO: dokończyć usuwanie
+        db.collection("user").document("DC")
+        .delete()
+        .addOnSuccessListener { Log.d(USER_REPOSITORY, "Użytkownik został usunięty!") }
+        .addOnFailureListener { e -> Log.w(USER_REPOSITORY, "Błąd przy usuwaniu użytkownika", e) }
+
+    }
 }
