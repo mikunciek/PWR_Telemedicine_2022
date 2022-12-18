@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.myapplication.fragments.MenuCaregiverFragment
+import com.example.myapplication.fragments.MenuPatientFragment
 import com.example.myapplication.fragments.PatientsFragment
 import com.example.myapplication.fragments.ToDoCaregiverFragment
 import com.example.myapplication.users.User
@@ -31,8 +33,6 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         configureBottomNavigation()
-
-
     }
 
     override fun onStart() {
@@ -56,6 +56,19 @@ class MainActivity : AppCompatActivity() {
                 this.nav_host_fragment.findNavController()
                    .navigate(R.id.action_blankMenuFragment_to_menuPatientFragment)
             }
+
+
+            val navController = findNavController(R.id.nav_host_fragment)
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                if(destination.id == R.id.menuPatientFragment) {
+
+                    bottomNavigation.visibility = View.GONE
+                } else {
+
+                    bottomNavigation.visibility = View.VISIBLE
+                }
+            }
+
        }
     }
 
@@ -74,8 +87,11 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
+
     private fun configureBottomNavigation() {
         val bottomNavigation = findViewById<MeowBottomNavigation>(R.id.bottomNavigation)
+
 
         bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.ic_person))
         bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.ic_home))
@@ -101,17 +117,6 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.nav_host_fragment, fragment)
                 .commit()
         }
-
-        /*var fragment: Fragment = MenuCaregiverFragment()
-        bottomNavigation.setOnClickMenuListener {
-            when(it.id){
-                1 -> makeCurrentFragment(PatientsFragment())
-                2 -> makeCurrentFragment(MenuCaregiverFragment())
-                3 -> makeCurrentFragment(ToDoCaregiverFragment())
-            }
-        }
-
-         */
 
     }
 

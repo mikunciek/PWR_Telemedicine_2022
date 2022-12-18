@@ -22,6 +22,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.fragment_patients.*
+import kotlinx.android.synthetic.main.list_patients.*
 
 class PatientsFragment : Fragment() {
 
@@ -29,8 +31,6 @@ class PatientsFragment : Fragment() {
     private lateinit var binding: FragmentPatientsBinding
     private lateinit var database: DatabaseReference
 
-    private lateinit var auth: FirebaseAuth //autoryzacja z firebase
-    private lateinit var authId: String  //id
 
     private lateinit var patientsAdapter: PatientsAdapter  //zadania
     private lateinit var patientsList: MutableList<User>  //lista zadań
@@ -47,8 +47,18 @@ class PatientsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-//        getListPatientsFromFirebase()
 
+        /*deletePatient.setOnClickListener{
+            deletePatient()
+        }
+
+         */
+
+
+    }
+
+    private fun deletePatient() {
+        TODO("Not yet implemented")
     }
 
 
@@ -84,10 +94,14 @@ class PatientsFragment : Fragment() {
             patientsList.clear()
             patientsList.addAll(it)
 
+
             binding.mainRecyclerView.setHasFixedSize(true)
             binding.mainRecyclerView.layoutManager = LinearLayoutManager(context)
             patientsAdapter = PatientsAdapter(patientsList)
             binding.mainRecyclerView.adapter = patientsAdapter
+
+            countPatients.text = String.format("Ilość Twoich pacjentów: %s ", patientsAdapter.itemCount.toString())
+
         }
 
 

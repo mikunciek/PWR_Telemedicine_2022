@@ -25,9 +25,6 @@
         <action
             android:id="@+id/action_menuCaregiverFragment_to_toDoCaregiver"
             app:destination="@id/toDoCaregiver" />
-        <action
-            android:id="@+id/action_menuCaregiverFragment_to_MMSETestFragment"
-            app:destination="@id/MMSETestFragment" />
     </fragment>
     <fragment
         android:id="@+id/toDoCaregiver"
@@ -103,15 +100,6 @@
         tools:layout="@layout/fragment_new_user" >
         <action
             android:id="@+id/action_newUserFragment_to_menuCaregiverFragment"
-            app:destination="@id/menuCaregiverFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/MMSETestFragment"
-        android:name="com.example.myapplication.fragments.MMSETestFragment"
-        android:label="fragment_m_m_s_etest"
-        tools:layout="@layout/fragment_m_m_s_etest" >
-        <action
-            android:id="@+id/action_MMSETestFragment_to_menuCaregiverFragment"
             app:destination="@id/menuCaregiverFragment" />
     </fragment>
 </navigation>

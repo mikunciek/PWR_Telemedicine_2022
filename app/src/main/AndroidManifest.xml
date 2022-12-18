@@ -61,7 +61,6 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="Mój opiekun"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

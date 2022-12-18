@@ -18,6 +18,8 @@ import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
 import com.example.myapplication.users.UserTask
 import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_menu_caregiver.*
 import kotlinx.android.synthetic.main.fragment_menu_patient.*
 
 class MenuPatientFragment : Fragment() {
@@ -25,6 +27,7 @@ class MenuPatientFragment : Fragment() {
 
     private var taskRepository = TasksRepository()
     private var userRepository = UserRepository()
+    private var user = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,14 +57,20 @@ class MenuPatientFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        call.setOnClickListener{
-            val number = 723701687
-            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(number.toString())))
-            startActivity(intent)
+        userRepository.getCurrentUserMustExist{
+            val number = it.phone
+
+            idPatient.text = String.format("Witaj: %s %s", it.firstName, it.lastName)
+
+            call.setOnClickListener{
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(number)))
+                startActivity(intent)
+            }
         }
+
     }
 
-    fun createTaskList(list: QuerySnapshot) {
+    private fun createTaskList(list: QuerySnapshot) {
         val recyclerView = requireView().findViewById<RecyclerView>(R.id.mainRecyclerView)
         val tasks = list.documents.mapNotNull { it.toObject(UserTask::class.java) }
 

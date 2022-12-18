@@ -46,7 +46,6 @@ class MenuCaregiverFragment : Fragment() {
         }
 
         mmseTest.setOnClickListener{
-            findNavController().navigate(R.id.action_menuCaregiverFragment_to_MMSETestFragment)
         }
 
         test.setOnClickListener{

@@ -16,6 +16,17 @@
         android:textStyle="bold"
         android:textAlignment="center"/>
 
+    <TextView
+        android:id="@+id/countPatients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ilość pacjentów: "
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="@dimen/fab_margin"
         android:id="@+id/mainRecyclerView"
