@@ -12,7 +12,7 @@ class UserRepository: Repository() {
     private final val COLLECTION = "users"
 
 
-    companion object FirebaseManagerAuth{
+    companion object FirebaseManagerAuth {
         val auth = FirebaseAuth.getInstance()
         fun getCurrentUserID(): String? = auth.currentUser?.uid
         private const val USER_REPOSITORY = "USER_REPOSTITORY_DEBBUG"
@@ -42,13 +42,13 @@ class UserRepository: Repository() {
         }
     }
 
-    fun getUser(uid: String): Task<DocumentSnapshot>{
+    fun getUser(uid: String): Task<DocumentSnapshot> {
 
         return cloud.collection(COLLECTION)
             .document(uid).get()
     }
 
-    fun getUserLambda(uid:String, unit: ((User) -> Unit)) {
+    fun getUserLambda(uid: String, unit: ((User) -> Unit)) {
         getUser(uid).addOnSuccessListener {
             if (it.exists()) {
                 unit.invoke(it.toObject(User::class.java)!!)
@@ -57,7 +57,7 @@ class UserRepository: Repository() {
     }
 
     fun getCurrentUser(): Task<DocumentSnapshot>? {
-        if(getCurrentUserID().isNullOrBlank()) {
+        if (getCurrentUserID().isNullOrBlank()) {
             return null;
         }
 
@@ -83,11 +83,19 @@ class UserRepository: Repository() {
     }
 
     fun deletePatients() {
-        //TODO: dokończyć usuwanie
-        db.collection("user").document()
-        .delete()
-        .addOnSuccessListener { Log.d(USER_REPOSITORY, "Użytkownik został usunięty!") }
-        .addOnFailureListener { e -> Log.w(USER_REPOSITORY, "Błąd przy usuwaniu użytkownika", e) }
+        getCurrentUserMustExist { user ->
+            //TODO: dokończyć usuwanie
+            db.collection("user").document()
+                .delete()
+                .addOnSuccessListener { Log.d(USER_REPOSITORY, "Użytkownik został usunięty!") }
+                .addOnFailureListener { e ->
+                    Log.w(
+                        USER_REPOSITORY,
+                        "Błąd przy usuwaniu użytkownika",
+                        e
+                    )
+                }
 
+        }
     }
 }

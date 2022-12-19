@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.myapplication.Repository
 import com.google.android.gms.tasks.Task
 import com.google.firebase.Timestamp
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import java.time.LocalDateTime
@@ -14,6 +15,12 @@ class TasksRepository: Repository() {
     private final val COLLECTION = "tasks"
     private val userRepository = UserRepository()
 
+    companion object FirebaseManagerAuth {
+        val auth = FirebaseAuth.getInstance()
+        fun getCurrentUserID(): String? = auth.currentUser?.uid
+        private const val TASK_REPOSITORY = "TASK_REPOSTITORY_DEBBUG"
+    }
+
     fun save(task: UserTask) {
         cloud.collection(COLLECTION)
             .document(task.uid)
@@ -23,7 +30,7 @@ class TasksRepository: Repository() {
     }
 
     fun getTask(uid: String): Task<DocumentSnapshot> {
-        return cloud.collection(COLLECTION).document(uid).get();
+        return cloud.collection(COLLECTION).document(uid).get()
     }
 
     fun getTasksByUser(user: User): Task<QuerySnapshot> {
@@ -40,15 +47,21 @@ class TasksRepository: Repository() {
                 val userChunks = users.slice(i..last)
 
                 cloud.collection(COLLECTION)
-                    .whereIn("user", userChunks.map { it.uid }).get()
+                   // .whereIn("user", userChunks.map { it.uid }).get()
+                    .document().get()
                     .addOnSuccessListener {
-                        if(!it.isEmpty) {
+                        Log.d(TasksRepository.TASK_REPOSITORY, "Lista wyświetlona!")
+                        /*if(!it.isEmpty) {
                             unit.invoke(it.toObjects(UserTask::class.java))
                         }
+
+                         */
                     }
             }
         }
     }
+
+
 
     fun closeTaskWithResults(uid: String, result: String) {
         cloud.collection(COLLECTION)

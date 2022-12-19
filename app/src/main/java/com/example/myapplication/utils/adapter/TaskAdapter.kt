@@ -19,7 +19,6 @@ class TaskAdapter(private val list: MutableList<UserTask>) : RecyclerView.Adapte
         this.listener = listener
     }
 
-    class TaskViewHolder(val binding: EachTodoItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val binding =
@@ -27,7 +26,7 @@ class TaskAdapter(private val list: MutableList<UserTask>) : RecyclerView.Adapte
         return TaskViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) { //nagłówek???
+    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         with(holder) {
             with(list[position]) {
                 binding.todoTitle.text = this.type.title
@@ -36,22 +35,27 @@ class TaskAdapter(private val list: MutableList<UserTask>) : RecyclerView.Adapte
                 userRepository.getUserLambda(this.uid) {
                         binding.todoPatient.text = String.format("%s %s", it.firstName, it.lastName)
                 }
-
                 Log.d(TAG, "onBindViewHolder: "+this)
-
-                binding.deleteTask.setOnClickListener {  //przycisk
-                    listener?.onDeleteItemClicked(this , position)
-                }
             }
         }
+    }
+
+
+    interface TaskAdapterInterface{
+        fun onDeleteItemClicked(userTask: UserTask , position : Int)
     }
 
     override fun getItemCount(): Int {  //liczba zadań w liście
         return list.size
     }
 
-    interface TaskAdapterInterface{
-        fun onDeleteItemClicked(userTask: UserTask , position : Int)
+
+    class TaskViewHolder(val binding: EachTodoItemBinding) : RecyclerView.ViewHolder(binding.root){
+        val icon = binding.taskIcon
+        val todoTitle = binding.todoTitle
+        val todoPatient = binding.todoPatient
+        val todoDate = binding.todoDate
     }
+
 
 }

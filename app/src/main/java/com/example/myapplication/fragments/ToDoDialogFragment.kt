@@ -66,7 +66,7 @@ class ToDoDialogFragment() : DialogFragment() {
                 user = binding.userSpinner.selectedItem.toString(),
                 startDate = Timestamp(Date.from(localDate.atStartOfDay(defZone).toInstant()))
             )
-
+//TODO: ERROR - kiedy jest puste jakieś pole
             tasksRepository.save(task)
 
             dismiss()

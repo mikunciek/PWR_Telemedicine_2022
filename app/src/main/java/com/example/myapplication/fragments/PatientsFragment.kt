@@ -1,35 +1,24 @@
 package com.example.myapplication.fragments
 
-import android.media.Image
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.FragmentPatientsBinding
-import com.example.myapplication.databinding.ListPatientsBinding
-import com.example.myapplication.fragments.ToDoDialogFragment.Companion.TAG
 import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
 
 import com.example.myapplication.utils.adapter.PatientsAdapter
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.fragment_patients.*
-import kotlinx.android.synthetic.main.list_patients.*
 
 class PatientsFragment : Fragment() {
 
     private val userRepository = UserRepository()
     private lateinit var binding: FragmentPatientsBinding
-    private lateinit var database: DatabaseReference
 
     private lateinit var patientsAdapter: PatientsAdapter  //zadania
     private lateinit var patientsList: MutableList<User>  //lista zadań
@@ -48,34 +37,10 @@ class PatientsFragment : Fragment() {
         init()
         }
 
-
-    private fun getListPatientsFromFirebase(){
-        database.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                patientsList.clear()
-                for (patientsSnaphot in snapshot.children){
-                    val patients = patientsSnaphot.key?.let { User(it,
-                    patientsSnaphot.value.toString()) }
-
-                    if(patients !=null){
-                        patientsList.add(patients)
-                    }
-                }
-                Log.d(TAG, "onDataChange: "+ patientsList)
-                patientsAdapter.notifyDataSetChanged()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
-
     private fun init() {
-        userRepository.getCurrentUserPatients {
+        userRepository.getCurrentUserPatients { it ->
 
             patientsList = mutableListOf()
-
             patientsList.clear()
             patientsList.addAll(it)
 
@@ -87,7 +52,6 @@ class PatientsFragment : Fragment() {
 
 
             patientsAdapter.onItemClick = {
-               // Toast.makeText(requireContext(), "You clicked", Toast.LENGTH_SHORT).show()
 
                 deletePatients()
             }
@@ -110,7 +74,7 @@ class PatientsFragment : Fragment() {
                 .setCancelable(true) //dialog box in cancellable
                 .setPositiveButton("Tak") {dialogInterface, it ->
                     userRepository.deletePatients()
-                    Toast.makeText(requireContext(), "Usunięto użytkownika", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Usunięto użytkownika - pacjenta", Toast.LENGTH_SHORT).show()
 
                 }
                 //{ dialog: DialogInterface?, which: Int -> userRepository.deletePatients()}
@@ -119,7 +83,7 @@ class PatientsFragment : Fragment() {
 
                 .setNegativeButton("Nie"){dialogInterface, it ->
                     dialogInterface.cancel()
-                    Toast.makeText(requireContext(), "Anulowano usuwanie użytkownika", Toast.LENGTH_SHORT).show()}
+                    Toast.makeText(requireContext(), "Anulowano usuwanie użytkownika - pacjenta", Toast.LENGTH_SHORT).show()}
                 .show()
 
         }

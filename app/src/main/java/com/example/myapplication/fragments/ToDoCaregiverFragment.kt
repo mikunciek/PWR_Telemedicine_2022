@@ -12,13 +12,10 @@ import com.example.myapplication.databinding.FragmentTodoCaregiverBinding
 import com.example.myapplication.users.TasksRepository
 import com.example.myapplication.users.UserTask
 import com.example.myapplication.utils.adapter.TaskAdapter
-import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
-import java.time.LocalDateTime
 
 class ToDoCaregiverFragment : Fragment(),
     TaskAdapter.TaskAdapterInterface {
@@ -62,25 +59,55 @@ class ToDoCaregiverFragment : Fragment(),
         }
     }
 
+/*
+    private fun getTaskFromFirebase() {  //pobieranie zadań z Firebase
+        database.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                toDoItemList.clear()
+                for (taskSnapshot in snapshot.children) {
+                    val todoTask = taskSnapshot.key?.let { ToDoData(it, taskSnapshot.value.toString()) }
+
+                    if (todoTask != null) {
+                        toDoItemList.add(todoTask)
+                    }
+                }
+                Log.d(TAG, "onDataChange: " + toDoItemList)
+                taskAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) { //anulowanie zadania
+                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+ */
+
+
 
     private fun init() { //inicjowanie z bazy zadań
-        binding.mainRecyclerView.setHasFixedSize(true)
-        binding.mainRecyclerView.layoutManager = LinearLayoutManager(context)
-
-        toDoItemList = mutableListOf()
-
         tasksRepository.getTasksByPatients {
 
+
+            toDoItemList = mutableListOf()
+            toDoItemList.clear()
             toDoItemList.addAll(it)
+
+            binding.mainRecyclerView.setHasFixedSize(true)
+            binding.mainRecyclerView.layoutManager = LinearLayoutManager(context)
+
+            taskAdapter = TaskAdapter(toDoItemList)
+            taskAdapter.setListener(this)
+            binding.mainRecyclerView.adapter = taskAdapter
         }
 
-        taskAdapter = TaskAdapter(toDoItemList)
-        taskAdapter.setListener(this)
-        binding.mainRecyclerView.adapter = taskAdapter
-
     }
+
 
 
     override fun onDeleteItemClicked(toDoData: UserTask, position: Int) { //usuwanie
     }
-}
+    }
+
+
+
