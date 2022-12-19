@@ -13,7 +13,6 @@ import com.example.myapplication.databinding.FragmentMenuCaregiverBinding
 import kotlinx.android.synthetic.main.fragment_guide.*
 
 class GuideFragment : Fragment() {
-    // TODO: Rename and change types of parameters
     private lateinit var binding: FragmentGuideBinding
     val webView: WebView = panel//?
     val url =

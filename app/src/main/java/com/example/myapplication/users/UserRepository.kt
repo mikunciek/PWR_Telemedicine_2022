@@ -84,7 +84,7 @@ class UserRepository: Repository() {
 
     fun deletePatients() {
         //TODO: dokończyć usuwanie
-        db.collection("user").document("DC")
+        db.collection("user").document()
         .delete()
         .addOnSuccessListener { Log.d(USER_REPOSITORY, "Użytkownik został usunięty!") }
         .addOnFailureListener { e -> Log.w(USER_REPOSITORY, "Błąd przy usuwaniu użytkownika", e) }

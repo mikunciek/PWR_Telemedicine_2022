@@ -28,7 +28,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/deletePatient"
+                app:layout_constraintEnd_toStartOf="@+id/deleteUser"
                 app:layout_constraintHorizontal_bias="0.018"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

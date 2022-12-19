@@ -5,47 +5,43 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ListPatientsBinding
+import com.example.myapplication.databinding.ListPatientsBinding.*
 import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
-import com.example.myapplication.users.UserTask
 
-class PatientsAdapter(private val list: MutableList<User>): RecyclerView.Adapter<PatientsAdapter.PatientsViewHolder>() {
+class PatientsAdapter(private val list: MutableList<User>):
+    RecyclerView.Adapter<PatientsAdapter.PatientsViewHolder>() {
 
     private val userRepository = UserRepository()
     private val TAG = "PatientsAdapter"
 
-
-
-    class PatientsViewHolder(val binding: ListPatientsBinding):RecyclerView.ViewHolder(binding.root)
-
-
+    var onItemClick : ((User) -> Unit)? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PatientsViewHolder {
         val binding =
-            ListPatientsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PatientsAdapter.PatientsViewHolder(binding)
+            inflate(LayoutInflater.from(parent.context), parent, false)
+        return PatientsViewHolder(binding)
     }
 
 
-    override fun onBindViewHolder(holder: PatientsAdapter.PatientsViewHolder, position: Int) { //nagłówek???
-        with(holder) {
+    override fun onBindViewHolder(holder: PatientsViewHolder, position: Int) {
+
+
+       with(holder) {
             with(list[position]) {
-
-
+                //przycisk
+                deleteBtn.setOnClickListener {
+                    onItemClick?.invoke(this)
+                }
                 //ilośc zadań
 //                binding.status.text =
                //wykonanych
-
                //niewykonanych
-
                 userRepository.getUserLambda(this.uid) {
                    binding.pacjentTitle.text = String.format("%s %s", it.firstName, it.lastName)
                 }
-
                 Log.d(TAG, "onBindViewHolder: "+this)
-
-
             }
         }
     }
@@ -54,5 +50,16 @@ class PatientsAdapter(private val list: MutableList<User>): RecyclerView.Adapter
         return list.size
     }
 
-}
+
+    class PatientsViewHolder(val binding: ListPatientsBinding):RecyclerView.ViewHolder(binding.root){
+
+        val pacjentTitle = binding.pacjentTitle
+        val status = binding.status
+        val statusDone = binding.statusDone
+        val statusNoDone = binding.statusNoDone
+        val deleteBtn = binding.deleteUser
+        }
+    }
+
+
 

@@ -20,6 +20,26 @@
         android:layout_marginTop="@dimen/fab_margin"
         app:drawableLeftCompat="@drawable/ic_fingertaping" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:text="Przez 15 s klikaj jak najszybciej potrafisz w fioletowy przycisk"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Po zakończonym teście fioletowy przycisk zniknie."
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pojawi się przycisk pozwalający na powrót do listy"
+        android:textAlignment="center" />
+
+
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"

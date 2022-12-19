@@ -31,16 +31,19 @@ class WellBeingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         good.setOnClickListener {
-
+            findNavController().navigate(R.id.action_wellBeingFragment_to_menuPatientFragment)
         }
 
         soNoBad.setOnClickListener {
+            findNavController().navigate(R.id.action_wellBeingFragment_to_menuPatientFragment)
         }
 
         tired.setOnClickListener {
+            findNavController().navigate(R.id.action_wellBeingFragment_to_menuPatientFragment)
 
         }
         bad.setOnClickListener {
+            findNavController().navigate(R.id.action_wellBeingFragment_to_menuPatientFragment)
 
         }
 

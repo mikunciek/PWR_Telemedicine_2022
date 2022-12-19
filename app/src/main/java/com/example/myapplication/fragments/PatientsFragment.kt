@@ -31,14 +31,6 @@ class PatientsFragment : Fragment() {
     private lateinit var binding: FragmentPatientsBinding
     private lateinit var database: DatabaseReference
 
-    private lateinit var buldier : AlertDialog.Builder
-
-    private lateinit var bindListView: ListPatientsBinding
-
-    private lateinit var button: ImageButton
-
-
-
     private lateinit var patientsAdapter: PatientsAdapter  //zadania
     private lateinit var patientsList: MutableList<User>  //lista zadań
 
@@ -54,38 +46,7 @@ class PatientsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-
-        buldier = AlertDialog.Builder(requireContext())
-
-
-        button = deleteUser
-
-/*
-            button.setOnClickListener{
-                buldier
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Usuwanie pacjenta")
-                .setMessage("Czy chcesz usunąć pacjenta z listy użytkowników?")
-                .setCancelable(true) //dialog box in cancellable
-                .setPositiveButton("Tak") {dialogInterface, it ->
-                    userRepository.deletePatients()
-                }
-                //{ dialog: DialogInterface?, which: Int -> userRepository.deletePatients()}
-
-                    //usunięcie użytkownika
-
-                .setNegativeButton("Nie"){dialogInterface, it ->dialogInterface.cancel() }
-                .show()
-
-            }
-
- */
-
-
         }
-
-
-
 
 
     private fun getListPatientsFromFirebase(){
@@ -112,6 +73,7 @@ class PatientsFragment : Fragment() {
 
     private fun init() {
         userRepository.getCurrentUserPatients {
+
             patientsList = mutableListOf()
 
             patientsList.clear()
@@ -123,11 +85,43 @@ class PatientsFragment : Fragment() {
             patientsAdapter = PatientsAdapter(patientsList)
             binding.mainRecyclerView.adapter = patientsAdapter
 
+
+            patientsAdapter.onItemClick = {
+               // Toast.makeText(requireContext(), "You clicked", Toast.LENGTH_SHORT).show()
+
+                deletePatients()
+            }
+
             countPatients.text = String.format("Ilość Twoich pacjentów: %s ", patientsAdapter.itemCount.toString())
+
 
 
         }
     }
 
+    private fun deletePatients(){
 
-}
+        val buldier = AlertDialog.Builder(requireContext())
+
+            buldier
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Usuwanie pacjenta")
+                .setMessage("Czy chcesz usunąć pacjenta z listy użytkowników?")
+                .setCancelable(true) //dialog box in cancellable
+                .setPositiveButton("Tak") {dialogInterface, it ->
+                    userRepository.deletePatients()
+                    Toast.makeText(requireContext(), "Usunięto użytkownika", Toast.LENGTH_SHORT).show()
+
+                }
+                //{ dialog: DialogInterface?, which: Int -> userRepository.deletePatients()}
+
+                //usunięcie użytkownika
+
+                .setNegativeButton("Nie"){dialogInterface, it ->
+                    dialogInterface.cancel()
+                    Toast.makeText(requireContext(), "Anulowano usuwanie użytkownika", Toast.LENGTH_SHORT).show()}
+                .show()
+
+        }
+    }
+

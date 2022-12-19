@@ -46,10 +46,12 @@ class MenuCaregiverFragment : Fragment() {
         }
 
         mmseTest.setOnClickListener{
+           // findNavController().navigate(R.id.action_menuCaregiverFragment_to_MMSETestFragment)
         }
 
         test.setOnClickListener{
-            findNavController().navigate(R.id.action_menuCaregiverFragment_to_patientsFragment)
+            //TODO:Do zmiany!
+            findNavController().navigate(R.id.action_menuCaregiverFragment_to_fingerTapping)
         }
 
         userRepository.getCurrentUserMustExist {

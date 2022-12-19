@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
+import com.example.myapplication.databinding.FragmentMMSEtestBinding
 import kotlinx.android.synthetic.main.fragment_guide.*
 import java.util.*
 
 
 class MMSETestFragment : Fragment() {
+    private lateinit var binding: FragmentMMSEtestBinding
     val webView: WebView = panel//?
     val url =
         "https://github.com/mikunciek/PWR_Telemedicine_2022/raw/master/pdf/MMSE.pdf"
@@ -21,13 +23,14 @@ class MMSETestFragment : Fragment() {
     var mmseImageList = arrayListOf(R.drawable.mmse1,R.drawable.mmse2,
         R.drawable.mmse3,R.drawable.mmse4)
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_m_m_s_etest, container, false)
+
 
     }
 
@@ -37,7 +40,7 @@ class MMSETestFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
 
-       backMainMenu.setOnClickListener() { findNavController().navigate(R.id.action_global_menuCaregiverFragment) }
+       backMainMenu.setOnClickListener{ findNavController().navigate(R.id.action_global_menuCaregiverFragment) }
 
     }
 
