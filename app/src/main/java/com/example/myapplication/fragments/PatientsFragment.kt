@@ -52,8 +52,13 @@ class PatientsFragment : Fragment() {
 
 
             patientsAdapter.onItemClick = {
-
-                deletePatients()
+                deletePatients(it) { us1 ->
+                    userRepository.deletePatients(us1) {
+                        patientsList.remove(us1)
+                        patientsAdapter.notifyDataSetChanged()
+                        countPatients.text = String.format("Ilość Twoich pacjentów: %s ", patientsAdapter.itemCount.toString())
+                    }
+                }
             }
 
             countPatients.text = String.format("Ilość Twoich pacjentów: %s ", patientsAdapter.itemCount.toString())
@@ -62,21 +67,16 @@ class PatientsFragment : Fragment() {
 
         }
     }
-    //TODO: Dokończyć, bo nie działa usuwanie z bazy
-    //Jakby krzyczał błąd - podkreślony na czerwono buldier, to trzeba dodać spację w tekście, pomiedzy myślnikami
-    //"Anulowano usuwanie użytkownika - pacjenta, nie wiem czemu z tym ma problem
-    private fun deletePatients(){
 
-        val buldier = AlertDialog.Builder(requireContext())
-
-            buldier
+    private fun deletePatients(user: User, unit: (user: User) -> Unit){
+        AlertDialog.Builder(requireContext())
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Usuwanie pacjenta")
                 .setMessage("Czy chcesz usunąć pacjenta z listy użytkowników?")
                 .setCancelable(true) //dialog box in cancellable
                 .setPositiveButton("Tak") {DialogInterface, it ->
-                    userRepository.deletePatients()
-                    Toast.makeText(requireContext(), "Usunięto użytkownika -  pacjenta", Toast.LENGTH_SHORT).show()
+                    unit.invoke(user)
+                    Toast.makeText(requireContext(), "Usunięto użytkownika-pacjenta", Toast.LENGTH_SHORT).show()
 
                 }
                 //{ dialog: DialogInterface?, which: Int -> userRepository.deletePatients()}

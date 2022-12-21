@@ -82,20 +82,16 @@ class UserRepository: Repository() {
         this.save(user)
     }
 
-    fun deletePatients() {
-        getCurrentUserMustExist { user ->
-            //TODO: dokończyć usuwanie
-            db.collection("user").document()
-                .delete()
-                .addOnSuccessListener { Log.d(USER_REPOSITORY, "Użytkownik został usunięty!") }
-                .addOnFailureListener { e ->
-                    Log.w(
-                        USER_REPOSITORY,
-                        "Błąd przy usuwaniu użytkownika",
-                        e
-                    )
-                }
+    fun deletePatients(user: User, unit: (User) -> Unit) {
+        db.collection(COLLECTION).document(user.uid)
+            .delete()
+            .addOnSuccessListener { unit.invoke(user) }
+            .addOnFailureListener { e ->
+                Log.w(
+                    USER_REPOSITORY,
+                    "Błąd przy usuwaniu użytkownika", e
+                )
+            }
 
-        }
     }
 }
