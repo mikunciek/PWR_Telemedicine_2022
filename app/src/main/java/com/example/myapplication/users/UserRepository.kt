@@ -42,6 +42,14 @@ class UserRepository: Repository() {
         }
     }
 
+    fun addSnapshotEventForPatients(unit: (List<User>) -> Unit) {
+        cloud.collection(COLLECTION).addSnapshotListener{_, _ ->
+            getCurrentUserPatients {
+                unit.invoke(it)
+            }
+        }
+    }
+
     fun getUser(uid: String): Task<DocumentSnapshot> {
 
         return cloud.collection(COLLECTION)
@@ -82,10 +90,15 @@ class UserRepository: Repository() {
         this.save(user)
     }
 
-    fun deletePatients(user: User, unit: (User) -> Unit) {
+    fun deletePatients(user: User) {
         db.collection(COLLECTION).document(user.uid)
             .delete()
-            .addOnSuccessListener { unit.invoke(user) }
+            .addOnSuccessListener {
+                Log.w(
+                    USER_REPOSITORY,
+                    "Usunięto użytkownika"
+                )
+            }
             .addOnFailureListener { e ->
                 Log.w(
                     USER_REPOSITORY,

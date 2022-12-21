@@ -63,7 +63,7 @@ class ToDoDialogFragment() : DialogFragment() {
 
             val task = UserTask(
                 type = TaskType.findByTitle(binding.typeSpinner.selectedItem.toString()),
-                user = binding.userSpinner.selectedItem.toString(),
+                user = (binding.userSpinner.selectedItem as User).uid,
                 startDate = Timestamp(Date.from(localDate.atStartOfDay(defZone).toInstant()))
             )
 //TODO: ERROR - kiedy jest puste jakieś pole
@@ -78,9 +78,11 @@ class ToDoDialogFragment() : DialogFragment() {
             view?.findViewById<Spinner>(R.id.type_spinner)?.adapter = ArrayAdapter(requireContext(),
                 android.R.layout.simple_spinner_item, TaskType.values().map { i -> i.title})
 
-            userRepository.getPatients(it.uid) {
-                view?.findViewById<Spinner>(R.id.user_spinner)?.adapter = ArrayAdapter(requireContext(),
-                    android.R.layout.simple_spinner_item, it.map { i -> String.format("%s %s", i.firstName, i.lastName)})
+            userRepository.getPatients(it.uid) { users ->
+                view?.findViewById<Spinner>(R.id.user_spinner)
+                    ?.adapter =
+                    ArrayAdapter<User>(requireContext(),
+                    android.R.layout.simple_spinner_dropdown_item, users)
             }
         }
 
@@ -101,4 +103,4 @@ class ToDoDialogFragment() : DialogFragment() {
         datePicker.show()
         }
      */
-    }
+}

@@ -7,4 +7,8 @@ data class User(
     var email: String = "",
     var phone: String? = null,
     var caregiver: String = ""
-)
+) {
+    override fun toString(): String {
+        return "$firstName $lastName"
+    }
+}

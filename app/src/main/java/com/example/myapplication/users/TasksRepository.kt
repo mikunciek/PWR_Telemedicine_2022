@@ -6,6 +6,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -37,36 +38,42 @@ class TasksRepository: Repository() {
         return cloud.collection(COLLECTION).whereEqualTo("user", user.uid).get();
     }
 
-    //TODO: Wyświetlanie listy zadań
-
     fun getTasksByPatients(unit: (List<UserTask>) -> Unit) {
-
-        // db.collection(COLLECTION).get()
-
         userRepository.getCurrentUserPatients { users ->
 
-            for (i in users.indices step 10) {
-                val last = if (i + 9 >= users.size) users.size - 1 else i + 9
-
-
-                val userChunks = users.slice(i..last)
-
-                cloud.collection(COLLECTION)
-                    .whereIn("user", userChunks.map { it.uid }).get()
+                cloud.collection(COLLECTION).get()
                     .addOnSuccessListener {
                         Log.d(TasksRepository.TASK_REPOSITORY, "Lista wyświetlona!")
+
                         if (!it.isEmpty) {
-                            unit.invoke(it.toObjects(UserTask::class.java))
+                            val tasksList = it.toObjects(UserTask::class.java)
+
+                            val tt = tasksList.filter { fil ->
+                                users.map { us -> us.uid }.contains(fil.user)
+                            }
+
+                            unit.invoke(tt)
                         }
 
 
                     }
             }
 
-
-        }
     }
 
+    fun addSnapshotListenerForPatients(unit: (list: List<UserTask>) -> Unit) {
+        cloud.collection(COLLECTION).addSnapshotListener{snapshot, e ->
+            userRepository.getCurrentUserPatients { users ->
+                val tasksList = snapshot!!.toObjects(UserTask::class.java)
+
+                val tt = tasksList.filter { fil ->
+                    users.map { us -> us.uid }.contains(fil.user)
+                }
+
+                unit.invoke(tt)
+            }
+        }
+    }
 
     fun closeTaskWithResults(uid: String, result: String) {
         db.collection(COLLECTION)

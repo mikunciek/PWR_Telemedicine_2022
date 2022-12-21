@@ -35,15 +35,27 @@ class PatientsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+        getDataFromFirebase()
+
+
+        patientsAdapter.onItemClick = {
+            deletePatients(it)
         }
+    }
 
-    private fun init() {
-        userRepository.getCurrentUserPatients { it ->
-
-            patientsList = mutableListOf()
+    private fun getDataFromFirebase() {
+        userRepository.addSnapshotEventForPatients {
             patientsList.clear()
             patientsList.addAll(it)
 
+            patientsAdapter.notifyDataSetChanged()
+            countPatients.text = String.format("Ilość Twoich pacjentów: %s ", patientsAdapter.itemCount.toString())
+           }
+    }
+
+    private fun init() {
+            patientsList = mutableListOf()
+            patientsList.clear()
 
             binding.mainRecyclerView.setHasFixedSize(true)
             binding.mainRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -51,31 +63,16 @@ class PatientsFragment : Fragment() {
             binding.mainRecyclerView.adapter = patientsAdapter
 
 
-            patientsAdapter.onItemClick = {
-                deletePatients(it) { us1 ->
-                    userRepository.deletePatients(us1) {
-                        patientsList.remove(us1)
-                        patientsAdapter.notifyDataSetChanged()
-                        countPatients.text = String.format("Ilość Twoich pacjentów: %s ", patientsAdapter.itemCount.toString())
-                    }
-                }
-            }
-
-            countPatients.text = String.format("Ilość Twoich pacjentów: %s ", patientsAdapter.itemCount.toString())
-
-
-
-        }
     }
 
-    private fun deletePatients(user: User, unit: (user: User) -> Unit){
+    private fun deletePatients(user: User){
         AlertDialog.Builder(requireContext())
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Usuwanie pacjenta")
                 .setMessage("Czy chcesz usunąć pacjenta z listy użytkowników?")
                 .setCancelable(true) //dialog box in cancellable
                 .setPositiveButton("Tak") {DialogInterface, it ->
-                    unit.invoke(user)
+                    userRepository.deletePatients(user);
                     Toast.makeText(requireContext(), "Usunięto użytkownika-pacjenta", Toast.LENGTH_SHORT).show()
 
                 }
