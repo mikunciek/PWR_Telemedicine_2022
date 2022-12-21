@@ -49,26 +49,15 @@ class MainActivity : AppCompatActivity() {
                return@addOnSuccessListener
             }
 
+
             if (user!!.caregiver.isEmpty()) {
+                bottomNavigation.visibility = View.VISIBLE
                 this.nav_host_fragment.findNavController()
                     .navigate(R.id.action_blankMenuFragment_to_menuCaregiverFragment)
             } else {
                 this.nav_host_fragment.findNavController()
                    .navigate(R.id.action_blankMenuFragment_to_menuPatientFragment)
             }
-
-
-            val navController = findNavController(R.id.nav_host_fragment)
-            navController.addOnDestinationChangedListener { _, destination, _ ->
-                if(destination.id == R.id.menuPatientFragment) {
-
-                    bottomNavigation.visibility = View.GONE
-                } else {
-
-                    bottomNavigation.visibility = View.VISIBLE
-                }
-            }
-
        }
     }
 

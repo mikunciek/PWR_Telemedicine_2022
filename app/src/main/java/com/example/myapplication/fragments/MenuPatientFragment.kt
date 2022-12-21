@@ -32,14 +32,12 @@ class MenuPatientFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        userRepository.getCurrentUser()?.addOnSuccessListener {
-            if(it.exists()) {
-                taskRepository.getTasksByUser(it.toObject(User::class.java)!!)
+        userRepository.getCurrentUserMustExist {
+                taskRepository.getTasksByUser(it)
                     .addOnSuccessListener { list ->
                         if (!list.isEmpty) {
                             createTaskList(list)
                         }
-                    }
             }
         }
 
@@ -69,8 +67,6 @@ class MenuPatientFragment : Fragment() {
         }
 
     }
-
-    //TODO: Wyświetlanie listy zadań pod konkretnego użykownika
 
     private fun createTaskList(list: QuerySnapshot) {
         val recyclerView = requireView().findViewById<RecyclerView>(R.id.mainRecyclerView)
