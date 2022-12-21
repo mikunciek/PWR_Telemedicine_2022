@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.LoginActivity
 import com.example.myapplication.MainActivity
@@ -107,7 +106,7 @@ class RegistrationActivity : AppCompatActivity(), View.OnClickListener {
     private fun init() {
         loginTextView = textGoToLogin
         signUpButton = cirLoginButton
-        usernameEditText = editTextName
+        usernameEditText = editFirstName
         userLastNameEditText = editLastName
         emailEditText = editTextEmail
         phoneEditText = exitTextPhone

@@ -37,39 +37,54 @@ class TasksRepository: Repository() {
         return cloud.collection(COLLECTION).whereEqualTo("user", user.uid).get();
     }
 
+    //TODO: Wyświetlanie listy zadań
+
     fun getTasksByPatients(unit: (List<UserTask>) -> Unit) {
+
+        // db.collection(COLLECTION).get()
+
         userRepository.getCurrentUserPatients { users ->
 
-            for (i in users.indices step 10 ) {
+            for (i in users.indices step 10) {
                 val last = if (i + 9 >= users.size) users.size - 1 else i + 9
 
 
                 val userChunks = users.slice(i..last)
 
                 cloud.collection(COLLECTION)
-                   // .whereIn("user", userChunks.map { it.uid }).get()
-                    .document().get()
+                    .whereIn("user", userChunks.map { it.uid }).get()
                     .addOnSuccessListener {
                         Log.d(TasksRepository.TASK_REPOSITORY, "Lista wyświetlona!")
-                        /*if(!it.isEmpty) {
+                        if (!it.isEmpty) {
                             unit.invoke(it.toObjects(UserTask::class.java))
                         }
 
-                         */
+
                     }
             }
+
+
         }
     }
 
 
-
     fun closeTaskWithResults(uid: String, result: String) {
-        cloud.collection(COLLECTION)
+        db.collection(COLLECTION)
             .document(uid)
             .set({
                 "result" to result
-                "closeDate" to Timestamp(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
+                "closeDate" to Timestamp(
+                    Date.from(
+                        LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()
+                    )
+                )
                 "status" to TaskStatus.DONE
             })
     }
+
 }
+
+
+
+
+

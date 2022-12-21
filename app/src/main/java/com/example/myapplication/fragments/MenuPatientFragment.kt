@@ -70,6 +70,8 @@ class MenuPatientFragment : Fragment() {
 
     }
 
+    //TODO: Wyświetlanie listy zadań pod konkretnego użykownika
+
     private fun createTaskList(list: QuerySnapshot) {
         val recyclerView = requireView().findViewById<RecyclerView>(R.id.mainRecyclerView)
         val tasks = list.documents.mapNotNull { it.toObject(UserTask::class.java) }

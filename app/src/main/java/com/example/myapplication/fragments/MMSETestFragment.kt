@@ -40,7 +40,8 @@ class MMSETestFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
 
-       backMainMenu.setOnClickListener{ findNavController().navigate(R.id.action_global_menuCaregiverFragment) }
+        //TODO: Nie wiem czemu nie chce działać
+       backMainMenu.setOnClickListener{ findNavController().navigate(R.id.action_MMSETestFragment_to_menuCaregiverFragment) }
 
     }
 

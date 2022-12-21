@@ -25,9 +25,7 @@
         <action
             android:id="@+id/action_menuCaregiverFragment_to_toDoCaregiver"
             app:destination="@id/toDoCaregiver" />
-        <action
-            android:id="@+id/action_menuCaregiverFragment_to_fingerTapping"
-            app:destination="@id/fingerTapping" />
+
         <action
             android:id="@+id/action_menuCaregiverFragment_to_MMSETestFragment"
             app:destination="@id/MMSETestFragment" />

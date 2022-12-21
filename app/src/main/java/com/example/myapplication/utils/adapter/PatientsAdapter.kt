@@ -34,12 +34,17 @@ class PatientsAdapter(private val list: MutableList<User>):
                 deleteBtn.setOnClickListener {
                     onItemClick?.invoke(this)
                 }
+                //TODO: fun liczące ilość zadań i przypisujące do tych pól po użytkowniku
                 //ilośc zadań
-//                binding.status.text =
+                status.text = "0"
                //wykonanych
+                statusDone.text = "0"
                //niewykonanych
+                statusNoDone.text = "0"
+                //nazwa pacjenta
+
                 userRepository.getUserLambda(this.uid) {
-                   binding.pacjentTitle.text = String.format("%s %s", it.firstName, it.lastName)
+                   patientTitle.text = String.format("%s %s", it.firstName, it.lastName)
                 }
                 Log.d(TAG, "onBindViewHolder: "+this)
             }
@@ -53,7 +58,7 @@ class PatientsAdapter(private val list: MutableList<User>):
 
     class PatientsViewHolder(val binding: ListPatientsBinding):RecyclerView.ViewHolder(binding.root){
 
-        val pacjentTitle = binding.pacjentTitle
+        val patientTitle = binding.pacjentTitle
         val status = binding.status
         val statusDone = binding.statusDone
         val statusNoDone = binding.statusNoDone

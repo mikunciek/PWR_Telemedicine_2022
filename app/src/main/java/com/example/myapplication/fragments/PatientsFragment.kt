@@ -62,7 +62,9 @@ class PatientsFragment : Fragment() {
 
         }
     }
-
+    //TODO: Dokończyć, bo nie działa usuwanie z bazy
+    //Jakby krzyczał błąd - podkreślony na czerwono buldier, to trzeba dodać spację w tekście, pomiedzy myślnikami
+    //"Anulowano usuwanie użytkownika - pacjenta, nie wiem czemu z tym ma problem
     private fun deletePatients(){
 
         val buldier = AlertDialog.Builder(requireContext())
@@ -72,9 +74,9 @@ class PatientsFragment : Fragment() {
                 .setTitle("Usuwanie pacjenta")
                 .setMessage("Czy chcesz usunąć pacjenta z listy użytkowników?")
                 .setCancelable(true) //dialog box in cancellable
-                .setPositiveButton("Tak") {dialogInterface, it ->
+                .setPositiveButton("Tak") {DialogInterface, it ->
                     userRepository.deletePatients()
-                    Toast.makeText(requireContext(), "Usunięto użytkownika - pacjenta", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Usunięto użytkownika -  pacjenta", Toast.LENGTH_SHORT).show()
 
                 }
                 //{ dialog: DialogInterface?, which: Int -> userRepository.deletePatients()}

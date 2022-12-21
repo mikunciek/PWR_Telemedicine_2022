@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.EachTodoItemBinding
+import com.example.myapplication.users.TasksRepository
 import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
 import com.example.myapplication.users.UserTask
@@ -12,6 +13,7 @@ import com.example.myapplication.users.UserTask
 
 class TaskAdapter(private val list: MutableList<UserTask>) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
+    private val tasksRepository = TasksRepository()
     private val userRepository = UserRepository()
     private  val TAG = "TaskAdapter"
     private var listener:TaskAdapterInterface? = null
