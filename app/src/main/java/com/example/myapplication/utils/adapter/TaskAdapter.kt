@@ -21,27 +21,22 @@ class TaskAdapter(private val list: MutableList<UserTask>) : RecyclerView.Adapte
         this.listener = listener
     }
 
-    private lateinit var mListener : onItemClickListener
-
-    interface onItemClickListener{
-        fun onItemClick(position: Int)
-    }
-
-    fun setOnItemClickListener(listener: onItemClickListener){
-        mListener =listener
-    }
+    var onItemClick : ((UserTask) -> Unit)? = null
 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val binding =
             EachTodoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TaskViewHolder(binding, mListener)
+        return TaskViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         with(holder) {
             with(list[position]) {
+                cardView.setOnClickListener{
+                    onItemClick?.invoke(this)
+                }
                 todoTitle.text = this.type.title
                 taskIcon.setImageResource(this.type.icon)
                 todoDate.text = this.startDate.toDate().toInstant().toString()
@@ -65,19 +60,15 @@ class TaskAdapter(private val list: MutableList<UserTask>) : RecyclerView.Adapte
     }
 
 
-    class TaskViewHolder(val binding: EachTodoItemBinding, mListener:onItemClickListener) : RecyclerView.ViewHolder(binding.root) {
+    class TaskViewHolder(val binding: EachTodoItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
 
+        val cardView = binding.cardTask
         val todoTitle = binding.todoTitle
         val taskIcon = binding.taskIcon
         val todoDate = binding.todoDate
         val todoPatient = binding.todoPatient
 
-        init {
-            itemView.setOnClickListener {
-                mListener.onItemClick(adapterPosition)
-            }
-        }
 
     }
 }

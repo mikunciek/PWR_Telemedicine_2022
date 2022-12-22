@@ -41,9 +41,9 @@ class ToDoCaregiverFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {  //właściwe wyświetlanie
         super.onViewCreated(view, savedInstanceState)
-        init()   //funkcja - inicjowanie z firebase (typy danych)
+        init()
         getTaskFromFirebase()
-        binding.addTaskBtn.setOnClickListener { //gdy naciśnięcie przycisku dodawania zadania
+        binding.addTaskBtn.setOnClickListener {
             if (frag != null)
                 childFragmentManager.beginTransaction().remove(frag!!).commit() //mamy wycinek fragmentu - stąd child
             frag = ToDoDialogFragment() //okienko zadania
@@ -52,17 +52,32 @@ class ToDoCaregiverFragment : Fragment(),
         }
 
         //TODO: gdy naciśnięcie zadania to otwiera się okienko z usunięciem zadania
-        taskAdapter.setOnItemClickListener(object : TaskAdapter.onItemClickListener{
+        taskAdapter.onItemClick ={
+            deleteTask(it)
+        }
 
-            override fun onItemClick(position: Int) {
+    }
 
-                //Toast.makeText(requireContext(), "Kliknięto", Toast.LENGTH_SHORT).show()
 
-                //deleteTask()
+    private fun init() { //inicjowanie z bazy zadań
+        toDoItemList = mutableListOf()
 
-            }
-        })
+        binding.mainRecyclerView.setHasFixedSize(true)
+        binding.mainRecyclerView.layoutManager = LinearLayoutManager(context)
 
+        taskAdapter = TaskAdapter(toDoItemList)
+        taskAdapter.setListener(this)
+        binding.mainRecyclerView.adapter = taskAdapter
+    }
+
+    private fun getTaskFromFirebase() {  //pobieranie zadań z Firebase
+        tasksRepository.addSnapshotListenerForPatients {
+            toDoItemList.clear()
+            toDoItemList.addAll(it)
+
+            Log.d(TAG, "onDataChange: " + toDoItemList)
+            taskAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun deleteTask(task:UserTask) {
@@ -81,32 +96,6 @@ class ToDoCaregiverFragment : Fragment(),
                 Toast.makeText(requireContext(), "Anulowano usuwanie zadania", Toast.LENGTH_SHORT).show()}
             .show()
     }
-
-
-
-    private fun getTaskFromFirebase() {  //pobieranie zadań z Firebase
-        tasksRepository.addSnapshotListenerForPatients {
-            toDoItemList.clear()
-            toDoItemList.addAll(it)
-
-            Log.d(TAG, "onDataChange: " + toDoItemList)
-            taskAdapter.notifyDataSetChanged()
-        }
-    }
-
-
-    private fun init() { //inicjowanie z bazy zadań
-            toDoItemList = mutableListOf()
-
-            binding.mainRecyclerView.setHasFixedSize(true)
-            binding.mainRecyclerView.layoutManager = LinearLayoutManager(context)
-
-            taskAdapter = TaskAdapter(toDoItemList)
-            taskAdapter.setListener(this)
-            binding.mainRecyclerView.adapter = taskAdapter
-    }
-
-
 
     override fun onDeleteItemClicked(toDoData: UserTask, position: Int) { //usuwanie
     }
