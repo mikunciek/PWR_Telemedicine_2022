@@ -54,7 +54,8 @@ class PatientsAdapter(private val list: MutableList<User>):
     }
 
 
-    class PatientsViewHolder(val binding: ListPatientsBinding):RecyclerView.ViewHolder(binding.root){
+    class PatientsViewHolder(val binding: ListPatientsBinding):
+        RecyclerView.ViewHolder(binding.root){
 
         val patientTitle = binding.pacjentTitle
         val status = binding.status

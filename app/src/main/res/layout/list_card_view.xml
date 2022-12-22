@@ -2,11 +2,12 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     app:cardElevation="6dp"
-
+    android:id="@+id/cardView"
    >
 
     <LinearLayout
@@ -35,12 +36,13 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/todoPatient"
-            android:textSize="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="description"/>
+            <TextView
+                android:id="@+id/todoPatient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" "
+                android:textSize="15dp"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
                 android:id="@+id/todoDate"

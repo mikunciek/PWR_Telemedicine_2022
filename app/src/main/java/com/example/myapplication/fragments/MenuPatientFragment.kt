@@ -3,7 +3,6 @@ package com.example.myapplication.fragments
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,15 +10,13 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.MenuPatientListAdapter
+import com.example.myapplication.utils.adapter.MenuPatientListAdapter
 import com.example.myapplication.R
 import com.example.myapplication.users.TasksRepository
 import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
 import com.example.myapplication.users.UserTask
 import com.google.firebase.firestore.QuerySnapshot
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_menu_caregiver.*
 import kotlinx.android.synthetic.main.fragment_menu_patient.*
 
 class MenuPatientFragment : Fragment() {
