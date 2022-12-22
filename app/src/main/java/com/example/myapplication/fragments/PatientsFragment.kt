@@ -19,7 +19,6 @@ class PatientsFragment : Fragment() {
 
     private val userRepository = UserRepository()
     private lateinit var binding: FragmentPatientsBinding
-
     private lateinit var patientsAdapter: PatientsAdapter  //zadania
     private lateinit var patientsList: MutableList<User>  //lista zadań
 
@@ -76,15 +75,10 @@ class PatientsFragment : Fragment() {
                     Toast.makeText(requireContext(), "Usunięto użytkownika-pacjenta", Toast.LENGTH_SHORT).show()
 
                 }
-                //{ dialog: DialogInterface?, which: Int -> userRepository.deletePatients()}
-
-                //usunięcie użytkownika
-
                 .setNegativeButton("Nie"){dialogInterface, it ->
                     dialogInterface.cancel()
                     Toast.makeText(requireContext(), "Anulowano usuwanie użytkownika - pacjenta", Toast.LENGTH_SHORT).show()}
                 .show()
-
         }
     }
 

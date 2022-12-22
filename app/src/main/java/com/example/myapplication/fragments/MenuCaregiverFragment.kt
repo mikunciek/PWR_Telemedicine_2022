@@ -29,8 +29,8 @@ class MenuCaregiverFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        findPatient.setOnClickListener {
-            findNavController().navigate(R.id.action_menuCaregiverFragment_to_toDoCaregiver)
+        createTask.setOnClickListener {
+            findNavController().navigate(R.id.action_menuCaregiverFragment_to_createTask)
         }
 
         library.setOnClickListener {

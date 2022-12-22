@@ -27,9 +27,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/idCaregiver"
+            android:layout_gravity="fill_vertical"
             android:layout_margin="20dp"
-            android:layout_marginTop="20dp"
-            android:columnCount="2"
+            android:columnCount="3"
             android:rowCount="3">
 
             <androidx.cardview.widget.CardView
@@ -56,13 +56,13 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_add_person"
-                        android:contentDescription="@string/todo" />
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/ic_add_person" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dodaj podopiecznego"
+                        android:text="Dodaj pacjenta"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -71,16 +71,17 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/findPatient"
+                android:id="@+id/createTask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_row="0"
                 android:layout_rowWeight="1"
                 android:layout_column="1"
                 android:layout_columnWeight="1"
-                android:layout_gravity="fill"
+                android:layout_gravity="fill_horizontal"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
+                app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true">
 
                 <LinearLayout
@@ -94,13 +95,13 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_location"
-                        android:contentDescription="@string/todo" />
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/ic_addtask" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Znajdź podopiecznego"
+                        android:text="Stwórz zadanie"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -132,8 +133,8 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_library"
-                        android:contentDescription="@string/todo" />
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/ic_library" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -170,8 +171,8 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_mmse"
-                        android:contentDescription="@string/todo" />
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/ic_mmse" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -208,8 +209,8 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_list"
-                        android:contentDescription="@string/todo" />
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/ic_list" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -246,8 +247,8 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_settings"
-                        android:contentDescription="@string/todo" />
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/ic_settings" />
 
                     <TextView
                         android:layout_width="wrap_content"

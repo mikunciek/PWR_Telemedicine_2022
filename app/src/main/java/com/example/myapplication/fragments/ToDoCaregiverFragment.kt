@@ -5,11 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.databinding.adapters.ViewGroupBindingAdapter.setListener
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.databinding.FragmentTodoCaregiverBinding
+import com.example.myapplication.users.TaskType
 import com.example.myapplication.users.TasksRepository
 import com.example.myapplication.users.UserTask
+import com.example.myapplication.utils.adapter.PatientsAdapter
 import com.example.myapplication.utils.adapter.TaskAdapter
 
 class ToDoCaregiverFragment : Fragment(),
@@ -32,12 +37,6 @@ class ToDoCaregiverFragment : Fragment(),
         binding = FragmentTodoCaregiverBinding.inflate(inflater, container, false)
         return binding.root
     }
-        // Inflate the layout for this fragment - załadowanie konkretnego widoku
-        /*
-        binding root - odniesieniem do widoku głównego.
-        widok główny to najbardziej zewnętrzny kontener widoku w tym układzie.
-        wywołanie binding.root , zwróci widok główny ConstraintLayout (w tym przypadku)
-         */
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {  //właściwe wyświetlanie
@@ -51,7 +50,39 @@ class ToDoCaregiverFragment : Fragment(),
             frag!!.show(childFragmentManager,ToDoDialogFragment.TAG) //wyświetlenie
 
         }
+
+        //TODO: gdy naciśnięcie zadania to otwiera się okienko z usunięciem zadania
+        taskAdapter.setOnItemClickListener(object : TaskAdapter.onItemClickListener{
+
+            override fun onItemClick(position: Int) {
+
+                //Toast.makeText(requireContext(), "Kliknięto", Toast.LENGTH_SHORT).show()
+
+                //deleteTask()
+
+            }
+        })
+
     }
+
+    private fun deleteTask(task:UserTask) {
+        AlertDialog.Builder(requireContext())
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setTitle("Usunięcie zadania")
+            .setMessage("Czy chcesz usunąć zadanie z listy?")
+            .setCancelable(true) //dialog box in cancellable
+            .setPositiveButton("Tak") {DialogInterface, it ->
+                tasksRepository.deleteTask(task)
+                Toast.makeText(requireContext(), "Usunięto zadanie", Toast.LENGTH_SHORT).show()
+
+            }
+            .setNegativeButton("Nie"){dialogInterface, it ->
+                dialogInterface.cancel()
+                Toast.makeText(requireContext(), "Anulowano usuwanie zadania", Toast.LENGTH_SHORT).show()}
+            .show()
+    }
+
+
 
     private fun getTaskFromFirebase() {  //pobieranie zadań z Firebase
         tasksRepository.addSnapshotListenerForPatients {

@@ -88,6 +88,8 @@ class ToDoDialogFragment() : DialogFragment() {
 
     }
 
+    //TODO: format daty i godziny
+
     /*
     private fun viewDatePicker() {
         val cal = Calendar.getInstance()

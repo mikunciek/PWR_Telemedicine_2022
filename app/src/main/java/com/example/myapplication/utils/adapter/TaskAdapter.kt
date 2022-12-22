@@ -21,23 +21,36 @@ class TaskAdapter(private val list: MutableList<UserTask>) : RecyclerView.Adapte
         this.listener = listener
     }
 
+    private lateinit var mListener : onItemClickListener
+
+    interface onItemClickListener{
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener){
+        mListener =listener
+    }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val binding =
             EachTodoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TaskViewHolder(binding)
+        return TaskViewHolder(binding, mListener)
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         with(holder) {
             with(list[position]) {
-                binding.todoTitle.text = this.type.title
-                binding.taskIcon.setImageResource(this.type.icon)
-
-                userRepository.getUserLambda(this.uid) {
-                        binding.todoPatient.text = String.format("%s %s", it.firstName, it.lastName)
+                todoTitle.text = this.type.title
+                taskIcon.setImageResource(this.type.icon)
+                todoDate.text = this.startDate.toDate().toInstant().toString()
+                userRepository.getUserLambda(this.user) {
+                        todoPatient.text = String.format("%s %s", it.firstName, it.lastName)
                 }
                 Log.d(TAG, "onBindViewHolder: "+this)
+
+
             }
         }
     }
@@ -52,12 +65,19 @@ class TaskAdapter(private val list: MutableList<UserTask>) : RecyclerView.Adapte
     }
 
 
-    class TaskViewHolder(val binding: EachTodoItemBinding) : RecyclerView.ViewHolder(binding.root){
-        val icon = binding.taskIcon
+    class TaskViewHolder(val binding: EachTodoItemBinding, mListener:onItemClickListener) : RecyclerView.ViewHolder(binding.root) {
+
+
         val todoTitle = binding.todoTitle
-        val todoPatient = binding.todoPatient
+        val taskIcon = binding.taskIcon
         val todoDate = binding.todoDate
+        val todoPatient = binding.todoPatient
+
+        init {
+            itemView.setOnClickListener {
+                mListener.onItemClick(adapterPosition)
+            }
+        }
+
     }
-
-
 }

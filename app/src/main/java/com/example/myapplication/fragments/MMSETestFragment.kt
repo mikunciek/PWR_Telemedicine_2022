@@ -16,7 +16,7 @@ import java.util.*
 
 class MMSETestFragment : Fragment() {
     private lateinit var binding: FragmentMMSEtestBinding
-    val webView: WebView = panel//?
+    private var  webView: WebView = panel//?
     val url =
         "https://github.com/mikunciek/PWR_Telemedicine_2022/raw/master/pdf/MMSE.pdf"
 

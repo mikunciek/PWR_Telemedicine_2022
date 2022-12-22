@@ -26,9 +26,7 @@ class PatientsAdapter(private val list: MutableList<User>):
 
 
     override fun onBindViewHolder(holder: PatientsViewHolder, position: Int) {
-
-
-       with(holder) {
+          with(holder) {
             with(list[position]) {
                 //przycisk
                 deleteBtn.setOnClickListener {

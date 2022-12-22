@@ -25,7 +25,7 @@ class TasksRepository: Repository() {
     fun save(task: UserTask) {
         cloud.collection(COLLECTION)
             .document(task.uid)
-            .set(task);
+            .set(task)
 
         Log.d(FIREBASE_DEBUG, task.uid)
     }
@@ -40,7 +40,6 @@ class TasksRepository: Repository() {
 
     fun getTasksByPatients(unit: (List<UserTask>) -> Unit) {
         userRepository.getCurrentUserPatients { users ->
-
                 cloud.collection(COLLECTION).get()
                     .addOnSuccessListener {
                         Log.d(TasksRepository.TASK_REPOSITORY, "Lista wyświetlona!")
@@ -51,14 +50,10 @@ class TasksRepository: Repository() {
                             val tt = tasksList.filter { fil ->
                                 users.map { us -> us.uid }.contains(fil.user)
                             }
-
                             unit.invoke(tt)
                         }
-
-
                     }
             }
-
     }
 
     fun addSnapshotListenerForPatients(unit: (list: List<UserTask>) -> Unit) {
@@ -89,6 +84,23 @@ class TasksRepository: Repository() {
             })
     }
 
+
+    fun deleteTask(task: UserTask){
+        db.collection(COLLECTION).document(task.uid)
+            .delete()
+            .addOnSuccessListener {
+                Log.w(
+                    TASK_REPOSITORY,
+                    "Usunięto zadanie"
+                )
+            }
+            .addOnFailureListener { e ->
+                Log.w(
+                    TASK_REPOSITORY,
+                    "Błąd przy usuwaniu zadania",e
+                )
+            }
+    }
 }
 
 

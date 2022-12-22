@@ -105,6 +105,5 @@ class UserRepository: Repository() {
                     "Błąd przy usuwaniu użytkownika", e
                 )
             }
-
     }
 }
