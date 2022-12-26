@@ -71,8 +71,8 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/createTask"
-                android:layout_width="wrap_content"
+                android:id="@+id/findPatient"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_row="0"
                 android:layout_rowWeight="1"
@@ -96,12 +96,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/todo"
-                        android:src="@drawable/ic_addtask" />
+                        android:src="@drawable/ic_location" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Stwórz zadanie"
+                        android:text="Znajdź pacjenta"
                         android:textColor="@color/colorBlack"
                         android:textSize="16sp" />
                 </LinearLayout>
