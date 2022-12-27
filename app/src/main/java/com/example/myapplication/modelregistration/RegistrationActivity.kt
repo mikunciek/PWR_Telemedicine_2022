@@ -62,7 +62,7 @@ class RegistrationActivity : AppCompatActivity(), View.OnClickListener {
         val password: String = passwordEditText!!.text?.trim().toString()
 
 
-        fun isEmpty(checkFiled: String, titleFiled:String): Boolean{
+        fun isNotEmpty(checkFiled: String, titleFiled:String): Boolean{
             if(checkFiled.isNotEmpty()){
                 return true
             }
@@ -70,9 +70,9 @@ class RegistrationActivity : AppCompatActivity(), View.OnClickListener {
             return false
         }
 
-        if ( isEmpty(name, "imię") && isEmpty(lastName, "nazwisko") &&
-            isEmpty(email, "email") && isEmpty(phone, "telefon")
-            && isEmpty(password, "hasło")) {
+        if ( isNotEmpty(name, "imię") && isNotEmpty(lastName, "nazwisko") &&
+            isNotEmpty(email, "email") && isNotEmpty(phone, "telefon")
+            && isNotEmpty(password, "hasło")) {
             fbAuth.createUserWithEmailAndPassword(email, password)
                 .addOnSuccessListener { authRes ->
 
@@ -93,14 +93,16 @@ class RegistrationActivity : AppCompatActivity(), View.OnClickListener {
                             }
                         startActivity(intent)
                     }
+                    Toast.makeText(applicationContext, "Rejestracja udana", Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener { exception ->
                     Toast.makeText(applicationContext, "Rejestracja nieudana", Toast.LENGTH_SHORT).show()
                     Log.d(REGISTRATION_DEBUG, exception.message.toString())
                 }
-        } else {
-            Toast.makeText(applicationContext, "Rejestracja udana", Toast.LENGTH_SHORT).show()
         }
+
+
+
     }
 
     private fun init() {

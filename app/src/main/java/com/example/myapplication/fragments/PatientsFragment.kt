@@ -60,8 +60,6 @@ class PatientsFragment : Fragment() {
             binding.mainRecyclerView.layoutManager = LinearLayoutManager(context)
             patientsAdapter = PatientsAdapter(patientsList)
             binding.mainRecyclerView.adapter = patientsAdapter
-
-
     }
 
     private fun deletePatients(user: User){

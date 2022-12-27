@@ -11,12 +11,15 @@ import com.example.myapplication.users.UserRepository
 import com.example.myapplication.users.UserTask
 
 
-class TaskAdapter(private val list: MutableList<UserTask>) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter(private val list: MutableList<UserTask>)
+    : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     private val tasksRepository = TasksRepository()
     private val userRepository = UserRepository()
     private  val TAG = "TaskAdapter"
     private var listener:TaskAdapterInterface? = null
+
+
     fun setListener(listener:TaskAdapterInterface){
         this.listener = listener
     }
@@ -60,15 +63,13 @@ class TaskAdapter(private val list: MutableList<UserTask>) : RecyclerView.Adapte
     }
 
 
-    class TaskViewHolder(val binding: EachTodoItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
+    class TaskViewHolder(val binding: EachTodoItemBinding)
+        : RecyclerView.ViewHolder(binding.root) {
 
         val cardView = binding.cardTask
         val todoTitle = binding.todoTitle
         val taskIcon = binding.taskIcon
         val todoDate = binding.todoDate
         val todoPatient = binding.todoPatient
-
-
     }
 }

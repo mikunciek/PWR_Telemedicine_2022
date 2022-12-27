@@ -30,8 +30,9 @@
             android:id="@+id/action_menuCaregiverFragment_to_MMSETestFragment"
             app:destination="@id/MMSETestFragment" />
         <action
-            android:id="@+id/action_menuCaregiverFragment_to_createTask"
-            app:destination="@id/createTask" />
+            android:id="@+id/action_menuCaregiverFragment_to_patientsTasksStatusFragment"
+            app:destination="@id/patientsTasksStatusFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/toDoCaregiver"
@@ -131,12 +132,13 @@
             app:destination="@id/menuCaregiverFragment" />
     </fragment>
     <fragment
-        android:id="@+id/createTask"
-        android:name="com.example.myapplication.fragments.CreateTaskFragment"
-        android:label="fragment_create_task"
-        tools:layout="@layout/fragment_create_task" >
+        android:id="@+id/patientsTasksStatusFragment"
+        android:name="com.example.myapplication.fragments.PatientsTasksStatusFragment"
+        android:label="fragment_patients_tasks_status"
+        tools:layout="@layout/fragment_patients_tasks_status" >
         <action
-            android:id="@+id/action_createTask_to_menuCaregiverFragment"
+            android:id="@+id/action_patientsTasksStatusFragment_to_menuCaregiverFragment"
             app:destination="@id/menuCaregiverFragment" />
     </fragment>
+
 </navigation>

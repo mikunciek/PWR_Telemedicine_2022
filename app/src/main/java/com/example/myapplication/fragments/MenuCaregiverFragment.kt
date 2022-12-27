@@ -50,7 +50,8 @@ class MenuCaregiverFragment : Fragment() {
            findNavController().navigate(R.id.action_menuCaregiverFragment_to_MMSETestFragment)
         }
 
-        test.setOnClickListener{
+        statusTasks.setOnClickListener{
+            findNavController().navigate(R.id.action_menuCaregiverFragment_to_patientsTasksStatusFragment)
         }
 
         userRepository.getCurrentUserMustExist {

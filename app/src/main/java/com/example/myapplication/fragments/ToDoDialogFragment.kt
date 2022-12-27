@@ -1,10 +1,7 @@
 package com.example.myapplication.fragments
 
-import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.DialogFragment
@@ -13,10 +10,8 @@ import com.example.myapplication.databinding.FragmentToDoDialogBinding
 import com.example.myapplication.users.*
 import com.google.firebase.Timestamp
 import kotlinx.android.synthetic.main.fragment_to_do_dialog.*
-import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZoneId
-import java.time.chrono.JapaneseEra.values
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -64,7 +59,8 @@ class ToDoDialogFragment() : DialogFragment() {
             val task = UserTask(
                 type = TaskType.findByTitle(binding.typeSpinner.selectedItem.toString()),
                 user = (binding.userSpinner.selectedItem as User).uid,
-                startDate = Timestamp(Date.from(localDate.atStartOfDay(defZone).toInstant()))
+                startDate = Timestamp(Date.from(localDate.atStartOfDay(defZone).toInstant())),
+                description = binding.todoDescritption.toString()
             )
 //TODO: ERROR - kiedy jest puste jakieś pole
             tasksRepository.save(task)
@@ -88,21 +84,25 @@ class ToDoDialogFragment() : DialogFragment() {
 
     }
 
+    override fun onResume() {
+        val dialogWindow: Window? = dialog!!.window
+        val lp: WindowManager.LayoutParams = dialogWindow!!.attributes
+        lp.x = 50 // set your X position here
+        lp.y = 500 // set your Y position here
+
+        //dialogWindow.attributes = lp
+        val params = dialogWindow.attributes
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+        dialogWindow.setGravity(Gravity.BOTTOM)
+
+
+
+        super.onResume()
+    }
+
+
     //TODO: format daty i godziny
 
-    /*
-    private fun viewDatePicker() {
-        val cal = Calendar.getInstance()
-        val year = cal.get(Calendar.YEAR)
-        val month = cal.get(Calendar.MONTH)
-        val day = cal.get(Calendar.DAY_OF_MONTH)
-
-        val datePicker = DatePickerDialog(this,{ _, year, month, dayOfMonth ->
-            val sdfChange = SimpleDateFormat("dd.MM.yyyy", Locale.GERMANY)
-            cal.set(year, month, dayOfMonth)
-            todo_start.text = sdfChange.format(cal.time)
-        }, year, month, day)
-        datePicker.show()
-        }
-     */
 }

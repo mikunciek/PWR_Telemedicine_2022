@@ -26,7 +26,7 @@ class MenuPatientListAdapter(private val list: List<UserTask>):
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuPatientsListHolder {
          val binding =
              ListCardViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return MenuPatientsListHolder(binding)
+            return MenuPatientsListHolder(binding = binding)
         }
 
         // binds the list items to a view
@@ -41,6 +41,7 @@ class MenuPatientListAdapter(private val list: List<UserTask>):
                     todoTitle.text =this.type.title
                     taskIcon.setImageResource(this.type.icon)
                     todoDate.text = this.startDate.toDate().toInstant().toString()
+                    todoPatient.text =this.description
 
                     userRepository.getUserLambda(this.uid) {
                         todoPatient.text = String.format("%s %s", it.firstName, it.lastName)
