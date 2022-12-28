@@ -15,6 +15,8 @@ import com.google.firebase.Timestamp
 import kotlinx.android.synthetic.main.fragment_finger_tapping.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.*
 
 class FingerTapping : Fragment() {
@@ -22,12 +24,15 @@ class FingerTapping : Fragment() {
     private lateinit var  binding: FragmentFingerTappingBinding
     private val tasksRepository = TasksRepository()
     private val userRepository = UserRepository()
+    private lateinit var task: UserTask
     var count = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
+
+        task = arguments?.getParcelable("userTask", UserTask::class.java)!!
         return inflater.inflate(R.layout.fragment_finger_tapping, container, false)
     }
 
@@ -37,16 +42,11 @@ class FingerTapping : Fragment() {
         // time count down for 30 seconds,
         // with 1 second as countDown interval
         object : CountDownTimer(15000, 1000) {
-
-
             override fun onTick(millisUntilFinished: Long) {
                 timerCounter.text = (millisUntilFinished / 1000).toString()
             }
 
-
             override fun onFinish() {
-
-
                 clickButton.visibility = View.GONE
                 saveScore()
                 timerView.text = "Gotowe, kliknij by powrócić"
@@ -55,9 +55,6 @@ class FingerTapping : Fragment() {
 
                     findNavController().navigate(R.id.action_fingerTapping_to_menuPatientFragment)
                 }
-
-
-
             }
         }.start()
 
@@ -71,11 +68,15 @@ class FingerTapping : Fragment() {
     }
 
     private fun saveScore() {
-        //TODO: zapis do bazy
-
-        userRepository.getCurrentUserMustExist {
-            tasksRepository.closeTaskWithResults(it.uid, numberOfClick.toString())
-        }
+        val clicks = numberOfClick.text.toString()
+        task.result = "Ilość kliknięć: $clicks"
+        task.status = TaskStatus.DONE
+        task.closeDate = Timestamp(
+            Date.from(
+                LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()
+            )
+        )
+      tasksRepository.save(task)
     }
 
 
