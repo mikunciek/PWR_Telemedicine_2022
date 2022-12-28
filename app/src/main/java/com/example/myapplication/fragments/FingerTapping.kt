@@ -5,7 +5,7 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
@@ -13,8 +13,6 @@ import com.example.myapplication.databinding.FragmentFingerTappingBinding
 import com.example.myapplication.users.*
 import com.google.firebase.Timestamp
 import kotlinx.android.synthetic.main.fragment_finger_tapping.*
-import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
