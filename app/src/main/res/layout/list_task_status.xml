@@ -13,7 +13,6 @@
         android:layout_height="match_parent">
 
         <TableRow
-            android:background="@color/white"
             android:padding="10dp">
             <TextView
                 android:id="@+id/fullName"

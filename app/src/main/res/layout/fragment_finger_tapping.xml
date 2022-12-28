@@ -154,7 +154,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:background="@drawable/button_elipse"
-        android:text="Kliknij mnie"
+        android:text="Klikaj tu cały czas"
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold" />

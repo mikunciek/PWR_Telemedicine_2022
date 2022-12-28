@@ -21,7 +21,7 @@
         android:gravity="center"
         android:text="@string/witaj"
         android:textAlignment="center"
-        android:textColor="#546E7A"
+        android:textColor="@color/md_deep_purple_500"
         android:textSize="30sp"
         app:drawableLeftCompat="@drawable/ic_heart" />
 
@@ -49,22 +49,16 @@
             android:background="@color/white"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
-            app:hintEnabled="false"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:boxStrokeColor="@color/purple_200"
-            app:boxStrokeErrorColor="@color/md_red_900"
-            app:errorTextColor="@color/md_red_900">
+            android:hint="@string/wprowad_email"
+            android:textColorHint="#757575">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-                android:hint="@string/wprowad_email"
                 android:inputType="textEmailAddress"
-                app:endIconCheckable="true"
-                app:endIconTint="@color/colorAccent"
-                android:textColorHint="#757575"
                 android:textColor="@color/black"
                 tools:ignore="RtlSymmetry" />
 
@@ -95,9 +89,17 @@
             android:background="@color/white"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
-            app:hintEnabled="false"
-            app:passwordToggleEnabled="true"
+
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="@string/wpisz_has_o"
+            android:textColorHint="#757575"
+            app:endIconMode="password_toggle"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/black"
+            app:passwordToggleContentDescription="@string/has_o"
+            app:passwordToggleDrawable="@drawable/ic_no_visibility"
+            app:passwordToggleTintMode="multiply"
+            app:endIconCheckable="true"
             app:boxStrokeColor="@color/purple_200"
             app:boxStrokeErrorColor="@color/md_red_900"
             app:errorTextColor="@color/md_red_900">
@@ -107,12 +109,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-                android:hint="@string/wpisz_has_o"
                 android:inputType="textPassword"
-                app:endIconMode="password_toggle"
-                app:endIconCheckable="true"
                 app:endIconTint="@color/colorAccent"
-                android:textColorHint="#757575"
                 android:textColor="@color/black"
                 tools:ignore="RtlSymmetry" />
 

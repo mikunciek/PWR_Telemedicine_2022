@@ -32,7 +32,8 @@
                 android:layout_height="wrap_content"
                 android:text="Zadanie"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/md_deep_purple_500"/>
 
             <TextView
                 android:id="@+id/todo_patient"

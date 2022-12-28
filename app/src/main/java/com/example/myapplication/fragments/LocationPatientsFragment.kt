@@ -15,8 +15,7 @@ import androidx.fragment.app.Fragment
 
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentLocationPatientsBinding
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.fragment_location_patients.*
 
 
@@ -24,7 +23,14 @@ class LocationPatientsFragment : Fragment()  {
 
     private lateinit var binding: FragmentLocationPatientsBinding
 
+    // declare a global variable FusedLocationProviderClient
     private lateinit var fusedLocationClient : FusedLocationProviderClient
+
+    // globally declare LocationRequest
+   private lateinit var locationRequest: LocationRequest
+
+    // globally declare LocationCallback
+    private lateinit var locationCallback: LocationCallback
 
 
     override fun onCreateView(
@@ -39,28 +45,25 @@ class LocationPatientsFragment : Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //init()
 
+        //initialize FusedLocationProviderClient
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
         fusedLocationClient.lastLocation.addOnSuccessListener {
                 location: Location? ->
 
         }
-
       getLocation.setOnClickListener {
-
             //step 1 is check self permission
             checkLocationPermission()
 
             locationText.text = fusedLocationClient.toString()
-
         }
+
+
     }
 
-    private fun init() {
-     //  val getLocation = binding.getLocation
-    }
+
 
     private fun checkLocationPermission() {
 
@@ -79,51 +82,19 @@ class LocationPatientsFragment : Fragment()  {
     }
 
 
-/*
-    fun permamentLocation(){
-        // declare a global variable FusedLocationProviderClient
-        lateinit var fusedLocationClient: FusedLocationProviderClient
+    private fun location(){
 
-        // in onCreate() initialize FusedLocationProviderClient
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
+        fun onLocationResult(locationResult: LocationResult?) {
+            locationResult ?: return
 
-
-        // globally declare LocationRequest
-        lateinit var locationRequest: LocationRequest
-
-        // globally declare LocationCallback
-        lateinit var locationCallback: LocationCallback
-
-
-        /**
-         * call this method in onCreate
-         * onLocationResult call when location is changed
-         */
-        fun getLocationUpdates()
-        {
-
-            fusedLocationClient = LocationServices.getFusedLocationProviderClient(context!!)
-            locationRequest = LocationRequest()
-            locationRequest.interval = 50000
-            locationRequest.fastestInterval = 50000
-            locationRequest.smallestDisplacement = 170f // 170 m = 0.1 mile
-            locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY //set according to your app function
-            locationCallback = object : LocationCallback() {
-
-                override fun onLocationResult(locationResult: LocationResult?) {
-                    locationResult ?: return
-
-                    if (locationResult.locations.isNotEmpty()) {
-                        // get latest location
-                        val location =
-                            locationResult.lastLocation
-                        // use your location object
-                        // get latitude , longitude and other info from this
-                    }
-
-
-                }
+            if (locationResult.locations.isNotEmpty()) {
+                // get latest location
+                val location =
+                    locationResult.lastLocation
+                // use your location object
+                // get latitude , longitude and other info from this
             }
+
         }
 
         //start location updates
@@ -171,5 +142,15 @@ class LocationPatientsFragment : Fragment()  {
 
     }
 
- */
+    fun getLocationUpdates() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        locationRequest = LocationRequest()
+        locationRequest.interval = 50000
+        locationRequest.fastestInterval = 50000
+        locationRequest.smallestDisplacement = 170f // 170 m = 0.1 mile
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY //set according to your app function
+        locationCallback = object : LocationCallback() {
+        }
+    }
+
 }

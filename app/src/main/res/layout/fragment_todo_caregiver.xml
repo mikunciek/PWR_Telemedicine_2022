@@ -16,7 +16,7 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:text="Dodaj zadanie podopiecznym"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/md_deep_purple_500"
         android:textSize="30sp"
         android:textAlignment="center"/>
 
