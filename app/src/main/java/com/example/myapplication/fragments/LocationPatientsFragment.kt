@@ -3,6 +3,7 @@ package com.example.myapplication.fragments
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +43,10 @@ class LocationPatientsFragment : Fragment()  {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
+        fusedLocationClient.lastLocation.addOnSuccessListener {
+                location: Location? ->
+
+        }
 
       getLocation.setOnClickListener {
 
