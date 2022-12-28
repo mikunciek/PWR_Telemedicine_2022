@@ -70,21 +70,6 @@ class TasksRepository: Repository() {
         }
     }
 
-    fun closeTaskWithResults(uid: String, result: String) {
-        db.collection(COLLECTION)
-            .document(uid)
-            .set({
-                "result" to result
-                "closeDate" to Timestamp(
-                    Date.from(
-                        LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()
-                    )
-                )
-                "status" to TaskStatus.DONE
-            })
-    }
-
-
     fun deleteTask(task: UserTask){
         db.collection(COLLECTION).document(task.uid)
             .delete()
