@@ -32,7 +32,7 @@ class FingerTapping : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
-        task = arguments?.getParcelable("userTask", UserTask::class.java)!!
+        task = arguments?.getParcelable<UserTask>("userTask")!!
         return inflater.inflate(R.layout.fragment_finger_tapping, container, false)
     }
 
