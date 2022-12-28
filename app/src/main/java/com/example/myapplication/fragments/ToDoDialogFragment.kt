@@ -95,7 +95,7 @@ class ToDoDialogFragment() : DialogFragment() {
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 
-        dialogWindow.setGravity(Gravity.BOTTOM)
+        dialogWindow.setGravity(Gravity.END)
 
 
 
