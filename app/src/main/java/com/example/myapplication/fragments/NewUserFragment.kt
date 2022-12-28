@@ -81,6 +81,13 @@ class NewUserFragment : Fragment() {
     }
 
 
+    fun isNotEmpty(checkFiled: String, titleFiled:String): Boolean{
+        if(checkFiled.isNotEmpty()){
+            return true
+        }
+        Toast.makeText(requireContext(), "Wprowadź $titleFiled", Toast.LENGTH_SHORT).show()
+        return false
+    }
 
     private fun registerButtonClick(){
         //TODO: Dokończyć funkcję, by zapis był dozwolony gdy pole nie jest puste
@@ -91,45 +98,35 @@ class NewUserFragment : Fragment() {
         val phone: String = phoneEditText!!.text?.trim().toString()
         val password: String = passwordEditText!!.text?.trim().toString()
 
+        if ( isNotEmpty(name, "imię") && isNotEmpty(lastName, "nazwisko")
+            && isNotEmpty(email, "email") && isNotEmpty(phone, "telefon")
+            && isNotEmpty(password, "hasło")) {
 
+                userRepository.getCurrentUserMustExist {
+                UserRepository.auth.createUserWithEmailAndPassword(email,password)
+                    .addOnSuccessListener { auth ->
+                        if(auth.user !=null) {
+                            val user = User(
+                                uid = UUID.randomUUID().toString(),
+                                caregiver = it.uid,
+                                firstName = binding.inputFirstName.text.toString(),
+                                lastName = binding.inputLastName.text.toString(),
+                                phone = binding.inputPhone.text.toString(),
+                                email = binding.inputEmailText.text.toString()
+                            )
+                            userRepository.save(user)
 
-        fun isNotEmpty(checkFiled: String, titleFiled:String): Boolean{
-            if(checkFiled.isNotEmpty()){
-                return true
-            }
-            Toast.makeText(requireContext(), "Wprowadź $titleFiled", Toast.LENGTH_SHORT).show()
-            return false
-        }
-
-
-                if ( isNotEmpty(name, "imię") && isNotEmpty(lastName, "nazwisko")
-                    && isNotEmpty(email, "email") && isNotEmpty(phone, "telefon")
-                    && isNotEmpty(password, "hasło")) {
-                    userRepository.getCurrentUserMustExist {
-                    UserRepository.auth.createUserWithEmailAndPassword(email,password)
-                        .addOnSuccessListener { auth ->
-                            if(auth.user !=null) {
-                                val user = User(
-                                    uid = UUID.randomUUID().toString(),
-                                    caregiver = it.uid,
-                                    firstName = binding.inputFirstName.text.toString(),
-                                    lastName = binding.inputLastName.text.toString(),
-                                    phone = binding.inputPhone.text.toString(),
-                                    email = binding.inputEmailText.text.toString()
-                                )
-                                userRepository.save(user)
-
-                            }
-                            Toast.makeText(requireContext(), "Dodano nowego użytkownika", Toast.LENGTH_SHORT).show()
-                           // findNavController().navigate(R.id.action_newUserFragment_to_menuCaregiverFragment)
                         }
-                        .addOnFailureListener { exception ->
-                            Toast.makeText(requireContext(), "Rejestracja nieudana", Toast.LENGTH_SHORT).show()
-                            Log.d(REGISTRATION_DEBUG, exception.message.toString())
-                        }
-                }
+                        Toast.makeText(requireContext(), "Dodano nowego użytkownika", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.action_newUserFragment_to_menuCaregiverFragment)
+                    }
+                    .addOnFailureListener { exception ->
+                        Toast.makeText(requireContext(), "Rejestracja nieudana: ${exception.message}", Toast.LENGTH_SHORT).show()
+                        Log.d(REGISTRATION_DEBUG, exception.message.toString())
+                    }
             }
         }
+    }
 
     private fun init(){
         registerButton = saveNewUser
