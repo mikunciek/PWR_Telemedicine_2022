@@ -9,9 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import androidx.navigation.fragment.findNavController
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentMMSEtestBinding
 import com.github.barteksc.pdfviewer.PDFView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_guide.*
 import java.io.BufferedInputStream
 import java.io.InputStream
@@ -47,6 +49,7 @@ class MMSETestFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {  //właściwe wyświetlanie
         super.onViewCreated(view, savedInstanceState)
+//        requireActivity().findViewById<MeowBottomNavigation>(R.id.bottomNavigation).visibility = View.GONE
 //        init()
         pdfView = view.findViewById(R.id.idPDFView)
 
