@@ -38,7 +38,7 @@ class TaskStatusAdapter (private val list: MutableList<UserTask>)
 
                 taskNameTask.text =  this.type.title
                 startTask.text = this.startDate.toDate().toInstant().toString()
-                endTask.text = this.closeDate!!.toDate().toInstant().toString()
+               // endTask.text = this.closeDate.toDate().toInstant().toString()
                 statusTask.text=this.status.toString()
                 resultTask.text=this.result
 

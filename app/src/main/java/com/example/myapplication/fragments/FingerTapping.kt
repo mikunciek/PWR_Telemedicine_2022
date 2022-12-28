@@ -76,8 +76,7 @@ class FingerTapping : Fragment() {
                 LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()
             )
         )
-      tasksRepository.save(task)
+        tasksRepository.save(task)
     }
-
 
 }

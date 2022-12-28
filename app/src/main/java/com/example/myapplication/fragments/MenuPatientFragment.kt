@@ -21,8 +21,6 @@ import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.fragment_menu_patient.*
 
 class MenuPatientFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-
     private var taskRepository = TasksRepository()
     private var userRepository = UserRepository()
     private var user = User()

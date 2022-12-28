@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_menuCaregiverFragment_to_patientsTasksStatusFragment"
             app:destination="@id/patientsTasksStatusFragment" />
+        <action
+            android:id="@+id/action_menuCaregiverFragment_to_locationPatientsFragment"
+            app:destination="@id/locationPatientsFragment" />
 
     </fragment>
     <fragment
@@ -138,6 +141,15 @@
         tools:layout="@layout/fragment_patients_tasks_status" >
         <action
             android:id="@+id/action_patientsTasksStatusFragment_to_menuCaregiverFragment"
+            app:destination="@id/menuCaregiverFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationPatientsFragment"
+        android:name="com.example.myapplication.fragments.LocationPatientsFragment"
+        android:label="fragment_location_patients"
+        tools:layout="@layout/fragment_location_patients" >
+        <action
+            android:id="@+id/action_locationPatientsFragment_to_menuCaregiverFragment"
             app:destination="@id/menuCaregiverFragment" />
     </fragment>
 
