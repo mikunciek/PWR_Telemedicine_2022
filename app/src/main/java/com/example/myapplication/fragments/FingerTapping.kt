@@ -71,7 +71,7 @@ class FingerTapping : Fragment() {
     }
 
     private fun saveScore() {
-        //TODO: zapis do bazy
+        //zapis do bazy
 
         userRepository.getCurrentUserMustExist {
             tasksRepository.closeTaskWithResults(it.uid, numberOfClick.toString())

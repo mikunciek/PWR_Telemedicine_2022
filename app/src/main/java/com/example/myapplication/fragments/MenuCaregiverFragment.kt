@@ -30,7 +30,7 @@ class MenuCaregiverFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         findPatient.setOnClickListener {
-
+            findNavController().navigate(R.id.action_menuCaregiverFragment_to_locationPatientsFragment)
         }
 
         library.setOnClickListener {
