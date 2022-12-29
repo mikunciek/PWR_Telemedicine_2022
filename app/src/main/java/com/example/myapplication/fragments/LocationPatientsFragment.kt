@@ -1,36 +1,32 @@
 package com.example.myapplication.fragments
 
-import android.Manifest.permission.ACCESS_FINE_LOCATION
-
-import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-
-import androidx.core.content.ContextCompat.checkSelfPermission
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
-
 import com.example.myapplication.R
-import com.example.myapplication.databinding.FragmentLocationPatientsBinding
-import com.google.android.gms.location.*
+import com.example.myapplication.users.LocationRepository
+import com.example.myapplication.users.User
+import com.example.myapplication.users.UserRepository
+import com.google.android.gms.maps.GoogleMap
+
 import kotlinx.android.synthetic.main.fragment_location_patients.*
+import org.osmdroid.api.IGeoPoint
+import org.osmdroid.config.Configuration
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.overlay.Marker
+import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
+class LocationPatientsFragment : Fragment() {
 
-class LocationPatientsFragment : Fragment()  {
-
-    private lateinit var binding: FragmentLocationPatientsBinding
-
-    // declare a global variable FusedLocationProviderClient
-    private lateinit var fusedLocationClient : FusedLocationProviderClient
-
-    // globally declare LocationRequest
-   private lateinit var locationRequest: LocationRequest
-
-    // globally declare LocationCallback
-    private lateinit var locationCallback: LocationCallback
+    private val userRepository = UserRepository()
+    private val locationRepository = LocationRepository()
 
 
     override fun onCreateView(
@@ -38,119 +34,79 @@ class LocationPatientsFragment : Fragment()  {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        Configuration.getInstance().userAgentValue = "PWR-TELEMEDICINE-01-01"
         return inflater.inflate(R.layout.fragment_location_patients, container, false)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        map.setTileSource(TileSourceFactory.MAPNIK)
+        init()
 
+        getLocation.setOnClickListener {
+            Log.d("MAPA", "Klik w przycisk mapy")
+            val userT = listPatient.selectedItem as User
+            locationRepository.getLocation(userT) {
+                Log.d("MAPA", "Znaleźliśmy XD")
 
-        //initialize FusedLocationProviderClient
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+                val mapController = map.controller
+                mapController.setZoom(13)
 
-        fusedLocationClient.lastLocation.addOnSuccessListener {
-                location: Location? ->
+                val startPoint = GeoPoint(it.latitude, it.longitude)
+                val marker = Marker(map)
 
-        }
-      getLocation.setOnClickListener {
-            //step 1 is check self permission
-            checkLocationPermission()
+                mapController.setCenter(startPoint);
 
-            locationText.text = fusedLocationClient.toString()
-        }
+                marker.position = startPoint
+                marker.setAnchor(Marker.ANCHOR_BOTTOM, Marker.ANCHOR_CENTER)
+                marker.title = "Pacjent: ${userT.firstName} ${userT.lastName}"
+                map.overlays.add(marker)
 
+                val locationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(context), map);
+                locationOverlay.enableMyLocation();
+                map.overlays.add(locationOverlay)
 
-    }
+                map.invalidate()
 
-
-
-    private fun checkLocationPermission() {
-
-        if (checkSelfPermission(
-                requireContext(),
-                ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            //when permission is already grant
-
-        } else {
-            //when permission is
-          //  ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION))
-
-        }
-    }
-
-
-    private fun location(){
-
-        fun onLocationResult(locationResult: LocationResult?) {
-            locationResult ?: return
-
-            if (locationResult.locations.isNotEmpty()) {
-                // get latest location
-                val location =
-                    locationResult.lastLocation
-                // use your location object
-                // get latitude , longitude and other info from this
+                latlng.text = "Lat: ${it.latitude}; Lng: ${it.longitude}"
             }
-
         }
+    }
 
-        //start location updates
-        fun startLocationUpdates() {
-            if (checkSelfPermission(
-                    requireContext(),
-                    ACCESS_FINE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(
-                    requireContext(),
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return
+    private fun init() {
+
+        userRepository.getCurrentUserMustExist {
+
+            userRepository.getPatients(it.uid) { users ->
+                view?.findViewById<Spinner>(R.id.listPatient)
+                    ?.adapter =
+                    ArrayAdapter<User>(requireContext(),
+                        android.R.layout.simple_spinner_dropdown_item, users)
             }
-            fusedLocationClient.requestLocationUpdates(
-                locationRequest,
-                locationCallback,
-                null /* Looper */
-            )
-        }
-
-        // stop location updates
-        fun stopLocationUpdates() {
-            fusedLocationClient.removeLocationUpdates(locationCallback)
-        }
-
-        // stop receiving location update when activity not visible/foreground
-        fun onPause() {
-            super.onPause()
-            stopLocationUpdates()
-        }
-
-        // start receiving location update when activity  visible/foreground
-        fun onResume() {
-            super.onResume()
-            startLocationUpdates()
-        }
-
-    }
-
-    fun getLocationUpdates() {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        locationRequest = LocationRequest()
-        locationRequest.interval = 50000
-        locationRequest.fastestInterval = 50000
-        locationRequest.smallestDisplacement = 170f // 170 m = 0.1 mile
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY //set according to your app function
-        locationCallback = object : LocationCallback() {
         }
     }
 
+//    override fun onMapReady(googleMap: GoogleMap) {
+//
+//    }
+
+
+    override fun onResume() {
+        super.onResume()
+        //this will refresh the osmdroid configuration on resuming.
+        //if you make changes to the configuration, use
+        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
+        map.onResume() //needed for compass, my location overlays, v6.0.0 and up
+    }
+
+    override fun onPause() {
+        super.onPause()
+        //this will refresh the osmdroid configuration on resuming.
+        //if you make changes to the configuration, use
+        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //Configuration.getInstance().save(this, prefs);
+        map.onPause()  //needed for compass, my location overlays, v6.0.0 and up
+    }
 }

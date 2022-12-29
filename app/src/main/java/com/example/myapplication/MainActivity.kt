@@ -1,11 +1,24 @@
 package com.example.myapplication
 
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import androidx.constraintlayout.motion.widget.Debug.getLocation
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
@@ -13,19 +26,30 @@ import com.example.myapplication.fragments.MenuCaregiverFragment
 import com.example.myapplication.fragments.MenuPatientFragment
 import com.example.myapplication.fragments.PatientsFragment
 import com.example.myapplication.fragments.ToDoCaregiverFragment
+import com.example.myapplication.users.Localization
+import com.example.myapplication.users.LocationRepository
 import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private var userRepository: UserRepository = UserRepository()
+    private val permissionId = 2
+    private lateinit var mFusedLocationClient: FusedLocationProviderClient
+    private val locationRepository = LocationRepository()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         configureBottomNavigation()
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
     override fun onStart() {
@@ -55,6 +80,12 @@ class MainActivity : AppCompatActivity() {
                 this.nav_host_fragment.findNavController()
                     .navigate(R.id.action_blankMenuFragment_to_menuCaregiverFragment)
             } else {
+                val executorService = Executors.newSingleThreadScheduledExecutor()
+                executorService.scheduleAtFixedRate({
+                    getLocation(uid = UserRepository.auth.currentUser!!.uid)
+                    Log.d("ZAPIS LOKALIZACJI", "minęło 10min")
+                }, 0, 10, TimeUnit.MINUTES)
+
                 this.nav_host_fragment.findNavController()
                    .navigate(R.id.action_blankMenuFragment_to_menuPatientFragment)
             }
@@ -116,6 +147,72 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkPermissions(): Boolean {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                this,
+                ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            return true
+        }
+        return false
+    }
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                ACCESS_COARSE_LOCATION,
+                ACCESS_FINE_LOCATION
+            ),
+            permissionId
+        )
+    }
 
+    @SuppressLint("MissingSuperCall")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == permissionId) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                getLocation()
+            }
+        }
+    }
 
+    private fun isLocationEnabled(): Boolean {
+        val locationManager: LocationManager =
+            getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
+    }
+
+    @SuppressLint("MissingPermission", "SetTextI18n")
+    private fun getLocation(uid: String) {
+        if (checkPermissions()) {
+            if (isLocationEnabled()) {
+                mFusedLocationClient.lastLocation.addOnCompleteListener { task ->
+                    val location: Location? = task.result
+                    if (location != null) {
+                        val geocoder = Geocoder(this, Locale.getDefault())
+                        val list = geocoder.getFromLocation(location.latitude, location.longitude, 1)!!
+                        val l = Localization(latitude = list[0].latitude, longitude = list[0].longitude, user = uid)
+                        locationRepository.save(l)
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Please turn on location", Toast.LENGTH_LONG).show()
+                val intent = Intent(ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
+            }
+        } else {
+            requestPermissions()
+        }
+    }
 }

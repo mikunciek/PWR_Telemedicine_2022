@@ -5,8 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.LocationPatientsFragment"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:orientation="vertical">
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:text="Znajdź pacjenta"
+        android:textColor="@color/md_deep_purple_500"/>
+
+    <Spinner
+        android:id="@+id/listPatient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/spinner"
+        android:minHeight="50dp"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:id="@+id/locationText"
@@ -24,9 +43,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Sprawdź lokalizację"
-        style="@style/loginButton"/>
+        style="@style/loginButton"
+        android:layout_gravity="center"/>
 
+    <TextView
+        android:id="@+id/latlng"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textAlignment="center"
+        android:text="Lat: {} Lng: {}" />
 
+    <org.osmdroid.views.MapView android:id="@+id/map"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
 
 
 </LinearLayout>
