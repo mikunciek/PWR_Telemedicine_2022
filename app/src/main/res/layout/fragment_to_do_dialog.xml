@@ -46,7 +46,8 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <EditText
+
+                <TextView
                     android:id="@+id/todoStart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -55,8 +56,12 @@
                     android:importantForAutofill="no"
                     android:inputType="date"
                     android:textAlignment="center"
+                    android:gravity="center"
                     android:textColor="@color/black"
-                    android:textColorHint="#757575" />
+                    android:textColorHint="#757575"
+                    android:minHeight="50dp"
+                    app:helperText="Wybierz datę"/>
+
 
                 <EditText
                     android:id="@+id/todoDescritption"

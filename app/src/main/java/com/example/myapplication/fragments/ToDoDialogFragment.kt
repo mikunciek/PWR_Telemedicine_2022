@@ -1,25 +1,37 @@
 package com.example.myapplication.fragments
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
+import android.widget.DatePicker
 import android.widget.Spinner
+import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentToDoDialogBinding
 import com.example.myapplication.users.*
 import com.google.firebase.Timestamp
 import kotlinx.android.synthetic.main.fragment_to_do_dialog.*
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-class ToDoDialogFragment() : DialogFragment() {
+class ToDoDialogFragment() : DialogFragment(),
+    DatePickerDialog.OnDateSetListener,
+        TimePickerDialog.OnTimeSetListener
+{
     private lateinit var binding: FragmentToDoDialogBinding
     private val tasksRepository = TasksRepository()
     private val userRepository = UserRepository()
+
+    private val calendar = Calendar.getInstance()
+    private val formatted = SimpleDateFormat("HH:mm,  dd.MM.yyyy ",Locale.ROOT)
 
     companion object { //tworzenie nowego obiektu
         const val TAG = "DialogFragment"
@@ -70,6 +82,22 @@ class ToDoDialogFragment() : DialogFragment() {
     }
 
     private fun initValues() {
+
+
+        //todoStart.text =
+
+        todoStart.setOnClickListener {
+            DatePickerDialog(
+                requireContext(),
+                this,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
+
+
+
         userRepository.getCurrentUserMustExist {
             view?.findViewById<Spinner>(R.id.type_spinner)?.adapter = ArrayAdapter(requireContext(),
                 android.R.layout.simple_spinner_item, TaskType.values().map { i -> i.title})
@@ -97,12 +125,32 @@ class ToDoDialogFragment() : DialogFragment() {
 
         dialogWindow.setGravity(Gravity.END)
 
-
-
         super.onResume()
     }
 
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+       calendar.set(year, month,dayOfMonth)
+        displayFormattedDate(calendar.timeInMillis)
+        TimePickerDialog(
+            requireContext(),
+           this,
+            calendar.get(Calendar.HOUR),
+            calendar.get(Calendar.MINUTE),
+            true
+        ).show()
+    }
 
-    //TODO: format daty i godziny
+    private fun displayFormattedDate(timestamp: Long){
+        todoStart.text =formatted.format(timestamp)
+        Log.i("Formatting",timestamp.toString())
+    }
+
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        calendar.apply {
+            set(Calendar.HOUR_OF_DAY,hourOfDay)
+            set(Calendar.MINUTE,minute)
+        }
+        displayFormattedDate(calendar.timeInMillis)
+    }
 
 }

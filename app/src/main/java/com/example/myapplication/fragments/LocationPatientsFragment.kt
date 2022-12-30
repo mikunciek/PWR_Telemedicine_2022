@@ -1,5 +1,6 @@
 package com.example.myapplication.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -39,6 +40,7 @@ class LocationPatientsFragment : Fragment() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         map.setTileSource(TileSourceFactory.MAPNIK)
@@ -69,7 +71,7 @@ class LocationPatientsFragment : Fragment() {
 
                 map.invalidate()
 
-                latlng.text = "Lat: ${it.latitude}; Lng: ${it.longitude}"
+                latlng.text = "Współrzędne: długość: ${it.latitude} szerokość: ${it.longitude}"
             }
         }
     }
