@@ -24,17 +24,11 @@ import javax.net.ssl.HttpsURLConnection
 
 
 class MMSETestFragment : Fragment() {
-//    private lateinit var binding: FragmentMMSEtestBinding
-//    private var  webView: WebView = panel//?
-    lateinit var pdfView: PDFView
+
+    private lateinit var pdfView: PDFView
     val url = "https://github.com/mikunciek/PWR_Telemedicine_2022/raw/master/pdf/MMSE.pdf"
 
-    var mmseImageList = arrayListOf(R.drawable.mmse1,R.drawable.mmse2,
-        R.drawable.mmse3,R.drawable.mmse4)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,27 +43,14 @@ class MMSETestFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {  //właściwe wyświetlanie
         super.onViewCreated(view, savedInstanceState)
-//        requireActivity().findViewById<MeowBottomNavigation>(R.id.bottomNavigation).visibility = View.GONE
-//        init()
+
         pdfView = view.findViewById(R.id.idPDFView)
 
         RetrievePDFFromURL(pdfView).execute(url)
-        //TODO: Nie wiem czemu nie chce działać
-//       view.findViewById(R.id.backMainMenu).setOnClickListener{ findNavController().navigate(R.id.action_MMSETestFragment_to_menuCaregiverFragment) }
+
     }
 
 
-//    private fun init() {
-//
-//        webView.settings.javaScriptEnabled = true
-//        webView.settings.setSupportZoom(true)
-//        webView.isVerticalScrollBarEnabled = true
-//        webView.canGoBack()
-//        webView.canGoForward()
-//        webView.requestFocus()
-//        webView.loadUrl("https://docs.google.com/gview?embedded=true&url=$url")
-//
-//    }
 
     // on below line we are creating a class for
     // our pdf view and passing our pdf view

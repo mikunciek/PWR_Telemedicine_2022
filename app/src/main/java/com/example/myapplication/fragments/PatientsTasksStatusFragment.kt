@@ -71,7 +71,6 @@ class PatientsTasksStatusFragment : Fragment(),
 
 
     override fun onDeleteItemClicked(userTask: UserTask, position: Int) {
-        TODO("Not yet implemented")
     }
 
 

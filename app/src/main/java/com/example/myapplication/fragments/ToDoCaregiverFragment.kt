@@ -51,7 +51,6 @@ class ToDoCaregiverFragment : Fragment(),
 
         }
 
-        //TODO: gdy naciśnięcie zadania to otwiera się okienko z usunięciem zadania
         taskAdapter.onItemClick ={
             deleteTask(it)
         }

@@ -11,9 +11,6 @@
         tools:layout="@layout/fragment_menu_caregiver" >
 
         <action
-            android:id="@+id/action_menuCaregiverFragment_to_guideCaregiver"
-            app:destination="@id/navigation" />
-        <action
             android:id="@+id/action_menuCaregiverFragment_to_settingsActivity"
             app:destination="@id/settingsActivity" />
         <action
@@ -35,6 +32,9 @@
         <action
             android:id="@+id/action_menuCaregiverFragment_to_locationPatientsFragment"
             app:destination="@id/locationPatientsFragment" />
+        <action
+            android:id="@+id/action_menuCaregiverFragment_to_guideFragment"
+            app:destination="@id/guideFragment" />
 
     </fragment>
     <fragment
@@ -42,17 +42,6 @@
         android:name="com.example.myapplication.fragments.ToDoCaregiverFragment"
         android:label="toDoCaregiver"
         tools:layout="@layout/fragment_todo_caregiver" />
-    <navigation android:id="@+id/navigation"
-        app:startDestination="@id/guideCaregiver">
-        <activity
-            android:id="@+id/guideCaregiver"
-            android:name="com.example.myapplication.GuideCaregiver"
-            android:label="activity_guide_caregiver"
-            tools:layout="@layout/activity_guide_caregiver" />
-        <action
-            android:id="@+id/action_global_menuCaregiverFragment"
-            app:destination="@id/menuCaregiverFragment" />
-    </navigation>
     <activity
         android:id="@+id/settingsActivity"
         android:name="com.example.myapplication.SettingsActivity"
@@ -152,5 +141,14 @@
             android:id="@+id/action_locationPatientsFragment_to_menuCaregiverFragment"
             app:destination="@id/menuCaregiverFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/guideFragment"
+        android:name="com.example.myapplication.fragments.GuideFragment"
+        android:label="GuideFragment" >
+        <action
+            android:id="@+id/action_guideFragment_to_menuCaregiverFragment2"
+            app:destination="@id/menuCaregiverFragment" />
+    </fragment>
+
 
 </navigation>

@@ -6,12 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ListPatientsBinding
 import com.example.myapplication.databinding.ListPatientsBinding.*
+import com.example.myapplication.users.TasksRepository
 import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
+import kotlinx.coroutines.runBlocking
 
 class PatientsAdapter(private val list: MutableList<User>):
     RecyclerView.Adapter<PatientsAdapter.PatientsViewHolder>() {
 
+    private val taskRepository = TasksRepository()
     private val userRepository = UserRepository()
     private val TAG = "PatientsAdapter"
 
@@ -32,14 +35,22 @@ class PatientsAdapter(private val list: MutableList<User>):
                 deleteBtn.setOnClickListener {
                     onItemClick?.invoke(this)
                 }
-                //TODO: fun liczące ilość zadań i przypisujące do tych pól po użytkowniku
-                //ilośc zadań
-                status.text = "0"
-               //wykonanych
-                statusDone.text = "0"
-               //niewykonanych
-                statusNoDone.text = "0"
-                //nazwa pacjenta
+
+                val user = this
+                runBlocking {
+                    val doneCount = taskRepository.getCountOfDoneTasks(user)
+                    val todoCount = taskRepository.getCountOfTODOTasks(user)
+
+                    //ilośc zadań
+                    status.text = (todoCount + doneCount).toString()
+                    //wykonanych
+                    statusDone.text = doneCount.toString()
+                    //niewykonanych
+                    statusNoDone.text = todoCount.toString()
+                    //nazwa pacjenta
+
+                }
+
 
                 userRepository.getUserLambda(this.uid) {
                    patientTitle.text = String.format("%s %s", it.firstName, it.lastName)

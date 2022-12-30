@@ -14,6 +14,7 @@ import com.example.myapplication.users.LocationRepository
 import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.material.snackbar.Snackbar
 
 import kotlinx.android.synthetic.main.fragment_location_patients.*
 import org.osmdroid.api.IGeoPoint
@@ -49,7 +50,7 @@ class LocationPatientsFragment : Fragment() {
         getLocation.setOnClickListener {
             Log.d("MAPA", "Klik w przycisk mapy")
             val userT = listPatient.selectedItem as User
-            locationRepository.getLocation(userT) {
+            locationRepository.getLocation(userT, {
                 Log.d("MAPA", "Znaleźliśmy XD")
 
                 val mapController = map.controller
@@ -71,15 +72,28 @@ class LocationPatientsFragment : Fragment() {
 
                 map.invalidate()
 
-                latlng.text = "Współrzędne: długość: ${it.latitude} szerokość: ${it.longitude}"
-            }
+                latlng.text = "Współrzędne: ${it.latitude},  ${it.longitude}"
+
+            }, {
+
+                var comment = "Pacjent nie został zlokalizowany"
+                if(it !== null && it.isNotBlank()) {
+                    comment = it
+                }
+
+                //TODO: moze bannery?
+                Snackbar.make(requireView(), comment, Snackbar.LENGTH_INDEFINITE)
+                    .setBackgroundTint(resources.getColor(R.color.md_deep_purple_700))
+                    .setActionTextColor(resources.getColor(R.color.white))
+                    .show()
+
+            })
         }
     }
 
     private fun init() {
 
         userRepository.getCurrentUserMustExist {
-
             userRepository.getPatients(it.uid) { users ->
                 view?.findViewById<Spinner>(R.id.listPatient)
                     ?.adapter =
@@ -89,9 +103,6 @@ class LocationPatientsFragment : Fragment() {
         }
     }
 
-//    override fun onMapReady(googleMap: GoogleMap) {
-//
-//    }
 
 
     override fun onResume() {

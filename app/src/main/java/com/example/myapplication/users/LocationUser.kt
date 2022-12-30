@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
 
-data class Localization(
+data class LocationUser(
     var longitude: Double = 0.0,
     var latitude: Double = 0.0,
     var user: String = "",

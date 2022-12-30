@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.annotation.SuppressLint
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -23,13 +24,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.myapplication.fragments.MenuCaregiverFragment
-import com.example.myapplication.fragments.MenuPatientFragment
 import com.example.myapplication.fragments.PatientsFragment
 import com.example.myapplication.fragments.ToDoCaregiverFragment
-import com.example.myapplication.users.Localization
-import com.example.myapplication.users.LocationRepository
-import com.example.myapplication.users.User
-import com.example.myapplication.users.UserRepository
+import com.example.myapplication.log.LoginActivity
+import com.example.myapplication.users.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FirebaseAuth
@@ -49,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     private val permissionId = 2
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private val locationRepository = LocationRepository()
-
+    private val taskRepository = TasksRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         configureBottomNavigation()
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        createNotificationChannel()
     }
 
     override fun onStart() {
@@ -80,6 +79,11 @@ class MainActivity : AppCompatActivity() {
                 this.nav_host_fragment.findNavController()
                     .navigate(R.id.action_blankMenuFragment_to_menuCaregiverFragment)
             } else {
+                taskRepository.getActiveTasksByUser(user) {
+                    it.forEach {
+                        scheduleNotification(it)
+                    }
+                }
                 val executorService = Executors.newSingleThreadScheduledExecutor()
                 executorService.scheduleAtFixedRate({
                     getLocation(uid = UserRepository.auth.currentUser!!.uid)
@@ -202,7 +206,7 @@ class MainActivity : AppCompatActivity() {
                     if (location != null) {
                         val geocoder = Geocoder(this, Locale.getDefault())
                         val list = geocoder.getFromLocation(location.latitude, location.longitude, 1)!!
-                        val l = Localization(latitude = list[0].latitude, longitude = list[0].longitude, user = uid)
+                        val l = com.example.myapplication.users.LocationUser(latitude = list[0].latitude, longitude = list[0].longitude, user = uid)
                         locationRepository.save(l)
                     }
                 }
@@ -214,5 +218,54 @@ class MainActivity : AppCompatActivity() {
         } else {
             requestPermissions()
         }
+    }
+
+    private fun scheduleNotification(userTask: UserTask)
+    {
+        val intent = Intent(applicationContext, Notification::class.java)
+        val title = userTask.type.title
+        val message = "Wykonaj zadanie"
+        intent.putExtra(Notification.titleExtra, title)
+        intent.putExtra(Notification.iconExtra, userTask.type.icon)
+        intent.putExtra(Notification.messageExtra, message)
+
+        val pendingIntent = PendingIntent.getBroadcast(
+            applicationContext,
+            Notification.notificationID,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            userTask.startDate.seconds*1000,
+            pendingIntent
+        )
+        showAlert(userTask)
+    }
+
+    private fun showAlert(userTask: UserTask)
+    {
+        AlertDialog.Builder(this)
+            .setTitle(userTask.type.title)
+            .setIcon(userTask.type.icon)
+            .setMessage(
+                "Należy wykonać zadanie"
+            )
+            .setPositiveButton("TAK"){_,_ ->}
+            .show()
+    }
+
+    private fun createNotificationChannel()
+    {
+        val name = "Notif Channel"
+        val desc = "A Description of the Channel"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel(Notification.channelID, name, importance)
+        channel.description = desc
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 }

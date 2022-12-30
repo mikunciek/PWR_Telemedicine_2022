@@ -1,16 +1,11 @@
 package com.example.myapplication.users
 
 import android.util.Log
-import com.example.myapplication.Repository
 import com.google.android.gms.tasks.Task
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.util.*
+import kotlinx.coroutines.tasks.await
 
 class TasksRepository: Repository() {
     private final val COLLECTION = "tasks"
@@ -35,8 +30,40 @@ class TasksRepository: Repository() {
     }
 
     fun getTasksByUser(user: User): Task<QuerySnapshot> {
-        return cloud.collection(COLLECTION).whereEqualTo("user", user.uid).get();
+        return cloud.collection(COLLECTION).whereEqualTo("user", user.uid)
+            .whereNotEqualTo("status", TaskStatus.DONE.name).get()
     }
+
+    fun getActiveTasksByUser(user: User, unit: (List<UserTask>) -> Unit) {
+        cloud.collection(COLLECTION)
+            .whereEqualTo("user", user.uid)
+            .whereEqualTo("status", TaskStatus.TODO.name)
+            .get().addOnSuccessListener {
+                Log.d("ZADANIA", "ASDASD")
+                if(!it.isEmpty) {
+                    unit.invoke(it.toObjects(UserTask::class.java)!!)
+                }
+            }
+    }
+
+
+
+    suspend fun getCountOfDoneTasks(user:User): Int{
+        val count = cloud.collection(COLLECTION).whereEqualTo("user", user.uid)
+            .whereEqualTo("status", TaskStatus.DONE.name).get()
+            .await()
+
+        return count.count();
+    }
+
+    suspend fun getCountOfTODOTasks(user:User): Int {
+        val result = cloud.collection(COLLECTION).whereEqualTo("user", user.uid)
+            .whereEqualTo("status", TaskStatus.TODO.name).get().await()
+
+        return result.count()
+    }
+
+
 
     fun getTasksByPatients(unit: (List<UserTask>) -> Unit) {
         userRepository.getCurrentUserPatients { users ->
@@ -86,6 +113,10 @@ class TasksRepository: Repository() {
                 )
             }
     }
+
+
+
+
 }
 
 

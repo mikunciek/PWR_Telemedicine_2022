@@ -48,7 +48,6 @@ class NewUserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        //TODO: Inicjalizacja zmiennych, analogicznie jak w RegistrationActivity.kt
         init()
         binding.saveNewUser.setOnClickListener {
             registerButtonClick()
@@ -90,7 +89,6 @@ class NewUserFragment : Fragment() {
     }
 
     private fun registerButtonClick(){
-        //TODO: Dokończyć funkcję, by zapis był dozwolony gdy pole nie jest puste
 
         val name: String = firstNameEditText!!.text?.trim().toString()
         val lastName:String = lastNameEditText!!.text?.trim().toString()

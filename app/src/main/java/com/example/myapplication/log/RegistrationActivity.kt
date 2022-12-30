@@ -1,4 +1,4 @@
-package com.example.myapplication.modelregistration
+package com.example.myapplication.log
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,6 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.LoginActivity
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.users.User

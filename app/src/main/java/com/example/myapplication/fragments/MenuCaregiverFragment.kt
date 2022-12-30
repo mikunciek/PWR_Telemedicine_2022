@@ -34,7 +34,7 @@ class MenuCaregiverFragment : Fragment() {
         }
 
         library.setOnClickListener {
-           findNavController().navigate(R.id.action_menuCaregiverFragment_to_guideCaregiver)
+           findNavController().navigate(R.id.action_menuCaregiverFragment_to_guideFragment)
         }
 
         settings.setOnClickListener{
@@ -45,7 +45,6 @@ class MenuCaregiverFragment : Fragment() {
             findNavController().navigate(R.id.action_menuCaregiverFragment_to_newUserFragment)
         }
 
-        //TODO: Nie wiem czemu to przejście nie działa
         mmseTest.setOnClickListener{
            findNavController().navigate(R.id.action_menuCaregiverFragment_to_MMSETestFragment)
         }

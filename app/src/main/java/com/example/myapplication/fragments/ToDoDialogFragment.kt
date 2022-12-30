@@ -17,7 +17,9 @@ import com.google.firebase.Timestamp
 import kotlinx.android.synthetic.main.fragment_to_do_dialog.*
 import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -65,16 +67,15 @@ class ToDoDialogFragment() : DialogFragment(),
         }
 
         binding.todoNextBtn.setOnClickListener { //następne zadanie
-            val defZone = ZoneId.systemDefault()
-            val localDate = LocalDate.parse(binding.todoStart.text, DateTimeFormatter.ISO_DATE)
 
+//            val localDate = LocalDateTime.ofEpochSecond(calendar.timeInMillis)
+//            calendar.
             val task = UserTask(
                 type = TaskType.findByTitle(binding.typeSpinner.selectedItem.toString()),
                 user = (binding.userSpinner.selectedItem as User).uid,
-                startDate = Timestamp(Date.from(localDate.atStartOfDay(defZone).toInstant())),
+                startDate = Timestamp(calendar.timeInMillis / 1000, 0),
                 description = binding.todoDescritption.toString()
             )
-//TODO: ERROR - kiedy jest puste jakieś pole
             tasksRepository.save(task)
 
             dismiss()
@@ -84,7 +85,7 @@ class ToDoDialogFragment() : DialogFragment(),
     private fun initValues() {
 
 
-        //todoStart.text =
+        todoStart.text = formatted.format(Timestamp.now().seconds*1000)
 
         todoStart.setOnClickListener {
             DatePickerDialog(

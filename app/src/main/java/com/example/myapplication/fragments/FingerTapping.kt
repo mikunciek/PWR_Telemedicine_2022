@@ -2,15 +2,19 @@ package com.example.myapplication.fragments
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentFingerTappingBinding
 import com.example.myapplication.users.*
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
 import kotlinx.android.synthetic.main.fragment_finger_tapping.*
 import java.time.LocalDateTime
@@ -22,6 +26,8 @@ class FingerTapping : Fragment() {
     private lateinit var  binding: FragmentFingerTappingBinding
     private val tasksRepository = TasksRepository()
     private val userRepository = UserRepository()
+
+
     private lateinit var task: UserTask
     var count = 0
 
@@ -47,14 +53,28 @@ class FingerTapping : Fragment() {
             override fun onFinish() {
                 clickButton.visibility = View.GONE
                 saveScore()
-                timerView.text = "Gotowe, kliknij by powrócić"
+
+                //val contextView = binding.root
+                Snackbar.make(root, "Wyniki zapisane", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Kliknij aby powrócić!"){
+                        findNavController().navigate(R.id.action_fingerTapping_to_menuPatientFragment)
+                    }
+                .setBackgroundTint(resources.getColor(R.color.md_deep_purple_700))
+                .setActionTextColor(resources.getColor(R.color.white))
+                .show()
+
+
+               /* timerView.text = "Gotowe, kliknij by powrócić"
 
                 timerView.setOnClickListener{
 
                     findNavController().navigate(R.id.action_fingerTapping_to_menuPatientFragment)
                 }
+
+                */
             }
         }.start()
+
 
 
         clickButton.setOnClickListener{

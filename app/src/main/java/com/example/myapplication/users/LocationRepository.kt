@@ -1,22 +1,24 @@
 package com.example.myapplication.users
 
-import com.example.myapplication.Repository
-
 class LocationRepository : Repository() {
 
     private val COLLECTION = "localization"
 
-    fun save(location: Localization) {
+    fun save(location: LocationUser) {
         cloud.collection(COLLECTION)
             .document(location.user).set(location)
     }
 
-    fun getLocation(user: User, unit: (Localization) -> Unit) {
+    fun getLocation(user: User, unit: (LocationUser) -> Unit, failed: ( (String?) -> Unit)) {
         cloud.collection(COLLECTION).document(user.uid).get()
             .addOnSuccessListener {
                 if(it.exists()) {
-                    unit.invoke(it.toObject(Localization::class.java)!!)
+                    unit.invoke(it.toObject(LocationUser::class.java)!!)
+                } else {
+                    failed.invoke("Nie posiada aktualnej lokalizacji")
                 }
+            }.addOnFailureListener {
+                failed.invoke(it.message)
             }
     }
 }

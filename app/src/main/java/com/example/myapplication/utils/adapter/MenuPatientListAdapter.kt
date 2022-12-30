@@ -12,6 +12,8 @@ import com.example.myapplication.databinding.ListCardViewBinding
 import com.example.myapplication.databinding.ListPatientsBinding
 import com.example.myapplication.users.UserRepository
 import com.example.myapplication.users.UserTask
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MenuPatientListAdapter(private val list: List<UserTask>):
     RecyclerView.Adapter<MenuPatientListAdapter.MenuPatientsListHolder>() {
@@ -19,6 +21,7 @@ class MenuPatientListAdapter(private val list: List<UserTask>):
     private val userRepository = UserRepository()
     private val userTask = UserTask()
     private  val TAG = "MenuPatientListAdapter"
+    private val formatted = SimpleDateFormat("HH:mm,  dd.MM.yyyy ", Locale.ROOT)
 
     var onItemClick: ((UserTask) -> Unit)? = null
 
@@ -40,7 +43,7 @@ class MenuPatientListAdapter(private val list: List<UserTask>):
 
                     todoTitle.text =this.type.title
                     taskIcon.setImageResource(this.type.icon)
-                    todoDate.text = this.startDate.toDate().toInstant().toString()
+                    todoDate.text = formatted.format(this.startDate.seconds*1000)
                     todoPatient.text =this.description
 
                     userRepository.getUserLambda(this.uid) {

@@ -29,11 +29,8 @@ class MenuPatientFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         userRepository.getCurrentUserMustExist {
-                taskRepository.getTasksByUser(it)
-                    .addOnSuccessListener { list ->
-                        if (!list.isEmpty) {
-                            createTaskList(list)
-                        }
+                taskRepository.getActiveTasksByUser(it) {
+                            createTaskList(it)
             }
         }
 
@@ -64,9 +61,8 @@ class MenuPatientFragment : Fragment() {
 
     }
 
-    private fun createTaskList(list: QuerySnapshot) {
+    private fun createTaskList(tasks: List<UserTask>) {
         val recyclerView = requireView().findViewById<RecyclerView>(R.id.mainRecyclerView)
-        val tasks = list.documents.mapNotNull { it.toObject(UserTask::class.java) }
 
         val adapter = MenuPatientListAdapter(tasks)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())

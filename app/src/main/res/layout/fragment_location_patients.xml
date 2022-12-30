@@ -53,7 +53,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:textAlignment="center"
-        android:text="Lat: {} Lng: {}" />
+        android:text="Współrzędne: 00.00, 00.00" />
 
     <org.osmdroid.views.MapView android:id="@+id/map"
         android:layout_width="fill_parent"

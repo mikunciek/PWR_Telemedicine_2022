@@ -9,6 +9,8 @@ import com.example.myapplication.users.TasksRepository
 import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
 import com.example.myapplication.users.UserTask
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class TaskAdapter(private val list: MutableList<UserTask>)
@@ -18,6 +20,7 @@ class TaskAdapter(private val list: MutableList<UserTask>)
     private val userRepository = UserRepository()
     private  val TAG = "TaskAdapter"
     private var listener:TaskAdapterInterface? = null
+    private val formatted = SimpleDateFormat("HH:mm,  dd.MM.yyyy ", Locale.ROOT)
 
 
     fun setListener(listener:TaskAdapterInterface){
@@ -42,7 +45,7 @@ class TaskAdapter(private val list: MutableList<UserTask>)
                 }
                 todoTitle.text = this.type.title
                 taskIcon.setImageResource(this.type.icon)
-                todoDate.text = this.startDate.toDate().toInstant().toString()
+                todoDate.text = formatted.format(this.startDate.seconds*1000)
                 userRepository.getUserLambda(this.user) {
                         todoPatient.text = String.format("%s %s", it.firstName, it.lastName)
                 }
