@@ -49,14 +49,17 @@ class MenuPatientFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userRepository.getCurrentUserMustExist{
-            val number = it.phone
+        userRepository.getCurrentUserMustExist{ us ->
+            idPatient.text = String.format("Witaj: %s %s", us.firstName, us.lastName)
 
-            idPatient.text = String.format("Witaj: %s %s", it.firstName, it.lastName)
+            userRepository.getUserLambda(us.caregiver) {
+                val number = it.phone
 
-            call.setOnClickListener{
-                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(number)))
-                startActivity(intent)
+
+                call.setOnClickListener{
+                    val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(number)))
+                    startActivity(intent)
+                }
             }
         }
 
