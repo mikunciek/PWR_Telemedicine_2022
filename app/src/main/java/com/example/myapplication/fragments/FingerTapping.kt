@@ -27,7 +27,7 @@ class FingerTapping : Fragment() {
     private lateinit var  binding: FragmentFingerTappingBinding
     private val tasksRepository = TasksRepository()
     private val userRepository = UserRepository()
-
+    private var startCount = false
 
     private lateinit var task: UserTask
     var count = 0
@@ -36,7 +36,7 @@ class FingerTapping : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-
+        startCount = false
         task = arguments?.getParcelable<UserTask>("userTask")!!
         return inflater.inflate(R.layout.fragment_finger_tapping, container, false)
     }
@@ -69,13 +69,6 @@ class FingerTapping : Fragment() {
                     .show()
             }
         }.start()
-
-        clickButton.setOnClickListener{
-            count++
-            numberOfClick.text =count.toString()
-
-        }
-
     }
 
     private fun showInformation() {
@@ -84,10 +77,18 @@ class FingerTapping : Fragment() {
             .setTitle("Test Pamięci")
             .setMessage(" Przez 15 s klikaj jak najszybciej potrafisz w fioletowy przycisk," +
                     " po zakończonym teście wyniki zostaną zapisane " +
-                    " Kliknij WYKONAJ jeśli jesteś gotowy do testu")
+                    " Kliknij WYKONAJ jeśli jesteś gotowy do testu." +
+                    " Czas zacznie odliczać się po kliknięciu w przycisk")
             .setCancelable(true) //dialog box in cancellable
             .setPositiveButton("WYKONAJ") {DialogInterface, it ->
-                fingerTappingCounter()
+                clickButton.setOnClickListener{
+                    count++
+                    numberOfClick.text =count.toString()
+                    if(!startCount) {
+                        fingerTappingCounter()
+                        startCount = true
+                    }
+                }
             }
             .setNegativeButton("Nie"){dialogInterface, it ->
                 dialogInterface.cancel()
