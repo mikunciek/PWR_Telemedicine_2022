@@ -54,11 +54,11 @@ class PatientsTasksStatusFragment : Fragment(),
         binding.mainRecyclerView.layoutManager = LinearLayoutManager(context)
 
         patientsTasksStatusAdapter = TaskStatusAdapter(statusList)
-        binding.mainRecyclerView.adapter =patientsTasksStatusAdapter
+        binding.mainRecyclerView.adapter = patientsTasksStatusAdapter
     }
 
     private fun getStatusTaskFromFirebase() {
-        tasksRepository.addSnapshotListenerForPatients {
+        tasksRepository.addSnapshotListenerForPatientsAll {
             statusList.clear()
             statusList.addAll(it)
 

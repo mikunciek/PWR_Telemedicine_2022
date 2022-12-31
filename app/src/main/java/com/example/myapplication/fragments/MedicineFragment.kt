@@ -21,10 +21,8 @@ import java.time.ZoneId
 import java.util.*
 
 
-class WellBeingFragment : Fragment() {
-    private lateinit var binding: FragmentWellBeingBinding
+class MedicineFragment : Fragment() {
     private val tasksRepository = TasksRepository()
-    private val userRepository = UserRepository()
     private lateinit var task: UserTask
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,38 +41,7 @@ class WellBeingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-
-
-        good.setOnClickListener {
-            saveScore("Dobrze")
-            findNavController().navigate(R.id.action_wellBeingFragment_to_menuPatientFragment)
-
-        }
-
-        soNoBad.setOnClickListener {
-            saveScore("Średnio")
-            findNavController().navigate(R.id.action_wellBeingFragment_to_menuPatientFragment)
-        }
-
-        tired.setOnClickListener {
-            saveScore("Zmęczony")
-            findNavController().navigate(R.id.action_wellBeingFragment_to_menuPatientFragment)
-
-        }
-        bad.setOnClickListener {
-            saveScore("Źle")
-            findNavController().navigate(R.id.action_wellBeingFragment_to_menuPatientFragment)
-
-        }
-
-    }
-
-
-    private fun saveScore(result:String) {
-
-        task.result = result
+//        task.result = ""
         task.status = TaskStatus.DONE
         task.closeDate = Timestamp(
             Date.from(
@@ -82,6 +49,8 @@ class WellBeingFragment : Fragment() {
             )
         )
         tasksRepository.save(task)
-    }
 
+        findNavController().navigate(R.id.action_medicineFragment_to_menuPatientFragment)
+
+    }
 }

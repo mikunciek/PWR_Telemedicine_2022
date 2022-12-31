@@ -74,7 +74,7 @@ class ToDoDialogFragment() : DialogFragment(),
                 type = TaskType.findByTitle(binding.typeSpinner.selectedItem.toString()),
                 user = (binding.userSpinner.selectedItem as User).uid,
                 startDate = Timestamp(calendar.timeInMillis / 1000, 0),
-                description = binding.todoDescritption.toString()
+                description = binding.todoDescritption.text.toString()
             )
             tasksRepository.save(task)
 
@@ -124,7 +124,7 @@ class ToDoDialogFragment() : DialogFragment(),
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
 
-        dialogWindow.setGravity(Gravity.END)
+        dialogWindow.setGravity(Gravity.TOP)
 
         super.onResume()
     }

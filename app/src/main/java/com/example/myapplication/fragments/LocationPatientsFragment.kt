@@ -81,7 +81,6 @@ class LocationPatientsFragment : Fragment() {
                     comment = it
                 }
 
-                //TODO: moze bannery?
                 Snackbar.make(requireView(), comment, Snackbar.LENGTH_INDEFINITE)
                     .setBackgroundTint(resources.getColor(R.color.md_deep_purple_700))
                     .setActionTextColor(resources.getColor(R.color.white))

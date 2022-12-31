@@ -84,6 +84,20 @@ class TasksRepository: Repository() {
     }
 
     fun addSnapshotListenerForPatients(unit: (list: List<UserTask>) -> Unit) {
+        cloud.collection(COLLECTION).whereEqualTo("status",TaskStatus.TODO.name).addSnapshotListener{snapshot, e ->
+            userRepository.getCurrentUserPatients { users ->
+                val tasksList = snapshot!!.toObjects(UserTask::class.java)
+
+                val tt = tasksList.filter { fil ->
+                    users.map { us -> us.uid }.contains(fil.user)
+                }
+
+                unit.invoke(tt)
+            }
+        }
+    }
+
+    fun addSnapshotListenerForPatientsAll(unit: (list: List<UserTask>) -> Unit) {
         cloud.collection(COLLECTION).addSnapshotListener{snapshot, e ->
             userRepository.getCurrentUserPatients { users ->
                 val tasksList = snapshot!!.toObjects(UserTask::class.java)
@@ -96,6 +110,7 @@ class TasksRepository: Repository() {
             }
         }
     }
+
 
     fun deleteTask(task: UserTask){
         db.collection(COLLECTION).document(task.uid)

@@ -17,6 +17,7 @@ import com.example.myapplication.users.TasksRepository
 import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
 import com.example.myapplication.users.UserTask
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.fragment_menu_patient.*
 

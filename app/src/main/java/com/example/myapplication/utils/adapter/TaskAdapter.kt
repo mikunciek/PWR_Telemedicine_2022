@@ -46,6 +46,7 @@ class TaskAdapter(private val list: MutableList<UserTask>)
                 todoTitle.text = this.type.title
                 taskIcon.setImageResource(this.type.icon)
                 todoDate.text = formatted.format(this.startDate.seconds*1000)
+                todoDescription.text =this.description
                 userRepository.getUserLambda(this.user) {
                         todoPatient.text = String.format("%s %s", it.firstName, it.lastName)
                 }
@@ -73,6 +74,7 @@ class TaskAdapter(private val list: MutableList<UserTask>)
         val todoTitle = binding.todoTitle
         val taskIcon = binding.taskIcon
         val todoDate = binding.todoDate
+        val todoDescription = binding.todoDescription
         val todoPatient = binding.todoPatient
     }
 }

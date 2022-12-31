@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
 
 import androidx.fragment.app.Fragment
@@ -43,7 +44,11 @@ class FingerTapping : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // time count down for 30 seconds,
+        showInformation()
+    }
+
+    private fun fingerTappingCounter() {
+        // time count down for 15 seconds,
         // with 1 second as countDown interval
         object : CountDownTimer(15000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
@@ -59,23 +64,11 @@ class FingerTapping : Fragment() {
                     .setAction("Kliknij aby powrócić!"){
                         findNavController().navigate(R.id.action_fingerTapping_to_menuPatientFragment)
                     }
-                .setBackgroundTint(resources.getColor(R.color.md_deep_purple_700))
-                .setActionTextColor(resources.getColor(R.color.white))
-                .show()
-
-
-               /* timerView.text = "Gotowe, kliknij by powrócić"
-
-                timerView.setOnClickListener{
-
-                    findNavController().navigate(R.id.action_fingerTapping_to_menuPatientFragment)
-                }
-
-                */
+                    .setBackgroundTint(resources.getColor(R.color.md_deep_purple_700))
+                    .setActionTextColor(resources.getColor(R.color.white))
+                    .show()
             }
         }.start()
-
-
 
         clickButton.setOnClickListener{
             count++
@@ -83,6 +76,23 @@ class FingerTapping : Fragment() {
 
         }
 
+    }
+
+    private fun showInformation() {
+        AlertDialog.Builder(requireContext())
+            .setIcon(R.drawable.ic_fingertaping)
+            .setTitle("Test Pamięci")
+            .setMessage(" Przez 15 s klikaj jak najszybciej potrafisz w fioletowy przycisk," +
+                    " po zakończonym teście wyniki zostaną zapisane " +
+                    " Kliknij WYKONAJ jeśli jesteś gotowy do testu")
+            .setCancelable(true) //dialog box in cancellable
+            .setPositiveButton("WYKONAJ") {DialogInterface, it ->
+                fingerTappingCounter()
+            }
+            .setNegativeButton("Nie"){dialogInterface, it ->
+                dialogInterface.cancel()
+                findNavController().navigate(R.id.action_fingerTapping_to_menuPatientFragment)}
+            .show()
     }
 
     private fun saveScore() {

@@ -43,6 +43,13 @@
                 android:text="Imię i nazwisko pacjenta"/>
 
             <TextView
+                android:id="@+id/todo_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Imię i nazwisko pacjenta"
+                android:textSize="15dp" />
+
+            <TextView
                 android:id="@+id/todo_date"
                 android:textSize="15dp"
                 android:layout_width="match_parent"

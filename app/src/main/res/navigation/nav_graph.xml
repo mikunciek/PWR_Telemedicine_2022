@@ -65,6 +65,9 @@
         <action
             android:id="@+id/action_menuPatientFragment_to_wellBeingFragment"
             app:destination="@id/wellBeingFragment" />
+        <action
+            android:id="@+id/action_menuPatientFragment_to_medicineFragment"
+            app:destination="@id/medicineFragment" />
     </fragment>
     <fragment
         android:id="@+id/blankMenuFragment"
@@ -148,6 +151,14 @@
         <action
             android:id="@+id/action_guideFragment_to_menuCaregiverFragment2"
             app:destination="@id/menuCaregiverFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/medicineFragment"
+        android:name="com.example.myapplication.fragments.MedicineFragment"
+        android:label="MedicineFragment" >
+        <action
+            android:id="@+id/action_medicineFragment_to_menuPatientFragment"
+            app:destination="@id/menuPatientFragment" />
     </fragment>
 
 

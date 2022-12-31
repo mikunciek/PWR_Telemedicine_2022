@@ -19,65 +19,6 @@
         android:paddingTop="20dp"
         android:textColor="@color/md_deep_purple_500"/>
 
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        >
-
-    <TableRow
-        android:padding="10dp"
-        android:paddingVertical="10dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:text="Imię i nazwisko" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:text="Zadanie"
-
-        />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:text="Start" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:text="Stop" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:text="Status" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:text="Wynik" />
-
-    </TableRow>
-    </TableLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="@dimen/fab_margin"
         android:id="@+id/mainRecyclerView"
