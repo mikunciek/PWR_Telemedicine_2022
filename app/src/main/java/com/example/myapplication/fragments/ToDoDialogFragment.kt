@@ -68,8 +68,7 @@ class ToDoDialogFragment() : DialogFragment(),
 
         binding.todoNextBtn.setOnClickListener { //następne zadanie
 
-//            val localDate = LocalDateTime.ofEpochSecond(calendar.timeInMillis)
-//            calendar.
+
             val task = UserTask(
                 type = TaskType.findByTitle(binding.typeSpinner.selectedItem.toString()),
                 user = (binding.userSpinner.selectedItem as User).uid,

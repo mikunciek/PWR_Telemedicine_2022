@@ -12,38 +12,37 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TableRow android:padding="10dp">
+        <TableRow android:paddingStart="10dp">
             <ImageView
                 android:id="@+id/task_status_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 />
-        </TableRow>
-        <TableRow android:padding="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAlignment="textStart"
-                android:textStyle="bold"
-                android:text="Imię i nazwisko" />
+
             <TextView
                 android:id="@+id/fullName"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:textAlignment="textStart"
-                android:text="Imię i nazwisko" />
+                android:text="Imię i nazwisko"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textColor="@color/md_deep_purple_500"
+                android:textStyle="bold"/>
+        </TableRow>
+        <TableRow android:paddingStart="10dp">
+
         </TableRow>
 
-        <TableRow android:padding="10dp">
+        <TableRow android:paddingStart="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAlignment="textStart"
                 android:textStyle="bold"
-                android:text="Start" />
+                android:text="Rozpoczęto" />
             <TextView
                 android:id="@+id/startTask"
                 android:layout_width="wrap_content"
@@ -53,14 +52,14 @@
                 android:text="Start" />
         </TableRow>
         
-        <TableRow android:padding="10dp">
+        <TableRow android:paddingStart="10dp">
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAlignment="textStart"
                 android:textStyle="bold"
-                android:text="Stop" />
+                android:text="Zakończono" />
             <TextView
                 android:id="@+id/endTask"
                 android:layout_width="wrap_content"
@@ -69,7 +68,7 @@
                 android:textAlignment="textStart"
                 android:text="Stop" />
         </TableRow>
-<TableRow android:padding="10dp">
+<TableRow android:paddingStart="10dp">
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,7 +85,7 @@
         android:text="Status" />
 
 </TableRow>
-<TableRow android:padding="10dp">
+<TableRow android:paddingStart="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -92,7 +92,7 @@
     </fragment>
     <fragment
         android:id="@+id/memoryQuiz"
-        android:name="com.example.myapplication.fragments.MemoryQuiz"
+        android:name="com.example.myapplication.fragments.MemoryQuizFragment"
         android:label="fragment_memory_quiz"
         tools:layout="@layout/fragment_memory_quiz" >
         <action

@@ -7,7 +7,7 @@
         android:angle="45"
         android:centerX="35%"
         android:startColor="@color/purple_200"
-        android:endColor="@color/purple_500"
+        android:endColor="@color/white"
         android:type="linear"
         />
     <size

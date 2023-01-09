@@ -15,6 +15,7 @@ import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_main.*
 
 import kotlinx.android.synthetic.main.fragment_location_patients.*
 import org.osmdroid.api.IGeoPoint
@@ -81,7 +82,7 @@ class LocationPatientsFragment : Fragment() {
                     comment = it
                 }
 
-                Snackbar.make(requireView(), comment, Snackbar.LENGTH_INDEFINITE)
+                Snackbar.make(requireView(), comment, Snackbar.LENGTH_SHORT)
                     .setBackgroundTint(resources.getColor(R.color.md_deep_purple_700))
                     .setActionTextColor(resources.getColor(R.color.white))
                     .show()

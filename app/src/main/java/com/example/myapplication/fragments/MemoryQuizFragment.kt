@@ -1,9 +1,7 @@
 package com.example.myapplication.fragments
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +9,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.cardview.widget.CardView
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentMemoryQuizBinding
@@ -23,11 +19,7 @@ import com.example.myapplication.users.UserRepository
 import com.example.myapplication.users.UserTask
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Timestamp
-import kotlinx.android.synthetic.main.fragment_finger_tapping.*
 import kotlinx.android.synthetic.main.fragment_memory_quiz.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
@@ -36,7 +28,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 
-class MemoryQuiz : Fragment() {
+class MemoryQuizFragment : Fragment() {
 
     private lateinit var  binding: FragmentMemoryQuizBinding
     private val tasksRepository = TasksRepository()

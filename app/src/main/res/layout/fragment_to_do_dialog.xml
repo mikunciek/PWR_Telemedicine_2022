@@ -46,11 +46,18 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="1dp"
+                    app:cardUseCompatPadding="true">
 
                 <TextView
                     android:id="@+id/todoStart"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:ems="10"
                     android:hint="@string/yyyy_mm_dd"
                     android:importantForAutofill="no"
@@ -62,11 +69,20 @@
                     android:minHeight="50dp"
                     app:helperText="Wybierz datę"/>
 
+            </androidx.cardview.widget.CardView>
 
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="1dp"
+                    app:cardUseCompatPadding="true">
                 <EditText
                     android:id="@+id/todoDescritption"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:ems="10"
                     android:hint="Opis zadania"
                     android:importantForAutofill="no"
@@ -75,21 +91,42 @@
                     android:textColor="@color/black"
                     android:textColorHint="#757575" />
 
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="1dp"
+                    app:cardUseCompatPadding="true">
+
                 <Spinner
                     android:id="@+id/type_spinner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/spinner"
                     android:minHeight="50dp"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="1dp"
+                    app:cardUseCompatPadding="true">
+
                 <Spinner
                     android:id="@+id/user_spinner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/spinner"
                     android:minHeight="50dp"
                     tools:ignore="SpeakableTextPresentCheck" />
+                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
 
