@@ -13,6 +13,8 @@ import com.example.myapplication.users.TaskStatus
 import com.example.myapplication.users.TasksRepository
 import com.example.myapplication.users.UserTask
 import com.example.myapplication.utils.adapter.TaskStatusAdapter
+import com.google.android.material.divider.MaterialDividerItemDecoration
+import kotlinx.android.synthetic.main.fragment_patients.*
 
 
 class PatientsTasksStatusFragment : Fragment(),
@@ -55,6 +57,8 @@ class PatientsTasksStatusFragment : Fragment(),
 
         patientsTasksStatusAdapter = TaskStatusAdapter(statusList)
         binding.mainRecyclerView.adapter = patientsTasksStatusAdapter
+
+
     }
 
     private fun getStatusTaskFromFirebase() {

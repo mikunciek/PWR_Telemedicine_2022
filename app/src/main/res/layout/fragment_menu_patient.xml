@@ -27,25 +27,12 @@
             android:textSize="30sp"
             android:textStyle="bold" />
 
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:columnCount="2"
-            android:rowCount="3"
-            app:layout_constraintBottom_toTopOf="@+id/mainRecyclerView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/call"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_row="0"
-                android:layout_rowWeight="1"
-                android:layout_column="0"
-                android:layout_columnWeight="1"
                 android:layout_gravity="fill"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp"
@@ -69,29 +56,65 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Zadzwoń do opiekuna"
+                        android:textStyle="bold"
                         android:textColor="@color/colorBlack"
-                        android:textSize="16sp" />
+                        android:textSize="20sp" />
                 </LinearLayout>
 
 
             </androidx.cardview.widget.CardView>
 
-        </GridLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="LISTA TWOICH ZADAŃ"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mainRecyclerView"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardMenuPatients"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/list_card_view" />
+            android:layout_gravity="top"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true"
+            app:strokeWidth="20dp"
+            android:background="@drawable/frame_card">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:orientation="vertical"
+                tools:ignore="UseCompoundDrawables">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="LISTA TWOICH ZADAŃ"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:textSize="30sp"
+                    android:layout_margin="5dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Kliknij na zadanie z listy bądź poczekaj na kolejne"
+                    android:textStyle="bold"
+                    android:textColor="@color/md_deep_purple_500"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:layout_margin="5dp"/>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:background="@drawable/view_background"
+                    android:layout_margin="10dp"
+                    android:id="@+id/mainRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/list_card_view" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

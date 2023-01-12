@@ -164,7 +164,9 @@
         android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:background="@color/purple_200"/>
+        android:background="@color/purple_200"
+        android:foreground="?selectableItemBackground"
+        android:clickable="true"/>
 
 
     <TextView

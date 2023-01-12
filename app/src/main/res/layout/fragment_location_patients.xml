@@ -26,7 +26,9 @@
         android:layout_gravity="center"
         app:cardCornerRadius="8dp"
         app:cardElevation="1dp"
-        app:cardUseCompatPadding="true">
+        app:cardUseCompatPadding="true"
+        android:foreground="?selectableItemBackground"
+        android:clickable="true">
 
     <Spinner
         android:id="@+id/listPatient"

@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/cut_card_background"
     tools:context=".fragments.PatientsFragment"
     android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        app:cardUseCompatPadding="true"
+        app:strokeWidth="20dp"
+        android:background="@drawable/frame_card">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
 
     <TextView
         android:layout_marginTop="@dimen/fab_margin"
@@ -14,7 +35,8 @@
         android:text="Lista Twoich Pacjentów"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:textAlignment="center"/>
+        android:textAlignment="center"
+        android:textColor="@color/md_deep_purple_500"/>
 
     <TextView
         android:id="@+id/countPatients"
@@ -27,10 +49,15 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="@dimen/fab_margin"
+        android:background="@drawable/view_background"
+        android:layout_margin="10dp"
         android:id="@+id/mainRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/list_patients" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
