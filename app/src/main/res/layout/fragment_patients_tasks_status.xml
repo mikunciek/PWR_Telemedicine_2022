@@ -16,8 +16,7 @@
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         app:cardUseCompatPadding="true"
-        app:strokeWidth="20dp"
-        android:background="@drawable/frame_card">
+        app:strokeWidth="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,8 +37,8 @@
         android:textColor="@color/md_deep_purple_500"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:background="@drawable/view_background"
-        android:layout_margin="10dp"
+        android:background="@color/white"
+        android:layout_margin="1dp"
         android:id="@+id/mainRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

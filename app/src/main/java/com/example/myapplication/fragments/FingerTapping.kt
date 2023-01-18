@@ -6,8 +6,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
@@ -33,15 +31,6 @@ class FingerTapping : Fragment() {
 
     private lateinit var task: UserTask
     var count = 0
-
-    private lateinit var fadeOut: Animation
-    private lateinit var fadeIn: Animation
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        fadeOut = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_out)
-        fadeIn = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -93,8 +82,6 @@ class FingerTapping : Fragment() {
             .setCancelable(true) //dialog box in cancellable
             .setPositiveButton("WYKONAJ") {DialogInterface, it ->
                 clickButton.setOnClickListener{
-                    it.startAnimation(fadeOut)
-                    it.startAnimation(fadeIn)
                     count++
                     numberOfClick.text =count.toString()
                     if(!startCount) {
@@ -110,7 +97,8 @@ class FingerTapping : Fragment() {
     }
 
     private fun saveScore() {
-        val clicks = (count/15).toString()
+        val v =numberOfClick.text.toString().toInt()/15
+        val clicks = v.toString()
         task.result = "Średnia prędkość klikania: $clicks"
         task.status = TaskStatus.DONE
         task.closeDate = Timestamp(

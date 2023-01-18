@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.tasks.await
 
@@ -84,7 +85,11 @@ class TasksRepository: Repository() {
     }
 
     fun addSnapshotListenerForPatients(unit: (list: List<UserTask>) -> Unit) {
-        cloud.collection(COLLECTION).whereEqualTo("status",TaskStatus.TODO.name).addSnapshotListener{snapshot, e ->
+
+       // val first =cloud.collection(COLLECTION).orderBy("startDate", Query.Direction.DESCENDING)
+//        cloud.collection(COLLECTION).orderBy("startDate", Query.Direction.DESCENDING).whereEqualTo("status",TaskStatus.TODO.name)
+        cloud.collection(COLLECTION).whereEqualTo("status",TaskStatus.TODO.name)
+            .addSnapshotListener{snapshot, e ->
             userRepository.getCurrentUserPatients { users ->
                 val tasksList = snapshot!!.toObjects(UserTask::class.java)
 
@@ -98,7 +103,7 @@ class TasksRepository: Repository() {
     }
 
     fun addSnapshotListenerForPatientsAll(unit: (list: List<UserTask>) -> Unit) {
-        cloud.collection(COLLECTION).addSnapshotListener{snapshot, e ->
+        cloud.collection(COLLECTION).orderBy("closeDate", Query.Direction.DESCENDING).addSnapshotListener{snapshot, e ->
             userRepository.getCurrentUserPatients { users ->
                 val tasksList = snapshot!!.toObjects(UserTask::class.java)
 

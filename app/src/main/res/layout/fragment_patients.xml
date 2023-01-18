@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/cut_card_background"
     tools:context=".fragments.PatientsFragment"
     android:orientation="vertical">
 
@@ -18,15 +18,15 @@
         app:cardCornerRadius="8dp"
         app:cardElevation="8dp"
         app:cardUseCompatPadding="true"
-        app:strokeWidth="20dp"
-        android:background="@drawable/frame_card">
+        app:strokeWidth="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:orientation="vertical"
-            tools:ignore="UseCompoundDrawables">
+            tools:ignore="UseCompoundDrawables"
+            android:background="@drawable/cut_card_background">
 
     <TextView
         android:layout_marginTop="@dimen/fab_margin"
@@ -49,7 +49,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:background="@drawable/view_background"
+        android:background="@color/white"
         android:layout_margin="10dp"
         android:id="@+id/mainRecyclerView"
         android:layout_width="match_parent"

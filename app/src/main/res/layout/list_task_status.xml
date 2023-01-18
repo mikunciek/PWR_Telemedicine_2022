@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    app:cardElevation="6dp"
+    android:layout_margin="5dp"
+    app:cardElevation="1dp"
     android:id="@+id/cardTask">
 
 
@@ -13,32 +13,56 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TableRow android:paddingStart="10dp">
+
             <ImageView
                 android:id="@+id/task_status_icon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"/>
 
 
-            <TextView
-                android:id="@+id/fullName"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="312dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Imię i nazwisko"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:textSize="20dp"
-                android:textColor="@color/md_deep_purple_500"
-                android:textStyle="bold"/>
+                android:layout_gravity="top"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/fullName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:text="Imię i nazwisko"
+                    android:textColor="@color/md_deep_purple_500"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/statusTask"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    android:text="Status"
+                    android:textAlignment="textEnd"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/md_deep_purple_300"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
         </TableRow>
         <TableRow android:paddingStart="10dp">
 
         </TableRow>
 
+
+
         <TableRow android:paddingStart="10dp">
-            <TextView
-                android:layout_width="wrap_content"
+        <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAlignment="textStart"
@@ -46,49 +70,34 @@
                 android:text="Rozpoczęto" />
             <TextView
                 android:id="@+id/startTask"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAlignment="textStart"
                 android:text="Start" />
         </TableRow>
-
-        <TableRow android:paddingStart="10dp">
+<TableRow android:paddingStart="10dp">
         <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAlignment="textStart"
                 android:textStyle="bold"
                 android:text="Zakończono" />
-            <TextView
-                android:id="@+id/endTask"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAlignment="textStart"
-                android:text="Stop" />
-        </TableRow>
-<TableRow android:paddingStart="10dp">
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textAlignment="textStart"
-                android:textStyle="bold"
-                android:text="Status" />
     <TextView
-        android:id="@+id/statusTask"
-        android:layout_width="wrap_content"
+        android:id="@+id/endTask"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textAlignment="textStart"
-        android:text="Status" />
+        android:text="Stop"
+        android:textColor="@color/md_green_A700"
+        android:textStyle="bold"/>
 
 </TableRow>
 <TableRow android:paddingStart="10dp">
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAlignment="textStart"
@@ -96,7 +105,7 @@
                 android:text="Wynik" />
     <TextView
         android:id="@+id/resultTask"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textAlignment="textStart"

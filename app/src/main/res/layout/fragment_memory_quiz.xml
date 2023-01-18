@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/cut_card_background"
-    tools:context=".fragments.MemoryQuizFragment">
+    tools:context=".fragments.MemoryQuiz">
 
     <TextView
         android:id="@+id/number"
@@ -42,15 +42,15 @@
             app:cardUseCompatPadding="true">
 
 
-                <Button
-                    android:id="@+id/sevenN"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|center_horizontal"
-                    android:text="7"
-                    android:background="@color/white"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="50sp" />
+            <Button
+                android:id="@+id/sevenN"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:text="7"
+                android:background="@color/white"
+                android:textColor="@color/colorBlack"
+                android:textSize="50sp" />
 
         </androidx.cardview.widget.CardView>
 
@@ -67,16 +67,16 @@
             app:cardElevation="8dp"
             app:cardUseCompatPadding="true">
 
-                <Button
-                    android:id="@+id/eightN"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:layout_gravity="center_vertical|center_horizontal"
-                    android:text="8"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="50sp"
-                    android:gravity="center"/>
+            <Button
+                android:id="@+id/eightN"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:text="8"
+                android:textColor="@color/colorBlack"
+                android:textSize="50sp"
+                android:gravity="center"/>
 
 
         </androidx.cardview.widget.CardView>
