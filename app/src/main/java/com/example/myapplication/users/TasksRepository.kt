@@ -88,17 +88,20 @@ class TasksRepository: Repository() {
 
        // val first =cloud.collection(COLLECTION).orderBy("startDate", Query.Direction.DESCENDING)
 //        cloud.collection(COLLECTION).orderBy("startDate", Query.Direction.DESCENDING).whereEqualTo("status",TaskStatus.TODO.name)
-        cloud.collection(COLLECTION).whereEqualTo("status",TaskStatus.TODO.name)
+        cloud.collection(COLLECTION).whereEqualTo("status",TaskStatus.TODO.name).orderBy("startDate", Query.Direction.DESCENDING)
             .addSnapshotListener{snapshot, e ->
-            userRepository.getCurrentUserPatients { users ->
-                val tasksList = snapshot!!.toObjects(UserTask::class.java)
+                if(snapshot !== null && !snapshot.isEmpty) {
+                    userRepository.getCurrentUserPatients { users ->
+                        val tasksList = snapshot!!.toObjects(UserTask::class.java)
 
-                val tt = tasksList.filter { fil ->
-                    users.map { us -> us.uid }.contains(fil.user)
+                        val tt = tasksList.filter { fil ->
+                            users.map { us -> us.uid }.contains(fil.user)
+                        }
+
+                        unit.invoke(tt)
+                    }
                 }
 
-                unit.invoke(tt)
-            }
         }
     }
 

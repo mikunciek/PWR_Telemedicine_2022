@@ -22,6 +22,7 @@ import androidx.constraintlayout.motion.widget.Debug.getLocation
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.myapplication.fragments.MenuCaregiverFragment
 import com.example.myapplication.fragments.PatientsFragment
@@ -49,14 +50,25 @@ class MainActivity : AppCompatActivity() {
     private val locationRepository = LocationRepository()
     private val taskRepository = TasksRepository()
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        navController.setGraph(R.navigation.nav_graph, this.intent.extras)
+
+
         auth = Firebase.auth
 
         configureBottomNavigation()
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         createNotificationChannel()
+
+
     }
 
     override fun onStart() {
