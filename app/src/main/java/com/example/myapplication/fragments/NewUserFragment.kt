@@ -16,8 +16,12 @@ import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentNewUserBinding
 import com.example.myapplication.users.User
 import com.example.myapplication.users.UserRepository
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.oAuthCredential
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.fragment_new_user.*
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 import java.util.UUID
 
 class NewUserFragment : Fragment() {
@@ -101,20 +105,30 @@ class NewUserFragment : Fragment() {
             && isNotEmpty(password, "hasło")) {
 
                 userRepository.getCurrentUserMustExist {
-                UserRepository.auth.createUserWithEmailAndPassword(email,password)
+
+                    var token: String;
+                    runBlocking {
+                        token = UserRepository.auth.currentUser!!.getIdToken(true).await().token!!
+                    }
+
+                    UserRepository.auth.createUserWithEmailAndPassword(email,password)
                     .addOnSuccessListener { auth ->
                         if(auth.user !=null) {
                             val user = User(
-                                uid = UUID.randomUUID().toString(),
+                                uid = auth.user!!.uid,
                                 caregiver = it.uid,
                                 firstName = binding.inputFirstName.text.toString(),
                                 lastName = binding.inputLastName.text.toString(),
                                 phone = binding.inputPhone.text.toString(),
-                                email = binding.inputEmailText.text.toString()
+                                email = binding.inputEmailText.text.toString(),
+                                password = password
                             )
                             userRepository.save(user)
 
                         }
+
+                        UserRepository.auth.signOut()
+                        UserRepository.auth.signInWithEmailAndPassword(it.email, it.password)
                         Toast.makeText(requireContext(), "Dodano nowego użytkownika", Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.action_newUserFragment_to_menuCaregiverFragment)
                     }
