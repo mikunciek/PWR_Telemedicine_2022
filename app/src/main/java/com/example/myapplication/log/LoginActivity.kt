@@ -153,7 +153,7 @@ class LoginActivity : Activity(), View.OnClickListener {
     private fun createUserIfNotExist(firebaseUser: FirebaseUser) {
          userRepository.getUser(firebaseUser.uid).addOnSuccessListener {
             if(!it.exists()) {
-                userRepository.createFromFirebaseUser(firebaseUser);
+                userRepository.createFromFirebaseUser(firebaseUser) {};
             }
         }.addOnFailureListener {
              Log.d(LOGIN_DEBUG, it.toString())

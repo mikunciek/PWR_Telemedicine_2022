@@ -84,13 +84,15 @@ class RegistrationActivity : AppCompatActivity(), View.OnClickListener {
                             phone = phone
                         )
 
-                        userRepository.save(user)
+                        userRepository.save(user) {
 
-                        val intent: Intent =
-                            Intent(applicationContext, MainActivity::class.java).apply {
-                                flags = (Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                            }
-                        startActivity(intent)
+                            val intent: Intent =
+                                Intent(applicationContext, MainActivity::class.java).apply {
+                                    flags = (Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                }
+                            startActivity(intent)
+                        }
+
                     }
                     Toast.makeText(applicationContext, "Rejestracja udana", Toast.LENGTH_SHORT).show()
                 }

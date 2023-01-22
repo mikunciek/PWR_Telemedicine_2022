@@ -18,11 +18,13 @@ class UserRepository: Repository() {
     }
 
 
-    fun save(user: User) {
+    fun save(user: User, unit: () -> Unit) {
         cloud.collection(COLLECTION)
             .document(user.uid)
-            .set(user);
-        Log.d(FIREBASE_DEBUG, user.uid)
+            .set(user).addOnSuccessListener {
+                Log.d(FIREBASE_DEBUG, user.uid)
+                unit.invoke()
+            };
     }
 
     fun getPatients(uid: String, unit: (List<User>) -> Unit) {
@@ -79,14 +81,14 @@ class UserRepository: Repository() {
         }
     }
 
-    fun createFromFirebaseUser(firebaseUser: FirebaseUser) {
+    fun createFromFirebaseUser(firebaseUser: FirebaseUser, unit: () -> Unit) {
         val user = User(
             uid = firebaseUser.uid,
             email = firebaseUser.email ?: "",
             firstName = firebaseUser.displayName ?: "",
             phone = firebaseUser.phoneNumber,
         )
-        this.save(user)
+        this.save(user, unit)
     }
 
     fun deletePatients(user: User) {

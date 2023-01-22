@@ -123,14 +123,13 @@ class NewUserFragment : Fragment() {
                                 email = binding.inputEmailText.text.toString(),
                                 password = password
                             )
-                            userRepository.save(user)
-
+                            userRepository.save(user) {
+                                UserRepository.auth.signOut()
+                                UserRepository.auth.signInWithEmailAndPassword(it.email, it.password)
+                                Toast.makeText(requireContext(), "Dodano nowego użytkownika", Toast.LENGTH_SHORT).show()
+                                findNavController().navigate(R.id.action_newUserFragment_to_menuCaregiverFragment)
+                            }
                         }
-
-                        UserRepository.auth.signOut()
-                        UserRepository.auth.signInWithEmailAndPassword(it.email, it.password)
-                        Toast.makeText(requireContext(), "Dodano nowego użytkownika", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_newUserFragment_to_menuCaregiverFragment)
                     }
                     .addOnFailureListener { exception ->
                         Toast.makeText(requireContext(), "Rejestracja nieudana: ${exception.message}", Toast.LENGTH_SHORT).show()
