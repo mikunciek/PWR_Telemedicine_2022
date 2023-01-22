@@ -26,17 +26,6 @@ class MenuPatientFragment : Fragment() {
     private var userRepository = UserRepository()
     private var user = User()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        userRepository.getCurrentUserMustExist {
-                taskRepository.getActiveTasksByUser(it) {
-                            createTaskList(it)
-            }
-        }
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,10 +52,15 @@ class MenuPatientFragment : Fragment() {
             }
         }
 
+        userRepository.getCurrentUserMustExist { us ->
+            taskRepository.getActiveTasksByUser(us) {
+                createTaskList(view, it)
+            }
+        }
     }
 
-    private fun createTaskList(tasks: List<UserTask>) {
-        val recyclerView = requireView().findViewById<RecyclerView>(R.id.mainRecyclerView)
+    private fun createTaskList(view: View, tasks: List<UserTask>) {
+        val recyclerView = view.findViewById<RecyclerView>(R.id.mainRecyclerView)
 
         val adapter = MenuPatientListAdapter(tasks)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
