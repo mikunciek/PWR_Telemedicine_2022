@@ -39,10 +39,10 @@ class TasksRepository: Repository() {
         cloud.collection(COLLECTION)
             .whereEqualTo("user", user.uid)
             .whereEqualTo("status", TaskStatus.TODO.name)
-            .get().addOnSuccessListener {
+            .addSnapshotListener { snap, e ->
                 Log.d("ZADANIA", "ASDASD")
-                if(!it.isEmpty) {
-                    unit.invoke(it.toObjects(UserTask::class.java)!!)
+                if(snap !== null && !snap.isEmpty) {
+                    unit.invoke(snap.toObjects(UserTask::class.java))
                 }
             }
     }
